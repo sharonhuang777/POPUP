@@ -95,8 +95,8 @@ function frameFor(name) {
 }
 function show(name, push, from) {
   if (!SCREENS[name]) return;
-  if (name === 'home') stack = [];
-  if (push !== false) stack.push(name);
+  if (TABS[name] != null) stack = [name];
+  else if (push !== false) stack.push(name);
   var f = frameFor(name), prev = current && frames[current];
   f._ready.then(function () {
     f.classList.add('on');
