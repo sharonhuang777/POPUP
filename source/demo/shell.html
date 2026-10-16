@@ -71,7 +71,7 @@ body.m .island,body.m .status,body.m .home-ind,body.m .side{display:none}
   <div class="side">
     <h1>Popup 交互 Demo</h1>
     <p>从首页点「Talk with Popup」进入每日对话，答完 3 题后可选择匹配或稍后；点「Text Match」或「Voice Match」直接进入匹配流程。</p>
-    <p>语音匹配走 Standard：排队 → 轮到你 → 第一次匹配失败 → 再试一次接通；挂断后是通话结束页，可以打星。免费次数用完后，点 Standard 会提示去 Priority。Priority 直接匹配。</p>
+    <p>语音匹配走 Standard：先进思考页 → 排队 → 轮到你 → Regular line 第一次匹配失败 → Standard match 再试一次（思考后直接接通）；挂断后是通话结束页，可以打星。免费次数用完后，点 Standard 会提示去 Priority。Priority 直接匹配。</p>
     <button type="button" id="restart">回到首页</button>
   </div>
 </div>
@@ -83,8 +83,9 @@ var NOCACHE = { std: 1, pri: 1, text: 1, call: 1, queue: 1, turn: 1, fail: 1, en
 var DARK = { call: 1, ended: 1 };   // animation pages replay each visit
 var TABS = { plaza: 0, home: 1, messages: 2 };
 var current = null, stack = [];
-// Voice match: standard attempts left today (launch shows 2 of 3), and the first standard search fails once
-var LEFT = 2, FAILED = 0, SHOWS_LEFT = { voice: 1, fail: 1, ended: 1 };
+// Voice match: standard attempts left today (launch shows 2 of 3). The first standard search thinks, then queues;
+// after the queue the regular line fails once, and the retry connects without queueing.
+var LEFT = 2, FAILED = 0, QUEUED = 0, SHOWS_LEFT = { voice: 1, fail: 1, ended: 1 };
 var toastEl = null, toastT = 0;
 function toast(msg) {
   toastEl = toastEl || document.getElementById('toast');
@@ -92,13 +93,14 @@ function toast(msg) {
   clearTimeout(toastT); toastT = setTimeout(function () { toastEl.classList.remove('on'); }, 2200);
 }
 function route(name) {
-  if (name === 'queue' || name === 'stdx') {
+  if (name === 'stdx') {
     if (LEFT <= 0) { toast('No free matches left today. Go Priority to keep matching.'); return null; }
     LEFT--;
     if (frames[current] && SHOWS_LEFT[current]) frames[current].contentWindow.postMessage({ left: LEFT }, '*');
-    return name === 'stdx' ? 'std' : 'queue';
+    return 'std';
   }
-  if (name === 'call' && current === 'std' && !FAILED) { FAILED = 1; return 'fail'; }
+  if (name === 'call' && current === 'std' && !QUEUED) { QUEUED = 1; return 'queue'; }
+  if (name === 'regular') { if (!FAILED) { FAILED = 1; return 'fail'; } return 'call'; }
   return name;
 }
 function makeFrame(name) {
@@ -152,7 +154,7 @@ window.addEventListener('message', function (e) {
   if (e.data.go) { var to = route(e.data.go); if (to) show(to, true, e.data.from); }
   else if (e.data.back) { if (stack.length > 1) { stack.pop(); show(stack[stack.length - 1], false); } }
 });
-document.getElementById('restart').addEventListener('click', function () { LEFT = 2; FAILED = 0; show('home'); });
+document.getElementById('restart').addEventListener('click', function () { LEFT = 2; FAILED = 0; QUEUED = 0; show('home'); });
 function isPhone() {
   var q = location.search;
   if (/[?&]frame=1/.test(q)) return false;

@@ -61,7 +61,8 @@
   - 排队页：其他排队用户的头像是模糊的，只有「You」清晰；底部有「Skip the line」按钮。
   - 匹配失败页和通话结束页都有「无次数」版本：Standard 按钮置灰，点击后弹提示「No free matches left today. Go Priority to keep matching.」。
   - 通话结束页：没有揭面的对方头像保持模糊，显示「Identity stayed private」；三颗星打分。
-  - Demo 流程：启动页 Standard（消耗 1 次）→ 排队 → 轮到你 → Regular line → 思考页 → 第一次匹配失败 → Standard match（再消耗 1 次）→ 接通 → 挂断 → 通话结束页（0 次，点 Standard 弹提示）。每日共 3 次，启动页显示剩 2 次。
+  - 顺序是先思考、再排队：Standard 先进思考页，人多时才进排队页，排到后进「轮到你」。
+  - Demo 流程：启动页 Standard（消耗 1 次）→ 思考页 → 排队 → 轮到你 → Regular line → 第一次匹配失败 → Standard match（再消耗 1 次）→ 思考页 → 接通（这次不排队）→ 挂断 → 通话结束页（0 次，点 Standard 弹提示）。排队页的 Skip the line 和「轮到你」的 Priority line 直接接通；其他页面的 Priority 走加速思考页。每日共 3 次，启动页显示剩 2 次。
 - **语音通话**
   - 深紫色界面，双方头像先用毛玻璃遮住。
   - 点「Reveal to keep talking」后，自己先揭面，约 1.6 秒后对方揭面，倒计时改为正计时。

@@ -145,7 +145,7 @@ b = clean(b)
 starts = [m.start() for m in re.finditer(r'<button style="margin-top: 10px; width: 100%; height: 46px;', b)]
 assert len(starts) == 2, starts
 b = b[:starts[1]] + '<button data-go="pri" ' + b[starts[1] + 8:]
-b = b[:starts[0]] + '<button class="vm-std" data-go="queue" ' + b[starts[0] + 8:]
+b = b[:starts[0]] + '<button class="vm-std" data-go="stdx" ' + b[starts[0] + 8:]
 VSTATE = open(S + '/tools/voice_state.js').read()
 # Attempts-left dots and count follow the demo's state
 _dot = '<span style="width: 5px; height: 5px; border-radius: 50%;'
@@ -161,9 +161,13 @@ def back_to_voice(b):
     assert b.count('<button aria-label="Back"') == 1
     return b.replace('<button aria-label="Back"', '<button data-go="voice" aria-label="Back"')
 h, b, _ = parts('VoiceQueue.dc.html')
-screens['queue'] = page(h, back_to_voice(clean(b)), open(S + '/tools/queue_tick.js').read())
+# Queue comes after the thinking page; skipping the line or taking the priority line connects straight away,
+# the regular line makes a standard attempt (the demo's first one fails).
+b = back_to_voice(clean(b)); assert b.count('data-go="pri"') == 1
+screens['queue'] = page(h, b.replace('data-go="pri"', 'data-go="call"'), open(S + '/tools/queue_tick.js').read())
 h, b, _ = parts('VoiceTurn.dc.html')
-screens['turn'] = page(h, back_to_voice(clean(b)), '')
+b = back_to_voice(clean(b)); assert b.count('data-go="pri"') == 1 and b.count('data-go="std"') == 1
+screens['turn'] = page(h, b.replace('data-go="pri"', 'data-go="call"').replace('data-go="std"', 'data-go="regular"'), '')
 h, b, _ = parts('VoiceFail.dc.html')
 screens['fail'] = page(h, back_to_voice(clean(b)), VSTATE)
 
