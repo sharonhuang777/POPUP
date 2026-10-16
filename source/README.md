@@ -72,6 +72,7 @@
   - 标题下的状态只在 thinking / typing / waiting for you 之间切换。
   - 用户发出的消息气泡右侧显示用户头像（avatar.png，32px 圆形，白色描边）。
   - 导航栏右侧有「更多」按钮（三个点，和返回按钮同款玻璃圆钮）。
+  - 点「更多」弹出菜单，里面是「Start a match」（Text or voice · free today），任何时候都能点。点了以后进入彩色匹配浮层，和答完 3 题的推荐浮层是同一个，只是文案换成「Ready when you are / Let's find someone for you」。从菜单进入时，「Maybe later」只关闭浮层、回到对话，不发消息。
 - **匹配思考页**：最后一行状态文案会轮换。
 
 ## 注意事项

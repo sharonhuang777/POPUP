@@ -17,6 +17,15 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
 .hdr{position:absolute;left:0;right:0;top:54px;height:52px;display:flex;align-items:center;justify-content:center}
 .back{position:absolute;left:16px;top:4px;width:44px;height:44px;border-radius:22px;background:rgba(255,255,255,.44);border:1px solid rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center}
 .more{position:absolute;right:16px;top:4px;width:44px;height:44px;border-radius:22px;background:rgba(255,255,255,.44);border:1px solid rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer}
+.more.on{background:rgba(255,255,255,.85)}
+.menu{position:absolute;right:16px;top:110px;z-index:6;width:228px;padding:6px;border-radius:20px;background:rgba(255,255,255,.82);border:1px solid #fff;-webkit-backdrop-filter:blur(24px) saturate(1.4);backdrop-filter:blur(24px) saturate(1.4);box-shadow:0 18px 40px rgba(83,65,110,.18),0 2px 6px rgba(83,65,110,.06);opacity:0;transform:translateY(-6px) scale(.96);transform-origin:top right;pointer-events:none;transition:opacity .18s ease,transform .25s cubic-bezier(.34,1.4,.64,1)}
+.menu.on{opacity:1;transform:none;pointer-events:auto}
+.menu button{width:100%;display:flex;align-items:center;gap:10px;padding:10px;border:0;border-radius:14px;background:transparent;text-align:left;font-family:inherit;color:var(--ink);cursor:pointer;transition:background-color .15s ease}
+.menu button:active{background:rgba(122,91,214,.10)}
+.menu .mi{width:36px;height:36px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#A47CFA 0%,#8450F2 100%);box-shadow:0 4px 10px rgba(132,80,242,.3)}
+.menu b{display:block;font-size:15px;font-weight:700;letter-spacing:-.3px}
+.menu small{display:block;margin-top:2px;font-size:12px;font-weight:500;color:var(--mute)}
+.mscrim{position:absolute;inset:0;z-index:5;display:none}.mscrim.on{display:block}
 .who{display:flex;align-items:center;gap:8px}
 .who img{width:34px;height:34px;border-radius:50%;display:block}
 .who b{display:block;font-size:14px;font-weight:700;letter-spacing:-.2px}
@@ -128,9 +137,11 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
 <div class="app">
  <div class="hdr">
   <button class="back" aria-label="Back"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#53416E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
-  <button class="more" aria-label="More"><svg width="20" height="20" viewBox="0 0 24 24" fill="#53416E" aria-hidden="true"><circle cx="5.5" cy="12" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="18.5" cy="12" r="1.9"/></svg></button>
+  <button class="more" id="more" aria-label="More" aria-haspopup="menu" aria-expanded="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="#53416E" aria-hidden="true"><circle cx="5.5" cy="12" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="18.5" cy="12" r="1.9"/></svg></button>
   <div class="who"><img src="%%ORB%%" alt=""><div><b>Popup AI</b><div class="st" id="st"><i></i><span>thinking…</span></div></div></div>
  </div>
+ <div class="mscrim" id="mscrim"></div>
+ <div class="menu" id="menu" role="menu"><button role="menuitem" id="mStart"><span class="mi"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.3 6.2 6.2 2.3-6.2 2.3L12 19.5l-2.3-6.2L3.5 11l6.2-2.3z" fill="#fff"/></svg></span><span><b>Start a match</b><small>Text or voice · free today</small></span></button></div>
  <div class="lbl" id="lbl">Today · 3 quick questions</div>
  <div class="conv" id="conv"></div>
  <div class="replies off" id="replies"><h5>Choose a reply</h5><div id="opts"></div><div class="note" id="note" hidden>Matches are based on what you shared today</div></div>
@@ -143,9 +154,9 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
   </div>
  </div>
  <div class="endv" id="endp"><div class="lay ev-dim"></div><div class="lay ev-blur"></div><div class="lay ev-grad"></div>
-  <div class="ev-c"><div class="ev-ey"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2.5l2.3 6.2 6.2 2.3-6.2 2.3L12 19.5l-2.3-6.2L3.5 11l6.2-2.3z" fill="rgba(255,255,255,.85)"/></svg>That's all for today</div>
-   <div class="ev-h">I know you a little better now</div>
-   <div class="ev-p">Want me to find someone who may genuinely fit? Pick how you'd like to connect.</div>
+  <div class="ev-c"><div class="ev-ey"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2.5l2.3 6.2 6.2 2.3-6.2 2.3L12 19.5l-2.3-6.2L3.5 11l6.2-2.3z" fill="rgba(255,255,255,.85)"/></svg><span id="evEy">That's all for today</span></div>
+   <div class="ev-h" id="evH">I know you a little better now</div>
+   <div class="ev-p" id="evP">Want me to find someone who may genuinely fit? Pick how you'd like to connect.</div>
    <div class="ev-cards"><button class="mc" data-pick="text"><img src="%%ICT%%" alt=""><b>Text Match</b><small>Start with words</small><i class="go"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button><button class="mc" data-pick="voice"><img src="%%ICV%%" alt=""><b>Voice Match</b><small>Hear their vibe</small><i class="go"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button></div>
    <button class="ev-later" id="eLater">Maybe later</button></div></div>
  <div class="scrim" id="scrim"></div>
@@ -222,9 +233,19 @@ var sheet=document.getElementById('sheet'),scrim=document.getElementById('scrim'
 function openSheet(){scrim.classList.add('on');sheet.classList.add('on');status('done for today')}
 function closeSheet(){scrim.classList.remove('on');sheet.classList.remove('on')}
 var endp=document.getElementById('endp');
-function showEnd(){var rs=conv.querySelectorAll('.row'),r=rs[rs.length-1];conv.style.paddingBottom=conv.clientHeight+'px';if(r)conv.scrollTop=Math.max(0,r.offsetTop-60);endp.classList.add('on');conv.classList.add('dim')}
+function showEnd(){fromMenu=false;document.getElementById('evEy').textContent="That's all for today";document.getElementById('evH').textContent='I know you a little better now';document.getElementById('evP').textContent="Want me to find someone who may genuinely fit? Pick how you'd like to connect.";var rs=conv.querySelectorAll('.row'),r=rs[rs.length-1];conv.style.paddingBottom=conv.clientHeight+'px';if(r)conv.scrollTop=Math.max(0,r.offsetTop-60);endp.classList.add('on');conv.classList.add('dim')}
 function hideEnd(){endp.classList.remove('on');conv.classList.remove('dim')}
-document.getElementById('eLater').onclick=function(){if(busy)return;busy=true;setTimeout(async function(){hideEnd();await sleep(450);me('Maybe later');await sleep(250);await later();busy=false},120)};
+// More menu → Start a match: open the match overlay mid-conversation; Maybe later just closes it
+var menu=document.getElementById('menu'),moreB=document.getElementById('more'),mscrim=document.getElementById('mscrim'),fromMenu=false;
+function setMenu(on){menu.classList.toggle('on',on);mscrim.classList.toggle('on',on);moreB.classList.toggle('on',on);moreB.setAttribute('aria-expanded',on?'true':'false')}
+moreB.onclick=function(){setMenu(!menu.classList.contains('on'))};
+mscrim.onclick=function(){setMenu(false)};
+document.getElementById('mStart').onclick=function(){setMenu(false);fromMenu=true;
+ document.getElementById('evEy').textContent='Ready when you are';
+ document.getElementById('evH').textContent="Let's find someone for you";
+ document.getElementById('evP').textContent="What you've shared so far comes with you. Pick how you'd like to connect.";
+ setTimeout(function(){endp.classList.add('on');conv.classList.add('dim')},180)};
+document.getElementById('eLater').onclick=function(){if(fromMenu){fromMenu=false;hideEnd();return}if(busy)return;busy=true;setTimeout(async function(){hideEnd();await sleep(450);me('Maybe later');await sleep(250);await later();busy=false},120)};
 var docked=false;
 async function later(){if(docked)return;docked=true;await think(['Saving this for later…'],1300,['thinking…','saving this for later…']);await ai("No rush. I'll keep both ways in right here — tap whenever it feels right.");status('done for today');
  await sleep(300);fade.style.opacity=1;dock.classList.add('on');RES=170;scroll()}
