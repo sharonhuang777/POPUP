@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Voice Match · Standard Thinking</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#604580}a:hover{color:#3f2c5a}
+@keyframes drift{0%,100%{transform:translate(-1%,-.5%)}50%{transform:translate(1%,.6%)}}
+@keyframes rowOpen{from{max-height:0;padding-top:0;padding-bottom:0;margin-top:0;opacity:0;border-color:transparent}to{max-height:120px;opacity:1}}
+@keyframes orbit{to{transform:rotate(360deg)}}
+@keyframes m1{from{transform:translateY(-9.1px) scale(1);fill:#FFD17A}to{transform:translateY(0) scale(2.2);fill:#B869F4}}
+@keyframes m2{from{transform:translateY(-9.1px) scale(1);fill:#B968F2}to{transform:translateY(0) scale(2.2);fill:#B869F4}}
+@keyframes m3{from{transform:translateY(-9.1px) scale(1);fill:#D3A2FA}to{transform:translateY(0) scale(2.2);fill:#B869F4}}
+@keyframes copyIn{from{opacity:0}to{opacity:1}}
+@keyframes sweep{from{background-position:100% 50%}to{background-position:0% 50%}}
+@keyframes rowSettle{to{background-color:rgba(255,255,255,0.22);padding-top:9px;padding-bottom:9px}}
+@keyframes copySettle{from{font-size:15px;opacity:1}to{font-size:13px;opacity:.48}}
+@keyframes dim{to{opacity:.45;transform:scale(.8)}}
+.ambient{animation:drift 28s ease-in-out infinite}
+.vrow{max-height:120px;animation:rowOpen .5s cubic-bezier(.2,.7,.2,1) both}
+.orbit{transform-origin:20px 20px;animation:orbit 2.3s linear infinite}
+.dot{transform-origin:20px 20px;transform:translateY(0) scale(2.2);fill:#B869F4}
+.m1{animation:m1 1.1s ease-in-out both}.m2{animation:m2 1.1s ease-in-out both}.m3{animation:m3 1.1s ease-in-out both}
+.s1{transform:translateY(-9.1px);fill:#FFD17A}.s2{transform:translateY(-9.1px);fill:#B968F2}.s3{transform:translateY(-9.1px);fill:#D3A2FA}
+.copy{font-size:15px;line-height:1.45;color:transparent;background:linear-gradient(105deg,#4A4360 0%,#4A4360 40%,#B586D9 46%,#FFF5FF 50%,#B586D9 54%,#4A4360 60%,#4A4360 100%);background-size:250% 100%;background-position:0% 50%;-webkit-background-clip:text;background-clip:text;animation:copyIn .85s ease both,sweep 2.05s cubic-bezier(.45,0,.25,1) both}
+.copy.loop{animation:copyIn .85s ease both,sweep 2.4s ease-in-out infinite}
+.vrow.done{animation:rowOpen .5s cubic-bezier(.2,.7,.2,1) both,rowSettle .6s ease forwards}
+.vrow.done .copy{animation:copyIn .85s ease both,sweep 2.05s cubic-bezier(.45,0,.25,1) both,copySettle .6s ease forwards}
+.vrow.done svg{transform-origin:center;animation:dim .6s ease forwards;animation-delay:var(--settle)}
+@media (prefers-reduced-motion: reduce){.ambient,.vrow,.orbit,.m1,.m2,.m3,.copy,.copy.loop,.vrow.done,.vrow.done .copy,.vrow.done svg{animation:none}}
+@keyframes type{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes qOut{to{opacity:0;filter:blur(2px)}}
+.qa{flex:1;min-width:0;display:grid}
+.qa>*{grid-area:1/1}
+.q{justify-self:start;white-space:nowrap;font-size:15px;line-height:1.45;color:#8A7E9C;clip-path:inset(0 100% 0 0);animation:type 1.3s forwards,qOut .45s ease forwards}
+@media (prefers-reduced-motion: reduce){.q{display:none}}
+</style>
+</helmet>
+<div style="position: relative; width: 402px; height: 874px; overflow: hidden; font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif; color: #342b43; background: linear-gradient(180deg, #FCF1E8 0%, #F7EFF2 45%, #EEE8F6 75%, #E8E2F6 100%)">
+
+  <div aria-hidden="true" class="ambient" style="position: absolute; left: -16px; top: -16px; width: 434px; height: 906px; background: radial-gradient(ellipse at 50% 26%, rgba(196,170,245,0.34), rgba(196,170,245,0) 42%), radial-gradient(ellipse at 88% 72%, rgba(255,214,190,0.26), rgba(255,214,190,0) 45%), radial-gradient(ellipse at 6% 86%, rgba(181,158,235,0.30), rgba(181,158,235,0) 50%)"></div>
+
+  <div style="position: absolute; left: 0; top: 54px; width: 402px; height: 44px; display: flex; align-items: center; justify-content: center">
+    <button aria-label="Back" style="position: absolute; left: 16px; top: 0; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.7); background: rgba(255,255,255,0.44); display: flex; align-items: center; justify-content: center; color: #53416e; cursor: pointer">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </button>
+    <div style="font-size: 17px; font-weight: 700; letter-spacing: -0.2px; color: #53416e">Voice Match</div>
+  </div>
+
+  <canvas ref="{{ orbRef }}" onClick="{{ replay }}" aria-label="Popup orb, thinking. Tap to replay" style="position: absolute; left: 51px; top: 96px; width: 300px; height: 300px; display: block; cursor: pointer"></canvas>
+
+  <div style="position: absolute; left: 20px; top: 418px; width: 362px; box-sizing: border-box; padding: 10px; border-radius: 28px; border: 1.5px solid rgba(255,255,255,0.85); background: linear-gradient(160deg, rgba(255,255,255,0.66), rgba(255,255,255,0.30)); box-shadow: 0 22px 44px rgba(120,90,170,0.12), inset 0 1px 1px rgba(255,255,255,0.95), inset 0 0 28px rgba(255,255,255,0.35); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); display: flex; flex-direction: column" aria-live="polite">
+    <svg aria-hidden="true" width="0" height="0" style="position: absolute"><defs><filter id="tmMerge" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="1.1"></feGaussianBlur><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 18 -7"></feColorMatrix></filter></defs></svg>
+    <sc-if value="{{ even }}" hint-placeholder-val="{{ true }}">
+      <div class="vrow done" style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; margin-top: 0; border-radius: 18px; background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.8); overflow: hidden; animation-delay: 0s, 5.5s; --settle: 5.5s">
+        <svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true" style="flex: none; margin-top: 1px; overflow: visible"><g filter="url(#tmMerge)"><g class="orbit"><g transform="rotate(0 20 20)"><circle class="dot m1" cx="20" cy="20" r="4.5" style="animation-delay: 2.4s"></circle></g><g transform="rotate(120 20 20)"><circle class="dot m2" cx="20" cy="20" r="4.5" style="animation-delay: 2.4s"></circle></g><g transform="rotate(240 20 20)"><circle class="dot m3" cx="20" cy="20" r="4.5" style="animation-delay: 2.4s"></circle></g></g></g></svg>
+        <span class="qa"><span class="q" style="animation-delay: 0.35s, 3.3s; animation-timing-function: steps(36, end), ease">What kind of connection feels right?</span><span class="copy" style="animation-delay: 3.5s, 3.5s, 5.5s">You want connection to feel light without becoming shallow.</span></span>
+      </div>
+      <div class="vrow done" style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; margin-top: 8px; border-radius: 18px; background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.8); overflow: hidden; animation-delay: 5.5s, 11s; --settle: 11s">
+        <svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true" style="flex: none; margin-top: 1px; overflow: visible"><g filter="url(#tmMerge)"><g class="orbit"><g transform="rotate(0 20 20)"><circle class="dot m1" cx="20" cy="20" r="4.5" style="animation-delay: 7.9s"></circle></g><g transform="rotate(120 20 20)"><circle class="dot m2" cx="20" cy="20" r="4.5" style="animation-delay: 7.9s"></circle></g><g transform="rotate(240 20 20)"><circle class="dot m3" cx="20" cy="20" r="4.5" style="animation-delay: 7.9s"></circle></g></g></g></svg>
+        <span class="qa"><span class="q" style="animation-delay: 5.85s, 8.8s; animation-timing-function: steps(25, end), ease">What makes you feel seen?</span><span class="copy" style="animation-delay: 9s, 9s, 11s">Small remembered details make you feel genuinely seen.</span></span>
+      </div>
+      <div class="vrow done" style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; margin-top: 8px; border-radius: 18px; background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.8); overflow: hidden; animation-delay: 11s, 16.5s; --settle: 16.5s">
+        <svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true" style="flex: none; margin-top: 1px; overflow: visible"><g filter="url(#tmMerge)"><g class="orbit"><g transform="rotate(0 20 20)"><circle class="dot m1" cx="20" cy="20" r="4.5" style="animation-delay: 13.4s"></circle></g><g transform="rotate(120 20 20)"><circle class="dot m2" cx="20" cy="20" r="4.5" style="animation-delay: 13.4s"></circle></g><g transform="rotate(240 20 20)"><circle class="dot m3" cx="20" cy="20" r="4.5" style="animation-delay: 13.4s"></circle></g></g></g></svg>
+        <span class="qa"><span class="q" style="animation-delay: 11.35s, 14.3s; animation-timing-function: steps(27, end), ease">When do you stay in a chat?</span><span class="copy" style="animation-delay: 14.5s, 14.5s, 16.5s">You stay when a conversation becomes honest without feeling forced.</span></span>
+      </div>
+      <div class="vrow" style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; margin-top: 8px; border-radius: 18px; background: rgba(255,255,255,0.75); border: 1px solid #FFFFFF; overflow: hidden; animation-delay: 16.5s">
+        <svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true" style="flex: none; margin-top: 1px; overflow: visible"><g filter="url(#tmMerge)"><g class="orbit"><g transform="rotate(0 20 20)"><circle class="dot s1" cx="20" cy="20" r="4.5"></circle></g><g transform="rotate(120 20 20)"><circle class="dot s2" cx="20" cy="20" r="4.5"></circle></g><g transform="rotate(240 20 20)"><circle class="dot s3" cx="20" cy="20" r="4.5"></circle></g></g></g></svg>
+        <span class="copy loop" style="font-weight: 600; animation-delay: 16.85s, 17.8s">Searching with the signals you've shared…</span>
+      </div>
+    </sc-if>
+    <sc-if value="{{ odd }}" hint-placeholder-val="{{ false }}">
+      <div class="vrow done" style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; margin-top: 0; border-radius: 18px; background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.8); overflow: hidden; animation-delay: 0s, 5.5s; --settle: 5.5s">
+        <svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true" style="flex: none; margin-top: 1px; overflow: visible"><g filter="url(#tmMerge)"><g class="orbit"><g transform="rotate(0 20 20)"><circle class="dot m1" cx="20" cy="20" r="4.5" style="animation-delay: 2.4s"></circle></g><g transform="rotate(120 20 20)"><circle class="dot m2" cx="20" cy="20" r="4.5" style="animation-delay: 2.4s"></circle></g><g transform="rotate(240 20 20)"><circle class="dot m3" cx="20" cy="20" r="4.5" style="animation-delay: 2.4s"></circle></g></g></g></svg>
+        <span class="qa"><span class="q" style="animation-delay: 0.35s, 3.3s; animation-timing-function: steps(36, end), ease">What kind of connection feels right?</span><span class="copy" style="animation-delay: 3.5s, 3.5s, 5.5s">You want connection to feel light without becoming shallow.</span></span>
+      </div>
+      <div class="vrow done" style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; margin-top: 8px; border-radius: 18px; background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.8); overflow: hidden; animation-delay: 5.5s, 11s; --settle: 11s">
+        <svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true" style="flex: none; margin-top: 1px; overflow: visible"><g filter="url(#tmMerge)"><g class="orbit"><g transform="rotate(0 20 20)"><circle class="dot m1" cx="20" cy="20" r="4.5" style="animation-delay: 7.9s"></circle></g><g transform="rotate(120 20 20)"><circle class="dot m2" cx="20" cy="20" r="4.5" style="animation-delay: 7.9s"></circle></g><g transform="rotate(240 20 20)"><circle class="dot m3" cx="20" cy="20" r="4.5" style="animation-delay: 7.9s"></circle></g></g></g></svg>
+        <span class="qa"><span class="q" style="animation-delay: 5.85s, 8.8s; animation-timing-function: steps(25, end), ease">What makes you feel seen?</span><span class="copy" style="animation-delay: 9s, 9s, 11s">Small remembered details make you feel genuinely seen.</span></span>
+      </div>
+      <div class="vrow done" style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; margin-top: 8px; border-radius: 18px; background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.8); overflow: hidden; animation-delay: 11s, 16.5s; --settle: 16.5s">
+        <svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true" style="flex: none; margin-top: 1px; overflow: visible"><g filter="url(#tmMerge)"><g class="orbit"><g transform="rotate(0 20 20)"><circle class="dot m1" cx="20" cy="20" r="4.5" style="animation-delay: 13.4s"></circle></g><g transform="rotate(120 20 20)"><circle class="dot m2" cx="20" cy="20" r="4.5" style="animation-delay: 13.4s"></circle></g><g transform="rotate(240 20 20)"><circle class="dot m3" cx="20" cy="20" r="4.5" style="animation-delay: 13.4s"></circle></g></g></g></svg>
+        <span class="qa"><span class="q" style="animation-delay: 11.35s, 14.3s; animation-timing-function: steps(27, end), ease">When do you stay in a chat?</span><span class="copy" style="animation-delay: 14.5s, 14.5s, 16.5s">You stay when a conversation becomes honest without feeling forced.</span></span>
+      </div>
+      <div class="vrow" style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; margin-top: 8px; border-radius: 18px; background: rgba(255,255,255,0.75); border: 1px solid #FFFFFF; overflow: hidden; animation-delay: 16.5s">
+        <svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true" style="flex: none; margin-top: 1px; overflow: visible"><g filter="url(#tmMerge)"><g class="orbit"><g transform="rotate(0 20 20)"><circle class="dot s1" cx="20" cy="20" r="4.5"></circle></g><g transform="rotate(120 20 20)"><circle class="dot s2" cx="20" cy="20" r="4.5"></circle></g><g transform="rotate(240 20 20)"><circle class="dot s3" cx="20" cy="20" r="4.5"></circle></g></g></g></svg>
+        <span class="copy loop" style="font-weight: 600; animation-delay: 16.85s, 17.8s">Searching with the signals you've shared…</span>
+      </div>
+    </sc-if>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":402,"height":874}}'>
+var POPUP_PURPLE = { deep:[.48,.30,.79], light:[1.02,.91,.80], fold:[.70,.49,.92], film:[.70,.54,1.0], film2:[1.0,.83,.60], back:[.69,.61,.83], boost:[.60,.43,.88], rim:[.68,.53,.92], rim2:[1.0,.87,.67], inner:[.87,.73,1.0], edge:[.56,.39,.77], envLo:[.19,.105,.34], envHi:[.88,.79,1.02], thread:[.75,.63,1.0], warm:[1.2,.76,.38] };
+var POPUP_COLOR_KEYS = ['deep','light','fold','film','film2','back','boost','rim','rim2','inner','edge','envLo','envHi','thread','warm'];
+var CYCLE_MS = 26000;
+
+class PearlOrb {
+  constructor(canvas, opts) {
+    opts = opts || {};
+    this.canvas = canvas; this.state = opts.state === 'thinking' ? 'thinking' : 'idle';
+    this.activity = this.state === 'thinking' ? 1 : 0; this.palette = opts.palette;
+    this.colorBoost = 1; this.time = 1.6; this.rhythmTime = 0; this.last = 0; this.raf = 0; this.maxDpr = 1.5;
+    this.motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    this.gl = canvas.getContext('webgl', { alpha: true, premultipliedAlpha: false, antialias: false });
+    this.ro = new ResizeObserver(() => this.schedule()); this.ro.observe(canvas);
+    this.vis = () => { this.last = 0; if (!document.hidden) this.schedule(); };
+    document.addEventListener('visibilitychange', this.vis);
+    try { if (!this.gl) throw new Error('WebGL unavailable'); this.init(); this.ready = true; this.schedule(); } catch (e) { this.ready = false; canvas.dataset.error = String(e && e.message || e); }
+  }
+  init() {
+    var gl = this.gl;
+    var vs = 'attribute vec2 position;varying vec2 uv;void main(){uv=position*.5+.5;gl_Position=vec4(position,0.,1.);}';
+    var fs = 'precision highp float;varying vec2 uv;uniform float time,aspect,activity,pixel,extent,colorBoost;' +
+      'uniform vec3 cDeep,cLight,cFold,cFilm,cFilm2,cBack,cBoost,cRim,cRim2,cInner,cEdge,cEnvLo,cEnvHi,cThread,cWarm;' +
+      'mat2 rotate(float a){float c=cos(a),s=sin(a);return mat2(c,-s,s,c);}' +
+      'vec3 flow(vec3 p,float t){p.xy=rotate(-.12+.06*sin(t*.10))*p.xy;p.xz=rotate(.45*p.y+.25*sin(t*.27))*p.xz;p.y+=.12*sin(p.z*2.8+t*.34);return p;}' +
+      'float phase(vec3 p,float t){vec3 q=flow(p,t);float curl=.57*sin(q.y*3.5+.28*sin(t*.29));return (q.x-curl+q.z*.90)*4.8+.22*sin(q.z*3.4-t*.25);}' +
+      'float field(vec3 p,float t){return sin(phase(p,t));}' +
+      'vec3 studio(vec3 r){vec3 env=mix(cEnvLo,cEnvHi,smoothstep(-.8,.8,r.y));float strip=exp(-pow((r.x+.36)/.070,2.));float fine=exp(-pow((r.x-.22)/.022,2.));float warm=exp(-pow((r.y+.25+r.x*.55)/.060,2.));float thread=exp(-pow(sin(r.y*10.+r.x*1.6)*17.,2.));float white=pow(max(0.,dot(r,normalize(vec3(.25,.65,.72)))),32.);env+=vec3(1.,.98,1.)*(strip*3.1+fine*2.4+white*1.5);env+=cWarm*warm*2.6;env+=mix(cThread,vec3(1.,.89,.70),smoothstep(-1.,1.,r.y))*thread*.52;return env;}' +
+      'void main(){vec2 p=(uv-.5)*vec2(aspect,1.)*extent;float rr=dot(p,p),r=sqrt(rr);float edge=1.-smoothstep(1.-pixel,1.+pixel,r);if(edge<.001){gl_FragColor=vec4(0.);return;}' +
+      'float z=sqrt(max(0.,1.-rr));vec3 surface=normalize(vec3(p,z));vec3 ray=refract(vec3(0.,0.,-1.),surface,1./1.16);vec3 entry=vec3(p,z);float travel=max(.001,-2.*dot(entry,ray));float stepSize=travel/96.;' +
+      'vec3 col=vec3(0.);float trans=1.;float definition=0.;float t=time*1.55;float lastField=field(entry,t);' +
+      'for(int i=1;i<=96;i++){float distance=float(i)*stepSize;vec3 pos=entry+ray*distance;float d=field(pos,t);' +
+      'if(d*lastField<0. && trans>.015){float along=lastField/(lastField-d);vec3 hit=entry+ray*(distance-stepSize+stepSize*along);float e=.003;' +
+      'vec3 n=normalize(vec3(field(hit+vec3(e,0,0),t)-field(hit-vec3(e,0,0),t),field(hit+vec3(0,e,0),t)-field(hit-vec3(0,e,0),t),field(hit+vec3(0,0,e),t)-field(hit-vec3(0,0,e),t)));if(dot(n,ray)>0.)n=-n;' +
+      'float facing=max(0.,dot(n,-ray));float grazing=pow(1.-facing,2.);vec3 reflected=reflect(ray,n);float pearl=.5+.5*sin(hit.y*3.2+hit.z*3.5+hit.x*2.7+t*.10);' +
+      'vec3 tint=mix(cDeep,cLight,pearl*.75);float diffuse=.60+.40*abs(dot(n,normalize(vec3(-.35,.70,.80))));vec3 material=tint*diffuse*.66+studio(reflected)*(.44+.4*grazing);' +
+      'float foldShade=(1.-smoothstep(.30,.82,pearl))*smoothstep(.12,.75,abs(n.y));material=mix(material,material*cFold,foldShade*.46);' +
+      'material+=mix(cFilm,cFilm2,pearl)*pow(grazing,1.5)*1.25;' +
+      'float opacity=(.62+.28*grazing)*smoothstep(0.,.15,1.-length(hit))*smoothstep(.01,.18,facing);definition+=trans*opacity*foldShade;col+=trans*opacity*material;trans*=1.-opacity;}' +
+      'lastField=d;}' +
+      'vec3 back=mix(cBack,vec3(.97,.93,1.03),smoothstep(-1.,1.,p.y));back=mix(back,mix(cBoost,vec3(1.,.89,1.04),smoothstep(-1.,1.,p.y)),colorBoost*.65);col+=trans*back;' +
+      'float fresnel=pow(1.-z,3.);vec3 rim=mix(cRim,cRim2,.5+.5*sin(atan(p.y,p.x)*2.4+.7));col=mix(col,rim,fresnel*.24);' +
+      'vec3 sr=reflect(vec3(0.,0.,-1.),surface);col+=studio(sr)*(.035+fresnel*.10);' +
+      'float box=smoothstep(.43,.45,sr.x)*(1.-smoothstep(.70,.72,sr.x))*smoothstep(.30,.32,sr.y)*(1.-smoothstep(.69,.71,sr.y))*smoothstep(-.10,.30,sr.z);col+=vec3(1.,.99,1.)*box*.14;' +
+      'float spec=pow(max(dot(surface,normalize(vec3(-.58,.8,1.8))),0.),150.);col+=vec3(1.,.97,.91)*spec*.8;' +
+      'float rimline=exp(-pow((r-.983)*160.,2.));float innerRim=exp(-pow((r-.961)*125.,2.));float angle=atan(p.y,p.x);float rimArc=pow(.5+.5*cos(angle*2.-1.15),4.);' +
+      'col+=rim*rimline*(.25+rimArc*1.15)+cInner*innerRim*(.08+rimArc*.20);col=1.-exp(-col*1.78);col=pow(col,vec3(.76));' +
+      'float luma=dot(col,vec3(.2126,.7152,.0722));float saturation=1.20+colorBoost*.50*(1.-smoothstep(.82,.98,luma));col=clamp(mix(vec3(luma),col,saturation),0.,1.);col=mix(col,cEdge,innerRim*rimArc*.23);' +
+      'float highlight=smoothstep(.76,.96,luma);float glassAlpha=min(.98,mix(.56,.96,highlight)+definition*.32);glassAlpha=max(glassAlpha,rimArc*(rimline*.94+innerRim*.12));gl_FragColor=vec4(col,edge*glassAlpha);}';
+    var compile = function (type, src) { var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)); return s; };
+    var p = gl.createProgram(); gl.attachShader(p, compile(gl.VERTEX_SHADER, vs)); gl.attachShader(p, compile(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(p);
+    if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p));
+    this.program = p; gl.useProgram(p); this.buffer = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]), gl.STATIC_DRAW);
+    var loc = gl.getAttribLocation(p, 'position'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    this.u = {}; var self = this;
+    ['time','aspect','activity','pixel','extent','colorBoost'].forEach(function (n) { self.u[n] = gl.getUniformLocation(p, n); });
+    POPUP_COLOR_KEYS.forEach(function (k) { self.u[k] = gl.getUniformLocation(p, 'c' + k.charAt(0).toUpperCase() + k.slice(1)); });
+    gl.uniform1f(this.u.colorBoost, this.colorBoost);
+    POPUP_COLOR_KEYS.forEach(function (k) { var c = self.palette[k]; gl.uniform3f(self.u[k], c[0], c[1], c[2]); });
+  }
+  schedule() { if (this.ready && !this.disposed && !this.raf && !document.hidden) { var self = this; this.raf = requestAnimationFrame(function (n) { self.tick(n); }); } }
+  tick(now) {
+    this.raf = 0; if (!this.ready || this.disposed || document.hidden) return;
+    var dt = this.last ? Math.min((now - this.last) / 1000, .1) : 0; this.last = now; var reduce = this.motion.matches;
+    this.activity += ((this.state === 'thinking' ? 1 : 0) - this.activity) * (1 - Math.exp(-dt * 2.6));
+    if (!reduce) this.rhythmTime += dt;
+    var rt = this.rhythmTime, ph = rt * 2.05 + .65 * Math.sin(rt * .73) + .28 * Math.sin(rt * 1.31);
+    var breath = (.029 + .010 * Math.sin(rt * .47)) * Math.sin(ph - .65) + .012 * Math.sin(rt * 3.19 + .8) + .006 * Math.sin(rt * .91);
+    var ex = Math.max(0, Math.min(1, (breath + .057) / .114));
+    var thinkSpeed = reduce ? .92 : .45 + 1.90 * ex * ex * (3 - 2 * ex);
+    var flowSpeed = .24 + this.activity * (thinkSpeed - .24);
+    var scale = reduce ? 1 : 1 + this.activity * breath * 2.1, extent = 2.9 / scale;
+    if (!reduce) this.time += dt * flowSpeed;
+    var gl = this.gl, rect = this.canvas.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, this.maxDpr);
+    var k = Math.min(1, 680 / Math.max(1, rect.width * dpr, rect.height * dpr));
+    var w = Math.max(1, Math.round(rect.width * dpr * k)), h = Math.max(1, Math.round(rect.height * dpr * k));
+    if (this.canvas.width !== w || this.canvas.height !== h) { this.canvas.width = w; this.canvas.height = h; }
+    gl.useProgram(this.program); gl.viewport(0, 0, w, h);
+    gl.uniform1f(this.u.time, this.time); gl.uniform1f(this.u.aspect, w / h); gl.uniform1f(this.u.activity, this.activity);
+    gl.uniform1f(this.u.pixel, extent / h); gl.uniform1f(this.u.extent, extent); gl.drawArrays(gl.TRIANGLES, 0, 6);
+    if (!reduce) this.schedule();
+  }
+  destroy() { this.disposed = true; cancelAnimationFrame(this.raf); this.ro.disconnect(); document.removeEventListener('visibilitychange', this.vis); if (this.gl && this.program) { this.gl.deleteBuffer(this.buffer); this.gl.deleteProgram(this.program); } }
+}
+
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { cycle: 0 }; }
+  componentDidMount() { this.loop(); }
+  loop() {
+    var self = this;
+    clearInterval(this.iv);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    this.iv = setInterval(function () { self.setState({ cycle: self.state.cycle ? 0 : 1 }); }, CYCLE_MS);
+  }
+  componentWillUnmount() { clearInterval(this.iv); if (this.orb) { this.orb.destroy(); this.orb = null; } }
+  renderVals() {
+    var self = this;
+    if (!this._orbRef) this._orbRef = function (el) {
+      if (!el) { if (self.orb) { self.orb.destroy(); self.orb = null; } return; }
+      if (self.orb && self.orb.canvas === el) return;
+      if (self.orb) self.orb.destroy();
+      self.orb = new PearlOrb(el, { palette: POPUP_PURPLE, state: 'thinking' });
+    };
+    if (!this._replay) this._replay = function () { self.setState({ cycle: self.state.cycle ? 0 : 1 }); self.loop(); };
+    var c = (this.state && this.state.cycle) || 0;
+    return { orbRef: this._orbRef, replay: this._replay, even: c === 0, odd: c === 1 };
+  }
+}
+</script>
+</body>
+</html>
