@@ -201,7 +201,7 @@ screens['plaza'] = page(h, b, '', scroll=True)
 def small(path,w):
     im=Image.open(path).convert('RGBA');im=im.resize((w,round(im.height*w/im.width)),Image.LANCZOS);b=io.BytesIO();im.save(b,'PNG',optimize=True)
     return 'data:image/png;base64,'+base64.b64encode(b.getvalue()).decode()
-chat=open(S+'/demo/chat.html').read().replace('%%ORB%%',small(IMG+'orb-static.png',96)).replace('%%ICT%%',small(S+'/demo/mic0.png',120)).replace('%%ICV%%',small(S+'/demo/mic1.png',120))
+chat=open(S+'/demo/chat.html').read().replace('%%ORB%%',small(IMG+'orb-static.png',96)).replace('%%ICT%%',small(S+'/demo/mic0.png',120)).replace('%%ICV%%',small(S+'/demo/mic1.png',120)).replace('%%ME%%',small(IMG+'avatar.png',96))
 chat=chat.replace('</script></body>', NAV.replace("var g = e.target.closest('[data-go]');","var g = null;") + '</script></body>')
 screens['chat']=chat
 h, b, _ = parts('VoiceCall.dc.html')
