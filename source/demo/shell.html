@@ -43,6 +43,8 @@ body.m .island,body.m .status,body.m .home-ind,body.m .side{display:none}
  display:flex;align-items:center;justify-content:center;transition:opacity .2s ease,transform .25s cubic-bezier(.34,1.4,.64,1)}
 .fab.hide{opacity:0;transform:scale(.6);pointer-events:none}
 .fab svg{display:block}
+.toast{position:absolute;left:36px;right:36px;top:420px;z-index:5;padding:13px 18px;border-radius:16px;background:rgba(24,18,38,0.9);border:1px solid rgba(255,255,255,0.14);box-shadow:0 14px 34px rgba(20,10,50,0.30);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#fff;font:500 14px/1.4 'Outfit',sans-serif;text-align:center;opacity:0;transform:translateY(8px) scale(.97);pointer-events:none;transition:opacity .22s ease,transform .3s cubic-bezier(.34,1.4,.64,1)}
+.toast.on{opacity:1;transform:none}
 .fab:active{transform:scale(.9)}
 </style>
 <div class="stage" id="stage">
@@ -54,6 +56,7 @@ body.m .island,body.m .status,body.m .home-ind,body.m .side{display:none}
       <button type="button" data-tab="messages" aria-label="Messages"><span class="ic"><svg class="i" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4c-4.7 0-8.5 3.2-8.5 7.2 0 2.2 1.2 4.2 3 5.5l-.6 2.8 3.2-1.5c.9.3 1.9.4 2.9.4 4.7 0 8.5-3.2 8.5-7.2S16.7 4 12 4z"/></svg><svg class="a" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 4c-4.7 0-8.5 3.2-8.5 7.2 0 2.2 1.2 4.2 3 5.5l-.6 2.8 3.2-1.5c.9.3 1.9.4 2.9.4 4.7 0 8.5-3.2 8.5-7.2S16.7 4 12 4z"/></svg></span></button>
     </nav>
     <button type="button" class="fab hide" id="fab" aria-label="Create a post"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#101010" stroke-width="2.3" stroke-linecap="round" aria-hidden="true"><path d="M10 1.4v17.2M1.4 10h17.2"/></svg></button>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <div class="island" aria-hidden="true"></div>
     <div class="status" aria-hidden="true">
       <span>9:41</span>
@@ -67,7 +70,8 @@ body.m .island,body.m .status,body.m .home-ind,body.m .side{display:none}
   </div>
   <div class="side">
     <h1>Popup 交互 Demo</h1>
-    <p>从首页点「Talk with Popup」进入每日对话，答完 3 题后可选择匹配或稍后；点「Text Match」或「Voice Match」直接进入匹配流程；语音匹配可以选 Standard 或 Priority。思考页点球体可以重播动画，左上角返回。底部导航和头像也能点。</p>
+    <p>从首页点「Talk with Popup」进入每日对话，答完 3 题后可选择匹配或稍后；点「Text Match」或「Voice Match」直接进入匹配流程。</p>
+    <p>语音匹配走 Standard：排队 → 轮到你 → 第一次匹配失败 → 再试一次接通；挂断后是通话结束页，可以打星。免费次数用完后，点 Standard 会提示去 Priority。Priority 直接匹配。</p>
     <button type="button" id="restart">回到首页</button>
   </div>
 </div>
@@ -75,10 +79,28 @@ body.m .island,body.m .status,body.m .home-ind,body.m .side{display:none}
 var SCREENS = /*SCREENS*/{};
 var phoneEl = document.querySelector('.phone');
 var frames = {};          // name -> iframe (kept alive for tab screens)
-var NOCACHE = { std: 1, pri: 1, text: 1, call: 1 };
-var DARK = { call: 1 };   // animation pages replay each visit
+var NOCACHE = { std: 1, pri: 1, text: 1, call: 1, queue: 1, turn: 1, fail: 1, ended: 1 };
+var DARK = { call: 1, ended: 1 };   // animation pages replay each visit
 var TABS = { plaza: 0, home: 1, messages: 2 };
 var current = null, stack = [];
+// Voice match: standard attempts left today (launch shows 2 of 3), and the first standard search fails once
+var LEFT = 2, FAILED = 0, SHOWS_LEFT = { voice: 1, fail: 1, ended: 1 };
+var toastEl = null, toastT = 0;
+function toast(msg) {
+  toastEl = toastEl || document.getElementById('toast');
+  toastEl.textContent = msg; toastEl.classList.add('on');
+  clearTimeout(toastT); toastT = setTimeout(function () { toastEl.classList.remove('on'); }, 2200);
+}
+function route(name) {
+  if (name === 'queue' || name === 'stdx') {
+    if (LEFT <= 0) { toast('No free matches left today. Go Priority to keep matching.'); return null; }
+    LEFT--;
+    if (frames[current] && SHOWS_LEFT[current]) frames[current].contentWindow.postMessage({ left: LEFT }, '*');
+    return name === 'stdx' ? 'std' : 'queue';
+  }
+  if (name === 'call' && current === 'std' && !FAILED) { FAILED = 1; return 'fail'; }
+  return name;
+}
 function makeFrame(name) {
   var f = document.createElement('iframe');
   f.title = 'Popup app screen'; f.setAttribute('data-name', name);
@@ -99,6 +121,7 @@ function show(name, push, from) {
   else if (push !== false) stack.push(name);
   var f = frameFor(name, push), prev = current && frames[current];
   f._ready.then(function () {
+    if (SHOWS_LEFT[name]) f.contentWindow.postMessage({ left: LEFT }, '*');
     f.classList.add('on');
     if (prev && prev !== f) prev.classList.remove('on');
   });
@@ -126,10 +149,10 @@ tabBtns.forEach(function (b) {
 function preload() { ['plaza', 'messages'].forEach(function (n) { if (!frames[n]) frames[n] = makeFrame(n); }); }
 window.addEventListener('message', function (e) {
   if (!current || !frames[current] || e.source !== frames[current].contentWindow || !e.data) return;
-  if (e.data.go) show(e.data.go, true, e.data.from);
+  if (e.data.go) { var to = route(e.data.go); if (to) show(to, true, e.data.from); }
   else if (e.data.back) { if (stack.length > 1) { stack.pop(); show(stack[stack.length - 1], false); } }
 });
-document.getElementById('restart').addEventListener('click', function () { show('home'); });
+document.getElementById('restart').addEventListener('click', function () { LEFT = 2; FAILED = 0; show('home'); });
 function isPhone() {
   var q = location.search;
   if (/[?&]frame=1/.test(q)) return false;

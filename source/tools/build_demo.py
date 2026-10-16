@@ -145,8 +145,27 @@ b = clean(b)
 starts = [m.start() for m in re.finditer(r'<button style="margin-top: 10px; width: 100%; height: 46px;', b)]
 assert len(starts) == 2, starts
 b = b[:starts[1]] + '<button data-go="pri" ' + b[starts[1] + 8:]
-b = b[:starts[0]] + '<button data-go="std" ' + b[starts[0] + 8:]
-screens['voice'] = page(h, b, '')
+b = b[:starts[0]] + '<button class="vm-std" data-go="queue" ' + b[starts[0] + 8:]
+VSTATE = open(S + '/tools/voice_state.js').read()
+# Attempts-left dots and count follow the demo's state
+_dot = '<span style="width: 5px; height: 5px; border-radius: 50%;'
+assert b.count(_dot) == 2 and b.count('<span title="Used" style="width: 5px;') == 1
+b = b.replace(_dot, '<span data-dot="1" style="width: 5px; height: 5px; border-radius: 50%;').replace('<span title="Used" style="width: 5px;', '<span data-dot="1" style="width: 5px;')
+assert b.count('2 left today') == 1
+b = b.replace('2 left today', '<span data-left="2">2</span> left today')
+h += '<style>.vm-std[aria-disabled="true"]{opacity:.45}</style>'
+screens['voice'] = page(h, b, VSTATE)
+
+# Voice match: queue, your turn, match failed
+def back_to_voice(b):
+    assert b.count('<button aria-label="Back"') == 1
+    return b.replace('<button aria-label="Back"', '<button data-go="voice" aria-label="Back"')
+h, b, _ = parts('VoiceQueue.dc.html')
+screens['queue'] = page(h, back_to_voice(clean(b)), open(S + '/tools/queue_tick.js').read())
+h, b, _ = parts('VoiceTurn.dc.html')
+screens['turn'] = page(h, back_to_voice(clean(b)), '')
+h, b, _ = parts('VoiceFail.dc.html')
+screens['fail'] = page(h, back_to_voice(clean(b)), VSTATE)
 
 THINK_ROT = open(S + '/tools/think_rotate.js').read()
 def think(fname, mount, after=None, phrases=None):
@@ -182,8 +201,10 @@ chat=open(S+'/demo/chat.html').read().replace('%%ORB%%',small(IMG+'orb-static.pn
 chat=chat.replace('</script></body>', NAV.replace("var g = e.target.closest('[data-go]');","var g = null;") + '</script></body>')
 screens['chat']=chat
 h, b, _ = parts('VoiceCall.dc.html')
-b = clean(b).replace('<button aria-label="End call"', '<button data-go="home" aria-label="End call"').replace('<button aria-label="Minimize"', '<button data-go="home" aria-label="Minimize"')
+b = clean(b).replace('<button aria-label="End call"', '<button data-go="ended" aria-label="End call"').replace('<button aria-label="Minimize"', '<button data-go="home" aria-label="Minimize"')
 screens['call'] = page(h.replace('body{margin:0}', 'body{margin:0;background:#1F1540}'), b, open(S+'/tools/call_reveal.js').read())
+h, b, _ = parts('VoiceEnded.dc.html')
+screens['ended'] = page(h.replace('body{margin:0}', 'body{margin:0;background:#1F1540}'), clean(b), VSTATE + open(S + '/tools/ended_rate.js').read())
 h, b, _ = parts('Messages.dc.html')
 screens['messages'] = page(h, clean(b), '')
 

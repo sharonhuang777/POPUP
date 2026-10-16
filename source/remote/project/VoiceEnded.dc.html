@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Voice call · Ended</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.ve-star{transition:transform .25s cubic-bezier(.34,1.5,.64,1)}
+.ve-star svg path{transition:fill .2s ease,stroke .2s ease}
+.ve-star.on svg path{fill:#FFC85A;stroke:#FFE2A0}
+.ve-star:active{transform:scale(.88)}
+.vm-std[aria-disabled="true"]{opacity:.4}
+</style>
+</helmet>
+<div style="position: relative; width: 402px; height: 874px; overflow: hidden; font-family: 'Outfit', system-ui, sans-serif; color: #FFFFFF; background: radial-gradient(90% 45% at 50% 0%, rgba(167,135,242,0.42), rgba(167,135,242,0) 70%), radial-gradient(70% 35% at 0% 62%, rgba(255,170,150,0.14), rgba(255,170,150,0) 70%), radial-gradient(80% 40% at 100% 100%, rgba(150,95,235,0.45), rgba(150,95,235,0) 70%), linear-gradient(180deg, #2A1D52 0%, #1F1540 45%, #261850 100%)">
+
+  <div style="position: absolute; left: 16px; top: 54px; width: 370px; height: 44px; display: flex; align-items: center; justify-content: center">
+    <button style="position: absolute; left: 0; top: 5px; height: 34px; padding: 0 12px; border-radius: 999px; border: 1px solid rgba(255,140,160,0.35); background: rgba(255,92,122,0.14); display: flex; align-items: center; gap: 6px; font-family: inherit; font-size: 13px; font-weight: 500; color: #FFB3C1; cursor: pointer">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9.5 17h-19z"></path><path d="M12 10v4M12 17.5v.01"></path></svg>
+      Report
+    </button>
+    <div style="font-size: 17px; font-weight: 700; letter-spacing: -0.2px">Call ended</div>
+    <button aria-label="Close" data-go="home" style="position: absolute; right: 0; top: 0; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.10); display: flex; align-items: center; justify-content: center; padding: 0; cursor: pointer">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+    </button>
+  </div>
+
+  <div style="position: absolute; left: 149px; top: 130px; width: 104px; height: 104px">
+    <div style="position: absolute; inset: 0; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 3px rgba(255,255,255,0.85), 0 12px 30px rgba(20,8,60,0.5)">
+      <img src="./img/u2.jpg" alt="" style="width: 100%; height: 100%; object-fit: cover; filter: blur(11px) saturate(1.15); transform: scale(1.3)">
+      <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(160deg, rgba(196,170,255,0.35), rgba(80,50,160,0.35))"></div>
+      <div aria-hidden="true" style="position: absolute; inset: 0; background: radial-gradient(70% 55% at 30% 22%, rgba(255,255,255,0.55), rgba(255,255,255,0) 60%), linear-gradient(125deg, rgba(255,255,255,0) 38%, rgba(255,255,255,0.22) 46%, rgba(255,255,255,0) 54%)"></div>
+      <div aria-hidden="true" style="position: absolute; inset: 0; border-radius: 50%; box-shadow: inset 0 0 22px rgba(255,255,255,0.45), inset 0 -10px 18px rgba(60,30,140,0.25)"></div>
+    </div>
+    <span style="position: absolute; right: -2px; bottom: -2px; width: 34px; height: 34px; box-sizing: border-box; border-radius: 50%; border: 2px solid #261850; background: linear-gradient(150deg, #B394FA, #7E58E6); display: flex; align-items: center; justify-content: center">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2.5"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>
+    </span>
+  </div>
+  <div style="position: absolute; left: 0; top: 250px; width: 402px; text-align: center; font-size: 16px; font-weight: 600">Identity stayed private</div>
+
+  <div style="position: absolute; left: 24px; top: 300px; width: 354px; text-align: center">
+    <div style="display: inline-flex; align-items: baseline; gap: 8px; font-size: 15px; color: rgba(255,255,255,0.72)">Duration <span style="font-size: 22px; font-weight: 700; color: #FFFFFF; font-variant-numeric: tabular-nums; letter-spacing: 0.5px">00:54</span></div>
+    <p style="margin: 6px 0 0; font-size: 13.5px; line-height: 1.45; color: rgba(255,255,255,0.6)">The call ended because you didn't both reveal in time.</p>
+  </div>
+
+  <div style="position: absolute; left: 16px; top: 384px; width: 370px; box-sizing: border-box; padding: 16px 16px 18px; border-radius: 24px; background: rgba(255,255,255,0.08); box-shadow: inset 0 1px 0 rgba(255,255,255,0.16), inset 0 0 0 1px rgba(255,255,255,0.08); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); text-align: center">
+    <div class="ve-label" style="font-size: 15px; font-weight: 600; color: rgba(255,255,255,0.9)">How was your chat?</div>
+    <div style="margin-top: 12px; display: flex; justify-content: center; gap: 22px">
+      <button class="ve-star" data-rate="1" aria-label="Not my vibe" style="width: 56px; height: 56px; border-radius: 50%; border: 0; padding: 0; background: rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.75 5.6 6.15.9-4.45 4.34 1.05 6.13L12 16.87l-5.5 2.9 1.05-6.13L3.1 9.3l6.15-.9z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.5)" stroke-width="1.4" stroke-linejoin="round"></path></svg></button>
+      <button class="ve-star" data-rate="2" aria-label="Pretty good" style="width: 56px; height: 56px; border-radius: 50%; border: 0; padding: 0; background: rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.75 5.6 6.15.9-4.45 4.34 1.05 6.13L12 16.87l-5.5 2.9 1.05-6.13L3.1 9.3l6.15-.9z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.5)" stroke-width="1.4" stroke-linejoin="round"></path></svg></button>
+      <button class="ve-star" data-rate="3" aria-label="Loved it" style="width: 56px; height: 56px; border-radius: 50%; border: 0; padding: 0; background: rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.75 5.6 6.15.9-4.45 4.34 1.05 6.13L12 16.87l-5.5 2.9 1.05-6.13L3.1 9.3l6.15-.9z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.5)" stroke-width="1.4" stroke-linejoin="round"></path></svg></button>
+    </div>
+  </div>
+
+  <button data-go="pri" style="position: absolute; left: 16px; top: 660px; width: 370px; height: 58px; border-radius: 18px; border: 1.5px solid rgba(255,255,255,0.45); background: radial-gradient(120% 120% at 20% 0%, rgba(255,255,255,0.28), rgba(255,255,255,0) 55%), linear-gradient(155deg, #FFA45C 0%, #FF7A4E 55%, #F2545B 100%); box-shadow: 0 12px 30px rgba(240,100,80,0.35), inset 0 1px 1px rgba(255,255,255,0.6); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; font-family: inherit; color: #FFFFFF; cursor: pointer">
+    <span style="font-size: 16px; font-weight: 700; letter-spacing: -0.2px">Priority match</span>
+    <span style="display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 700"><img src="./img/coin.png" alt="" style="width: 15px; height: 15px">10 <s style="font-weight: 500; color: rgba(255,255,255,0.72)">30</s></span>
+  </button>
+
+  <button class="vm-std" data-go="stdx" aria-disabled="false" style="position: absolute; left: 101px; top: 734px; width: 200px; height: 56px; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-family: inherit; color: #FFFFFF; cursor: pointer">
+    <span style="display: flex; align-items: center; gap: 4px; font-size: 16px; font-weight: 700">Standard match<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg></span>
+    <span style="font-size: 13px; color: rgba(255,255,255,0.62)"><span data-left="1">1</span> left today</span>
+  </button>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":402,"height":874}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

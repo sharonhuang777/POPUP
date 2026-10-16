@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Voice Match · Match failed · No attempts</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+@keyframes drift{0%,100%{transform:translate(-1%,-.5%)}50%{transform:translate(1%,.6%)}}
+@keyframes fSpin{to{transform:rotate(360deg)}}
+@keyframes fFloat{50%{transform:translateY(-5px)}}
+.ambient{animation:drift 28s ease-in-out infinite}
+.f-orbit{animation:fSpin 26s linear infinite}
+.f-float{animation:fFloat 4.5s ease-in-out infinite}
+@media (prefers-reduced-motion: reduce){.ambient,.f-orbit,.f-float{animation:none}}
+.vm-std[aria-disabled="true"]{opacity:.42}
+</style>
+</helmet>
+<div style="position: relative; width: 402px; height: 874px; overflow: hidden; font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif; color: #342b43; background: linear-gradient(180deg, #F8F1EE 0%, #F5EFF1 40%, #EFEBF3 72%, #E8E4F2 100%)">
+
+  <div aria-hidden="true" class="ambient" style="position: absolute; left: -16px; top: -16px; width: 434px; height: 906px; background: radial-gradient(ellipse at 50% 34%, rgba(185,170,225,0.30), rgba(185,170,225,0) 44%), radial-gradient(ellipse at 88% 80%, rgba(255,205,185,0.26), rgba(255,205,185,0) 45%)"></div>
+
+  <div style="position: absolute; left: 0; top: 54px; width: 402px; height: 44px; display: flex; align-items: center; justify-content: center">
+    <button aria-label="Back" style="position: absolute; left: 16px; top: 0; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.7); background: rgba(255,255,255,0.44); display: flex; align-items: center; justify-content: center; color: #53416e; cursor: pointer">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </button>
+    <div style="font-size: 17px; font-weight: 700; letter-spacing: -0.2px; color: #53416e">Voice Match</div>
+  </div>
+
+  <div style="position: absolute; left: 24px; top: 128px; width: 354px; text-align: center">
+    <h1 style="margin: 0; font-size: 30px; line-height: 1.2; font-weight: 750; letter-spacing: -0.6px">No match this time</h1>
+    <p style="margin: 8px auto 0; max-width: 310px; font-size: 15px; line-height: 1.45; color: #6E6080">Not enough people are active right now to find you a good match.</p>
+  </div>
+
+  <div style="position: absolute; left: 106px; top: 262px; width: 190px; height: 190px">
+    <div class="f-orbit" aria-hidden="true" style="position: absolute; inset: 0; border-radius: 50%; border: 1.5px dashed rgba(130,112,180,0.40)">
+      <span style="position: absolute; left: 22px; top: 20px; width: 9px; height: 9px; border-radius: 50%; background: #C9BDE6"></span>
+      <span style="position: absolute; right: 8px; bottom: 52px; width: 6px; height: 6px; border-radius: 50%; background: #D8CFEA"></span>
+    </div>
+    <img class="f-float" src="./img/orb-static.png" alt="" style="position: absolute; left: 35px; top: 35px; width: 120px; height: 120px; border-radius: 50%; filter: grayscale(0.6) brightness(1.04); opacity: 0.82; box-shadow: 0 16px 36px rgba(110,95,160,0.22)">
+    <span style="position: absolute; right: 22px; top: 26px; width: 40px; height: 40px; box-sizing: border-box; border-radius: 50%; border: 1px solid #FFFFFF; background: rgba(255,255,255,0.8); box-shadow: 0 6px 16px rgba(83,65,110,0.14); display: flex; align-items: center; justify-content: center; color: #7A6E92">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg>
+    </span>
+  </div>
+
+  <div style="position: absolute; left: 16px; top: 556px; width: 370px; box-sizing: border-box; padding: 16px; border-radius: 26px; border: 1.5px solid rgba(255,255,255,0.85); background: linear-gradient(150deg, rgba(255,255,255,0.72), rgba(255,255,255,0.36)); box-shadow: 0 22px 44px rgba(120,90,170,0.14), inset 0 1px 1px rgba(255,255,255,0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px)">
+    <div style="display: flex; align-items: center; gap: 12px">
+      <span style="flex: none; width: 46px; height: 46px; border-radius: 50%; background: radial-gradient(120% 120% at 25% 10%, rgba(255,255,255,0.35), rgba(255,255,255,0) 55%), linear-gradient(155deg, #FFA45C 0%, #FF7A4E 55%, #F2545B 100%); box-shadow: 0 6px 14px rgba(240,100,80,0.28), inset 0 1px 1px rgba(255,255,255,0.6); display: flex; align-items: center; justify-content: center">
+        <svg width="18" height="24" viewBox="0 0 27 36" fill="#FFFFFF" aria-hidden="true"><path d="M16.4951 1.14258C18.3709 -0.528969 21.2657 1.34132 20.499 3.76758L17.7432 12.4951L17.6221 12.877L17.9688 13.0781L25.2588 17.3125C26.7252 18.1624 26.9326 20.2127 25.6631 21.3438L10.5049 34.8574C8.62904 36.5286 5.73516 34.6586 6.50195 32.2324L9.25586 23.5049L9.37598 23.123L9.03027 22.9219L1.74023 18.6875C0.274689 17.8376 0.067064 15.7864 1.33496 14.6553L16.4951 1.14258Z"></path></svg>
+      </span>
+      <div style="flex: 1; min-width: 0">
+        <div style="font-size: 16px; font-weight: 700; letter-spacing: -0.2px; color: #2E2A40">Priority Access</div>
+        <div style="margin-top: 2px; font-size: 13px; color: #6E6080">90% higher match success</div>
+      </div>
+      <div style="text-align: right">
+        <div style="display: flex; align-items: center; justify-content: flex-end; gap: 4px; font-size: 18px; font-weight: 750; color: #2E2A40"><img src="./img/coin.png" alt="" style="width: 18px; height: 18px">10</div>
+        <s style="font-size: 13px; color: #9A90AC">30</s>
+      </div>
+    </div>
+    <button data-go="pri" style="margin-top: 14px; width: 100%; height: 52px; border-radius: 16px; border: 1.5px solid rgba(255,255,255,0.55); background: radial-gradient(120% 120% at 20% 0%, rgba(255,255,255,0.30), rgba(255,255,255,0) 55%), linear-gradient(155deg, #FFA45C 0%, #FF7A4E 55%, #F2545B 100%); box-shadow: 0 12px 26px rgba(240,100,80,0.30), inset 0 1px 1px rgba(255,255,255,0.6); font-family: inherit; font-size: 16px; font-weight: 700; color: #FFFFFF; cursor: pointer">Use now</button>
+  </div>
+
+  <button class="vm-std" data-go="stdx" aria-disabled="true" style="position: absolute; left: 101px; top: 736px; width: 200px; height: 56px; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-family: inherit; color: #2E2A40; cursor: pointer">
+    <span style="display: flex; align-items: center; gap: 4px; font-size: 16px; font-weight: 700">Standard match<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg></span>
+    <span style="font-size: 13px; color: #6E6080"><span data-left="0">0</span> left today</span>
+  </button>
+<div role="status" class="vm-toast" style="position: absolute; left: 36px; top: 452px; width: 330px; box-sizing: border-box; padding: 13px 18px; border-radius: 16px; background: rgba(24,18,38,0.9); border: 1px solid rgba(255,255,255,0.14); box-shadow: 0 14px 34px rgba(20,10,50,0.30); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: #FFFFFF; font-size: 14px; font-weight: 500; line-height: 1.4; text-align: center">No free matches left today. Go Priority to keep matching.</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":402,"height":874}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

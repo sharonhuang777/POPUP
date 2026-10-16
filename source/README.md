@@ -26,6 +26,9 @@
 - `tools/think_rotate.js`：匹配思考页状态行的轮换文案。
 - `tools/call_reveal.js`：语音通话页的揭面交互和计时。
 - `tools/drop_patch.py`：个人主页标签掉落动画的补丁。
+- `tools/voice_state.js`：语音匹配的剩余免费次数显示（启动页、匹配失败页、通话结束页），次数由 shell 统一管理。
+- `tools/queue_tick.js`：排队页的人数和预计等待倒数，约 5 秒后进入「轮到你」。
+- `tools/ended_rate.js`：通话结束页的打星交互。
 
 ## 更新 demo 的流程
 
@@ -52,6 +55,13 @@
   - 右下角 Threads 风格的发帖按钮：纯白 56px 圆形、柔和阴影、黑色加号 2.3px。
   - 按钮离底部导航栏 32px。
 - **私聊列表**：没有语音消息。
+- **语音匹配 · 排队 / 失败 / 结束**（参考东南亚版改成北美风格，2026-10-16）
+  - 排队、轮到你、匹配失败用启动页的浅色奶油底和玻璃卡片；通话结束页延续通话页的深紫色。
+  - Priority 价格统一为 10 金币，划掉的原价是 30。
+  - 排队页：其他排队用户的头像是模糊的，只有「You」清晰；底部有「Skip the line」按钮。
+  - 匹配失败页和通话结束页都有「无次数」版本：Standard 按钮置灰，点击后弹提示「No free matches left today. Go Priority to keep matching.」。
+  - 通话结束页：没有揭面的对方头像保持模糊，显示「Identity stayed private」；三颗星打分。
+  - Demo 流程：启动页 Standard（消耗 1 次）→ 排队 → 轮到你 → Regular line → 思考页 → 第一次匹配失败 → Standard match（再消耗 1 次）→ 接通 → 挂断 → 通话结束页（0 次，点 Standard 弹提示）。每日共 3 次，启动页显示剩 2 次。
 - **语音通话**
   - 深紫色界面，双方头像先用毛玻璃遮住。
   - 点「Reveal to keep talking」后，自己先揭面，约 1.6 秒后对方揭面，倒计时改为正计时。
