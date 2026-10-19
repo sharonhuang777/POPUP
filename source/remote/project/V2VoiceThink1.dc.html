@@ -34,7 +34,7 @@ a{color:#604580}a:hover{color:#3f2c5a}
 @keyframes copySettle{from{font-size:15px;opacity:1}to{font-size:13px;opacity:.48}}
 @keyframes dim{to{opacity:.45;transform:scale(.8)}}
 .vrow.done{animation:rowOpen .5s cubic-bezier(.2,.7,.2,1) both,rowSettle .6s ease forwards}
-.vrow.done .copy{animation:copyIn .85s ease both,sweep 2.05s cubic-bezier(.45,0,.25,1) both,copySettle .6s ease forwards}
+.vrow.done .copy{animation:copyIn .85s ease both,sweep 2.05s cubic-bezier(.45,0,.25,1) both,copySettle .6s ease forwards,cGrow .55s cubic-bezier(.2,.7,.2,1) both}
 .vrow.done svg{transform-origin:center;animation:dim .6s ease forwards;animation-delay:var(--settle)}
 @keyframes type{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
 @keyframes qOut{to{opacity:0;filter:blur(2px)}}
@@ -60,6 +60,9 @@ a{color:#604580}a:hover{color:#3f2c5a}
 @media (prefers-reduced-motion: reduce){.aurawrap,.aura,.rip,.iri1,.iri2,.iri3,.warp i,.pborder,.pcard,.pbadge .gl{animation:none}.warp{display:none}}
 .qa{flex:1;min-width:0;display:grid}
 .qa>*{grid-area:1/1}
+/* Row hugs the one-line thinking label, then grows to fit the insight when it appears */
+.qa .copy{overflow:hidden}
+@keyframes cGrow{from{max-height:22px}to{max-height:66px}}
 .q{justify-self:start;white-space:nowrap;font-size:14px;letter-spacing:-0.2px;line-height:1.45;color:#8A7E9C;clip-path:inset(0 100% 0 0);animation:type 1.3s forwards,qOut .45s ease forwards}
 @media (prefers-reduced-motion: reduce){.vrow.done,.vrow.done .copy,.vrow.done svg{animation:none}.q{display:none}}
 @media (prefers-reduced-motion: reduce){.ambient,.w,.vrow,.orbit,.m1,.m2,.m3,.copy,.copy.loop{animation:none}}
