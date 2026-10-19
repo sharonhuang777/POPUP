@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Voice Match · Queue</title>
+<title>Voice Match · In line</title>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -12,15 +12,17 @@
 <style>
 body{margin:0}
 @keyframes drift{0%,100%{transform:translate(-1%,-.5%)}50%{transform:translate(1%,.6%)}}
-@keyframes qSlide{from{transform:translateX(0)}to{transform:translateX(-420px)}}
-@keyframes qPulse{0%{transform:scale(.92);opacity:.6}100%{transform:scale(1.35);opacity:0}}
-@keyframes qFloat{50%{transform:translateY(-6px)}}
+@keyframes qLane{from{transform:translateX(0)}to{transform:translateX(-26px)}}
+@keyframes qFront{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.4)}}
+@keyframes qGate{0%,100%{box-shadow:0 0 0 0 rgba(242,84,91,0.35),0 8px 18px rgba(240,100,80,0.28)}50%{box-shadow:0 0 0 8px rgba(242,84,91,0),0 8px 18px rgba(240,100,80,0.28)}}
+@keyframes qSpin{to{transform:rotate(360deg)}}
 .ambient{animation:drift 28s ease-in-out infinite}
-.q-track{animation:qSlide 9s linear infinite}
-.q-pulse{animation:qPulse 2.4s cubic-bezier(.2,.7,.3,1) infinite}
-.q-pulse.p2{animation-delay:1.2s}
-.q-float{animation:qFloat 4s ease-in-out infinite}
-@media (prefers-reduced-motion: reduce){.ambient,.q-track,.q-pulse,.q-float{animation:none}}
+.q-lane{animation:qLane 1.6s cubic-bezier(.5,0,.3,1) infinite}
+.q-front{animation:qFront 1.6s cubic-bezier(.5,0,.3,1) infinite}
+.q-gate{animation:qGate 1.6s ease-out infinite}
+.q-glint{transform-origin:110px 110px;animation:qSpin 6s linear infinite}
+.q-arc{transition:stroke-dashoffset .7s cubic-bezier(.2,.7,.2,1)}
+@media (prefers-reduced-motion: reduce){.ambient,.q-lane,.q-front,.q-gate,.q-glint{animation:none}}
 </style>
 </helmet>
 <div style="position: relative; width: 402px; height: 874px; overflow: hidden; font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif; color: #342b43; background: linear-gradient(180deg, #FCF1E8 0%, #FAF0EE 40%, #F3ECF3 72%, #ECE6F5 100%)">
@@ -35,45 +37,48 @@ body{margin:0}
   </div>
 
   <div style="position: absolute; left: 24px; top: 128px; width: 354px; text-align: center">
-    <h1 style="margin: 0; font-size: 30px; line-height: 1.2; font-weight: 750; letter-spacing: -0.6px">Please wait…</h1>
-    <p style="margin: 8px 0 0; font-size: 15px; line-height: 1.45; color: #6E6080"><b class="q-ahead" style="font-weight: 700; color: #7356D4">999+</b> people are ahead of you</p>
+    <h1 style="margin: 0; font-size: 30px; line-height: 1.2; font-weight: 750; letter-spacing: -0.6px">You're in line</h1>
+    <p style="margin: 8px 0 0; font-size: 15px; line-height: 1.45; color: #6E6080">We'll connect you the moment it's your turn.</p>
   </div>
 
-  <div style="position: absolute; left: 131px; top: 228px; width: 140px; height: 140px">
-    <span class="q-pulse" aria-hidden="true" style="position: absolute; inset: -14px; border-radius: 50%; border: 1.5px solid rgba(160,130,240,0.45)"></span>
-    <span class="q-pulse p2" aria-hidden="true" style="position: absolute; inset: -14px; border-radius: 50%; border: 1.5px solid rgba(160,130,240,0.45)"></span>
-    <img class="q-float" src="./img/orb-static.png" alt="" style="position: absolute; inset: 0; width: 140px; height: 140px; border-radius: 50%; box-shadow: 0 18px 44px rgba(130,100,210,0.30)">
-  </div>
-
-  <div aria-hidden="true" style="position: absolute; left: 0; top: 420px; width: 402px; height: 120px; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 78%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 78%, transparent 100%)">
-    <div style="position: absolute; left: 0; top: 52px; width: 402px; height: 2px; background: repeating-linear-gradient(90deg, rgba(140,115,210,0.35) 0 4px, transparent 4px 10px)"></div>
-    <div class="q-track" style="position: absolute; left: -9px; top: 27px; width: 840px; height: 52px; display: flex; gap: 18px">
-      <img src="./img/u1.jpg" alt="" style="flex: none; width: 52px; height: 52px; border-radius: 50%; object-fit: cover; filter: blur(3px) saturate(1.1); box-shadow: 0 0 0 2px rgba(255,255,255,0.9), 0 6px 14px rgba(83,65,110,0.14)">
-      <img src="./img/u2.jpg" alt="" style="flex: none; width: 52px; height: 52px; border-radius: 50%; object-fit: cover; filter: blur(3px) saturate(1.1); box-shadow: 0 0 0 2px rgba(255,255,255,0.9), 0 6px 14px rgba(83,65,110,0.14)">
-      <img src="./img/u3.jpg" alt="" style="flex: none; width: 52px; height: 52px; border-radius: 50%; object-fit: cover; filter: blur(3px) saturate(1.1); box-shadow: 0 0 0 2px rgba(255,255,255,0.9), 0 6px 14px rgba(83,65,110,0.14)">
-      <img src="./img/u4.jpg" alt="" style="flex: none; width: 52px; height: 52px; border-radius: 50%; object-fit: cover; filter: blur(3px) saturate(1.1); box-shadow: 0 0 0 2px rgba(255,255,255,0.9), 0 6px 14px rgba(83,65,110,0.14)">
-      <img src="./img/u5.jpg" alt="" style="flex: none; width: 52px; height: 52px; border-radius: 50%; object-fit: cover; filter: blur(3px) saturate(1.1); box-shadow: 0 0 0 2px rgba(255,255,255,0.9), 0 6px 14px rgba(83,65,110,0.14)">
-      <img src="./img/u6.jpg" alt="" style="flex: none; width: 52px; height: 52px; border-radius: 50%; object-fit: cover; filter: blur(3px) saturate(1.1); box-shadow: 0 0 0 2px rgba(255,255,255,0.9), 0 6px 14px rgba(83,65,110,0.14)">
-      <img src="./img/u1.jpg" alt="" style="flex: none; width: 52px; height: 52px; border-radius: 50%; object-fit: cover; filter: blur(3px) saturate(1.1); box-shadow: 0 0 0 2px rgba(255,255,255,0.9), 0 6px 14px rgba(83,65,110,0.14)">
-      <img src="./img/u2.jpg" alt="" style="flex: none; width: 52px; height: 52px; border-radius: 50%; object-fit: cover; filter: blur(3px) saturate(1.1); box-shadow: 0 0 0 2px rgba(255,255,255,0.9), 0 6px 14px rgba(83,65,110,0.14)">
-      <img src="./img/u3.jpg" alt="" style="flex: none; width: 52px; height: 52px; border-radius: 50%; object-fit: cover; filter: blur(3px) saturate(1.1); box-shadow: 0 0 0 2px rgba(255,255,255,0.9), 0 6px 14px rgba(83,65,110,0.14)">
-      <img src="./img/u4.jpg" alt="" style="flex: none; width: 52px; height: 52px; border-radius: 50%; object-fit: cover; filter: blur(3px) saturate(1.1); box-shadow: 0 0 0 2px rgba(255,255,255,0.9), 0 6px 14px rgba(83,65,110,0.14)">
-      <img src="./img/u5.jpg" alt="" style="flex: none; width: 52px; height: 52px; border-radius: 50%; object-fit: cover; filter: blur(3px) saturate(1.1); box-shadow: 0 0 0 2px rgba(255,255,255,0.9), 0 6px 14px rgba(83,65,110,0.14)">
-      <img src="./img/u6.jpg" alt="" style="flex: none; width: 52px; height: 52px; border-radius: 50%; object-fit: cover; filter: blur(3px) saturate(1.1); box-shadow: 0 0 0 2px rgba(255,255,255,0.9), 0 6px 14px rgba(83,65,110,0.14)">
+  <div style="position: absolute; left: 91px; top: 222px; width: 220px; height: 220px">
+    <div aria-hidden="true" style="position: absolute; inset: 22px; border-radius: 50%; background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.9), rgba(246,238,255,0.55) 60%, rgba(232,222,252,0.4)); box-shadow: inset 0 2px 3px rgba(255,255,255,0.95), 0 18px 40px rgba(130,100,210,0.18)"></div>
+    <svg width="220" height="220" viewBox="0 0 220 220" aria-hidden="true" style="position: absolute; inset: 0; transform: rotate(-90deg)">
+      <defs><linearGradient id="qArcG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFA45C"></stop><stop offset="0.5" stop-color="#F2545B"></stop><stop offset="1" stop-color="#8F6FF0"></stop></linearGradient></defs>
+      <circle cx="110" cy="110" r="100" fill="none" stroke="rgba(140,115,210,0.14)" stroke-width="8"></circle>
+      <circle class="q-arc" cx="110" cy="110" r="100" fill="none" stroke="url(#qArcG)" stroke-width="8" stroke-linecap="round" stroke-dasharray="628.3" stroke-dashoffset="440"></circle>
+    </svg>
+    <svg class="q-glint" width="220" height="220" viewBox="0 0 220 220" aria-hidden="true" style="position: absolute; inset: 0"><circle cx="110" cy="10" r="3" fill="#FFFFFF" opacity="0.9"></circle></svg>
+    <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center">
+      <div style="font-size: 13px; font-weight: 600; letter-spacing: 0.4px; color: #7A6E92">People ahead</div>
+      <div class="q-ahead" style="margin-top: 2px; font-size: 56px; line-height: 1; font-weight: 750; letter-spacing: -1px; font-variant-numeric: tabular-nums; color: #2E2A40">128</div>
+      <div style="margin-top: 8px; height: 24px; padding: 0 10px; border-radius: 999px; background: rgba(255,255,255,0.8); border: 1px solid #FFFFFF; display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; color: #6E6080"><span style="width: 6px; height: 6px; border-radius: 50%; background: #3CCB7F"></span>Line is moving</div>
     </div>
   </div>
 
-  <div style="position: absolute; left: 157px; top: 426px; width: 88px; display: flex; flex-direction: column; align-items: center">
-    <div style="width: 88px; height: 88px; box-sizing: border-box; border-radius: 50%; padding: 3px; background: linear-gradient(150deg, #FFA45C 0%, #F2545B 45%, #8F6FF0 100%); box-shadow: 0 0 0 5px rgba(255,255,255,0.75), 0 14px 30px rgba(140,90,190,0.28)">
-      <img src="./img/avatar.png" alt="Your avatar" style="display: block; width: 82px; height: 82px; border-radius: 50%; object-fit: cover; object-position: center 20%; background: #1A1024">
+  <div aria-label="Your place in line" role="img" style="position: absolute; left: 24px; top: 474px; width: 354px; height: 92px">
+    <div aria-hidden="true" style="position: absolute; left: 22px; right: 28px; top: 33px; height: 2px; background: repeating-linear-gradient(90deg, rgba(140,115,210,0.3) 0 4px, transparent 4px 9px)"></div>
+    <div class="q-gate" aria-hidden="true" style="position: absolute; left: 0; top: 12px; width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(155deg, #FFA45C 0%, #FF7A4E 55%, #F2545B 100%); display: flex; align-items: center; justify-content: center">
+      <svg width="18" height="20" viewBox="0 0 29 33" aria-hidden="true"><path d="M7.67 0.54C8.9 0.73 9.3 1.4 10.12 3.11C11.8 6.15 11.7 7.43 11.56 8.04C11.29 9.11 10.65 9.5 9.92 9.92C9.38 10.24 8.18 11.14 8.18 12.72C8.23 13.92 8.94 15.56 10.8 18.02C14.02 21.97 16.06 22.79 17.11 22.86C17.86 22.91 18.3 22.62 18.59 22.34C20.19 20.67 20.6 20.41 21.7 20.39C22.84 20.37 23.6 20.88 25.73 22.75C27.93 24.55 28.68 25.4 28.31 26.77C28.04 28.27 26.43 30.33 24.95 31.09C22.45 32.3 18.9 31.6 16.18 30.07C12.19 28.24 8.42 25.04 5.59 21.03C1.34 15 -0.25 9.43 0.82 4.9C1.11 3.81 1.63 2.51 3.45 1.64C4.98 0.74 6.56 0.37 7.67 0.54Z" fill="#FFFFFF"></path></svg>
     </div>
-    <div style="margin-top: 10px; height: 24px; padding: 0 12px; border-radius: 999px; background: #342b43; color: #FFFFFF; font-size: 12px; font-weight: 650; display: flex; align-items: center">You</div>
+    <div style="position: absolute; left: -10px; top: 64px; width: 64px; text-align: center; font-size: 11.5px; font-weight: 600; color: #E9533F">Call</div>
+    <div aria-hidden="true" style="position: absolute; left: 56px; top: 27px; width: 222px; height: 14px; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 24px); mask-image: linear-gradient(90deg, transparent 0, #000 24px)">
+      <div class="q-lane" style="display: flex; gap: 12px; width: 320px">
+        <span class="q-front" style="flex: none; width: 14px; height: 14px; border-radius: 50%; background: rgba(140,115,210,0.26)"></span><span style="flex: none; width: 14px; height: 14px; border-radius: 50%; background: rgba(140,115,210,0.30)"></span><span style="flex: none; width: 14px; height: 14px; border-radius: 50%; background: rgba(140,115,210,0.34)"></span><span style="flex: none; width: 14px; height: 14px; border-radius: 50%; background: rgba(140,115,210,0.38)"></span><span style="flex: none; width: 14px; height: 14px; border-radius: 50%; background: rgba(140,115,210,0.42)"></span><span style="flex: none; width: 14px; height: 14px; border-radius: 50%; background: rgba(140,115,210,0.46)"></span><span style="flex: none; width: 14px; height: 14px; border-radius: 50%; background: rgba(140,115,210,0.50)"></span><span style="flex: none; width: 14px; height: 14px; border-radius: 50%; background: rgba(140,115,210,0.55)"></span><span style="flex: none; width: 14px; height: 14px; border-radius: 50%; background: rgba(140,115,210,0.60)"></span><span style="flex: none; width: 14px; height: 14px; border-radius: 50%; background: rgba(140,115,210,0.64)"></span>
+      </div>
+    </div>
+    <div style="position: absolute; right: 0; top: 6px; width: 56px; display: flex; flex-direction: column; align-items: center">
+      <div style="width: 56px; height: 56px; box-sizing: border-box; border-radius: 50%; padding: 2.5px; background: linear-gradient(150deg, #FFA45C 0%, #F2545B 45%, #8F6FF0 100%); box-shadow: 0 0 0 4px rgba(255,255,255,0.8), 0 10px 22px rgba(140,90,190,0.25)">
+        <img src="./img/avatar.png" alt="" style="display: block; width: 51px; height: 51px; border-radius: 50%; object-fit: cover; object-position: center 20%; background: #1A1024">
+      </div>
+      <div style="margin-top: 6px; height: 20px; padding: 0 9px; border-radius: 999px; background: #342b43; color: #FFFFFF; font-size: 11px; font-weight: 650; display: flex; align-items: center">You</div>
+    </div>
   </div>
 
   <div style="position: absolute; left: 16px; top: 606px; width: 370px; box-sizing: border-box; padding: 20px 16px 16px; border-radius: 32px; border: 1.5px solid rgba(255,255,255,0.85); background: linear-gradient(150deg, rgba(255,255,255,0.70), rgba(255,255,255,0.34)); box-shadow: 0 22px 44px rgba(120,90,170,0.14), inset 0 1px 1px rgba(255,255,255,0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); text-align: center">
     <div style="font-size: 14px; font-weight: 500; color: #6E6080">Estimated wait</div>
     <div class="q-wait" style="margin-top: 2px; font-size: 40px; line-height: 1.15; font-weight: 750; letter-spacing: 0.5px; font-variant-numeric: tabular-nums; color: #2E2A40">01:32</div>
-    <button data-go="pri" style="margin-top: 14px; width: 100%; height: 56px; border-radius: 16px; border: 1.5px solid rgba(255,255,255,0.55); background: radial-gradient(120% 120% at 20% 0%, rgba(255,255,255,0.30), rgba(255,255,255,0) 55%), linear-gradient(155deg, #FFA45C 0%, #FF7A4E 55%, #F2545B 100%); box-shadow: 0 12px 26px rgba(240,100,80,0.30), inset 0 1px 1px rgba(255,255,255,0.6); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; font-family: inherit; color: #FFFFFF; cursor: pointer">
+    <button data-go="pri" style="margin-top: 14px; width: 100%; height: 56px; border-radius: 16px; background: radial-gradient(120% 120% at 20% 0%, rgba(255,255,255,0.30), rgba(255,255,255,0) 55%), linear-gradient(155deg, #FFA45C 0%, #FF7A4E 55%, #F2545B 100%); box-shadow: 0 12px 26px rgba(240,100,80,0.30), inset 0 1px 1px rgba(255,255,255,0.6); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; font-family: inherit; color: #FFFFFF; cursor: pointer; border-style: none">
       <span style="font-size: 16px; font-weight: 700; letter-spacing: -0.2px">Skip the line</span>
       <span style="display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 700"><img src="./img/coin.png" alt="" style="width: 15px; height: 15px">10 <s style="font-weight: 500; color: rgba(255,255,255,0.72)">30</s></span>
     </button>
