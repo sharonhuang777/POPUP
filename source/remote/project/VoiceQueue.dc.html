@@ -12,17 +12,15 @@
 <style>
 body{margin:0}
 @keyframes drift{0%,100%{transform:translate(-1%,-.5%)}50%{transform:translate(1%,.6%)}}
-@keyframes qLane{from{transform:translateX(0)}to{transform:translateX(-26px)}}
-@keyframes qFront{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.4)}}
 @keyframes qGate{0%,100%{box-shadow:0 0 0 0 rgba(242,84,91,0.35),0 8px 18px rgba(240,100,80,0.28)}50%{box-shadow:0 0 0 8px rgba(242,84,91,0),0 8px 18px rgba(240,100,80,0.28)}}
 @keyframes qSpin{to{transform:rotate(360deg)}}
 .ambient{animation:drift 28s ease-in-out infinite}
-.q-lane{animation:qLane 1.6s cubic-bezier(.5,0,.3,1) infinite}
-.q-front{animation:qFront 1.6s cubic-bezier(.5,0,.3,1) infinite}
+.q-fill{transition:width .7s cubic-bezier(.2,.7,.2,1)}
+.q-you{transition:left .7s cubic-bezier(.2,.7,.2,1)}
 .q-gate{animation:qGate 1.6s ease-out infinite}
 .q-glint{transform-origin:110px 110px;animation:qSpin 6s linear infinite}
 .q-arc{transition:stroke-dashoffset .7s cubic-bezier(.2,.7,.2,1)}
-@media (prefers-reduced-motion: reduce){.ambient,.q-lane,.q-front,.q-gate,.q-glint{animation:none}}
+@media (prefers-reduced-motion: reduce){.ambient,.q-gate,.q-glint{animation:none}.q-fill,.q-you{transition:none}}
 </style>
 </helmet>
 <div style="position: relative; width: 402px; height: 874px; overflow: hidden; font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif; color: #342b43; background: linear-gradient(180deg, #FCF1E8 0%, #FAF0EE 40%, #F3ECF3 72%, #ECE6F5 100%)">
@@ -57,17 +55,13 @@ body{margin:0}
   </div>
 
   <div aria-label="Your place in line" role="img" style="position: absolute; left: 24px; top: 474px; width: 354px; height: 92px">
-    <div aria-hidden="true" style="position: absolute; left: 22px; right: 28px; top: 33px; height: 2px; background: repeating-linear-gradient(90deg, rgba(140,115,210,0.3) 0 4px, transparent 4px 9px)"></div>
-    <div class="q-gate" aria-hidden="true" style="position: absolute; left: 0; top: 12px; width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(155deg, #FFA45C 0%, #FF7A4E 55%, #F2545B 100%); display: flex; align-items: center; justify-content: center">
+    <div aria-hidden="true" style="position: absolute; left: 4px; right: 30px; top: 29px; height: 10px; border-radius: 5px; background: rgba(140,115,210,0.14)"></div>
+    <div class="q-fill" aria-hidden="true" style="position: absolute; left: 4px; top: 29px; width: 83px; height: 10px; border-radius: 5px; background: linear-gradient(90deg, #FFA45C 0%, #F2545B 55%, #8F6FF0 100%)"></div>
+    <div class="q-gate" aria-hidden="true" style="position: absolute; right: 0; top: 12px; width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(155deg, #FFA45C 0%, #FF7A4E 55%, #F2545B 100%); display: flex; align-items: center; justify-content: center">
       <svg width="18" height="20" viewBox="0 0 29 33" aria-hidden="true"><path d="M7.67 0.54C8.9 0.73 9.3 1.4 10.12 3.11C11.8 6.15 11.7 7.43 11.56 8.04C11.29 9.11 10.65 9.5 9.92 9.92C9.38 10.24 8.18 11.14 8.18 12.72C8.23 13.92 8.94 15.56 10.8 18.02C14.02 21.97 16.06 22.79 17.11 22.86C17.86 22.91 18.3 22.62 18.59 22.34C20.19 20.67 20.6 20.41 21.7 20.39C22.84 20.37 23.6 20.88 25.73 22.75C27.93 24.55 28.68 25.4 28.31 26.77C28.04 28.27 26.43 30.33 24.95 31.09C22.45 32.3 18.9 31.6 16.18 30.07C12.19 28.24 8.42 25.04 5.59 21.03C1.34 15 -0.25 9.43 0.82 4.9C1.11 3.81 1.63 2.51 3.45 1.64C4.98 0.74 6.56 0.37 7.67 0.54Z" fill="#FFFFFF"></path></svg>
     </div>
-    <div style="position: absolute; left: -10px; top: 64px; width: 64px; text-align: center; font-size: 11.5px; font-weight: 600; color: #E9533F">Call</div>
-    <div aria-hidden="true" style="position: absolute; left: 56px; top: 27px; width: 222px; height: 14px; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 24px); mask-image: linear-gradient(90deg, transparent 0, #000 24px)">
-      <div class="q-lane" style="display: flex; gap: 12px; width: 320px">
-        <span class="q-front" style="flex: none; width: 14px; height: 14px; border-radius: 50%; background: rgba(140,115,210,0.26)"></span><span style="flex: none; width: 14px; height: 14px; border-radius: 50%; background: rgba(140,115,210,0.30)"></span><span style="flex: none; width: 14px; height: 14px; border-radius: 50%; background: rgba(140,115,210,0.34)"></span><span style="flex: none; width: 14px; height: 14px; border-radius: 50%; background: rgba(140,115,210,0.38)"></span><span style="flex: none; width: 14px; height: 14px; border-radius: 50%; background: rgba(140,115,210,0.42)"></span><span style="flex: none; width: 14px; height: 14px; border-radius: 50%; background: rgba(140,115,210,0.46)"></span><span style="flex: none; width: 14px; height: 14px; border-radius: 50%; background: rgba(140,115,210,0.50)"></span><span style="flex: none; width: 14px; height: 14px; border-radius: 50%; background: rgba(140,115,210,0.55)"></span><span style="flex: none; width: 14px; height: 14px; border-radius: 50%; background: rgba(140,115,210,0.60)"></span><span style="flex: none; width: 14px; height: 14px; border-radius: 50%; background: rgba(140,115,210,0.64)"></span>
-      </div>
-    </div>
-    <div style="position: absolute; right: 0; top: 6px; width: 56px; display: flex; flex-direction: column; align-items: center">
+    <div style="position: absolute; right: -10px; top: 64px; width: 64px; text-align: center; font-size: 11.5px; font-weight: 600; color: #E9533F">Call</div>
+    <div class="q-you" style="position: absolute; left: 59px; top: 6px; width: 56px; display: flex; flex-direction: column; align-items: center">
       <div style="width: 56px; height: 56px; box-sizing: border-box; border-radius: 50%; padding: 2.5px; background: linear-gradient(150deg, #FFA45C 0%, #F2545B 45%, #8F6FF0 100%); box-shadow: 0 0 0 4px rgba(255,255,255,0.8), 0 10px 22px rgba(140,90,190,0.25)">
         <img src="./img/avatar.png" alt="" style="display: block; width: 51px; height: 51px; border-radius: 50%; object-fit: cover; object-position: center 20%; background: #1A1024">
       </div>
