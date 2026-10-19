@@ -13,14 +13,13 @@
 body{margin:0}
 @keyframes drift{0%,100%{transform:translate(-1%,-.5%)}50%{transform:translate(1%,.6%)}}
 @keyframes qGate{0%,100%{box-shadow:0 0 0 0 rgba(242,84,91,0.35),0 8px 18px rgba(240,100,80,0.28)}50%{box-shadow:0 0 0 8px rgba(242,84,91,0),0 8px 18px rgba(240,100,80,0.28)}}
-@keyframes qSpin{to{transform:rotate(360deg)}}
+@keyframes qLive{0%,100%{box-shadow:0 0 0 0 rgba(60,203,127,.45)}50%{box-shadow:0 0 0 5px rgba(60,203,127,0)}}
 .ambient{animation:drift 28s ease-in-out infinite}
 .q-fill{transition:width .7s cubic-bezier(.2,.7,.2,1)}
 .q-you{transition:left .7s cubic-bezier(.2,.7,.2,1)}
 .q-gate{animation:qGate 1.6s ease-out infinite}
-.q-glint{transform-origin:110px 110px;animation:qSpin 6s linear infinite}
-.q-arc{transition:stroke-dashoffset .7s cubic-bezier(.2,.7,.2,1)}
-@media (prefers-reduced-motion: reduce){.ambient,.q-gate,.q-glint{animation:none}.q-fill,.q-you{transition:none}}
+.q-live{animation:qLive 1.6s ease-out infinite}
+@media (prefers-reduced-motion: reduce){.ambient,.q-gate,.q-live{animation:none}.q-fill,.q-you{transition:none}}
 </style>
 </helmet>
 <div style="position: relative; width: 402px; height: 874px; overflow: hidden; font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif; color: #342b43; background: linear-gradient(180deg, #FCF1E8 0%, #FAF0EE 40%, #F3ECF3 72%, #ECE6F5 100%)">
@@ -39,19 +38,10 @@ body{margin:0}
     <p style="margin: 8px 0 0; font-size: 15px; line-height: 1.45; color: #6E6080">We'll connect you the moment it's your turn.</p>
   </div>
 
-  <div style="position: absolute; left: 91px; top: 222px; width: 220px; height: 220px">
-    <div aria-hidden="true" style="position: absolute; inset: 22px; border-radius: 50%; background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.9), rgba(246,238,255,0.55) 60%, rgba(232,222,252,0.4)); box-shadow: inset 0 2px 3px rgba(255,255,255,0.95), 0 18px 40px rgba(130,100,210,0.18)"></div>
-    <svg width="220" height="220" viewBox="0 0 220 220" aria-hidden="true" style="position: absolute; inset: 0; transform: rotate(-90deg)">
-      <defs><linearGradient id="qArcG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFA45C"></stop><stop offset="0.5" stop-color="#F2545B"></stop><stop offset="1" stop-color="#8F6FF0"></stop></linearGradient></defs>
-      <circle cx="110" cy="110" r="100" fill="none" stroke="rgba(140,115,210,0.14)" stroke-width="8"></circle>
-      <circle class="q-arc" cx="110" cy="110" r="100" fill="none" stroke="url(#qArcG)" stroke-width="8" stroke-linecap="round" stroke-dasharray="628.3" stroke-dashoffset="440"></circle>
-    </svg>
-    <svg class="q-glint" width="220" height="220" viewBox="0 0 220 220" aria-hidden="true" style="position: absolute; inset: 0"><circle cx="110" cy="10" r="3" fill="#FFFFFF" opacity="0.9"></circle></svg>
-    <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center">
-      <div style="font-size: 13px; font-weight: 600; letter-spacing: 0.4px; color: #7A6E92">People ahead</div>
-      <div class="q-ahead" style="margin-top: 2px; font-size: 56px; line-height: 1; font-weight: 750; letter-spacing: -1px; font-variant-numeric: tabular-nums; color: #2E2A40">128</div>
-      <div style="margin-top: 8px; height: 24px; padding: 0 10px; border-radius: 999px; background: rgba(255,255,255,0.8); border: 1px solid #FFFFFF; display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; color: #6E6080"><span style="width: 6px; height: 6px; border-radius: 50%; background: #3CCB7F"></span>Line is moving</div>
-    </div>
+  <div style="position: absolute; left: 0; top: 240px; width: 402px; display: flex; flex-direction: column; align-items: center">
+    <div class="q-ahead" style="font-size: 104px; line-height: 1; font-weight: 800; letter-spacing: -3px; font-variant-numeric: tabular-nums; background: linear-gradient(120deg, #FF8A4E 0%, #F2545B 45%, #8F6FF0 100%); -webkit-background-clip: text; background-clip: text; color: transparent">12</div>
+    <div style="margin-top: 8px; font-size: 16px; font-weight: 600; color: #4A4060">people ahead of you</div>
+    <div style="margin-top: 16px; height: 26px; padding: 0 11px; border-radius: 999px; background: rgba(255,255,255,0.75); border: 1px solid #FFFFFF; display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: #6E6080"><span class="q-live" style="width: 7px; height: 7px; border-radius: 50%; background: #3CCB7F"></span>Line is moving</div>
   </div>
 
   <div aria-label="Your place in line" role="img" style="position: absolute; left: 24px; top: 474px; width: 354px; height: 92px">

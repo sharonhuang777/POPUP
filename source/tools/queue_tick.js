@@ -3,7 +3,7 @@
 (function () {
   var ahead = document.querySelector('.q-ahead'), wait = document.querySelector('.q-wait'), arc = document.querySelector('.q-arc');
   var fill = document.querySelector('.q-fill'), you = document.querySelector('.q-you');
-  var steps = [128, 96, 61, 32, 9, 1], C = 628.3, start = 128, w = 92, i = 0;
+  var steps = [12, 9, 6, 4, 2, 1], C = 628.3, start = 12, w = 92, i = 0;
   var TRACK = 320, MIN = 0.3; // bar spans 4px…324px; 30% done at the start of the demo
   function fmt(s) { return ('0' + Math.floor(s / 60)).slice(-2) + ':' + ('0' + s % 60).slice(-2); }
   function show(n) {
