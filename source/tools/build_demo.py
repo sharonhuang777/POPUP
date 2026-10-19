@@ -181,9 +181,9 @@ def think(fname, mount, after=None, phrases=None):
 
 VP = ["Searching with the signals you've shared…", 'Listening for a voice that matches your pace…', 'Reading between your answers…', 'Weighing honesty over small talk…', 'Finding someone who stays up late too…', 'Almost there, narrowing it down…']
 TP = ["Searching with the signals you've shared…", 'Reading between your answers…', 'Looking for someone who remembers the little things…', 'Weighing honesty over small talk…', 'Finding someone who stays up late too…', 'Almost there, narrowing it down…']
-screens['std'] = think('V2Think1.dc.html', "new PearlOrb(c, { palette: POPUP_PURPLE, state: 'thinking' });", 'call', VP)
-screens['pri'] = think('V2VoiceThink1.dc.html', "new PearlOrb(c, { palette: POPUP_VOICE, state: 'thinking' });", 'call', VP)
-screens['text'] = think('TextThink.dc.html', "new PearlOrb(c, { palette: POPUP_MIST, state: 'thinking' });", None, TP)
+screens['std'] = think('V2Think1.dc.html', "new PearlOrb(c, { palette: POPUP_PURPLE, state: 'thinking' });", 'call')
+screens['pri'] = think('V2VoiceThink1.dc.html', "new PearlOrb(c, { palette: POPUP_VOICE, state: 'thinking' });", 'call')
+screens['text'] = think('TextThink.dc.html', "new PearlOrb(c, { palette: POPUP_MIST, state: 'thinking' });", None)
 
 h, b, lib = parts('ProfileMe.dc.html')
 screens['profile'] = page(h, clean(b), lib + "\nmountGravityTags(document.querySelector('[data-cover]'), document.querySelector('[data-cloud]'));\n", scroll=True)

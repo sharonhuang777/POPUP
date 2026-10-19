@@ -73,7 +73,12 @@
   - 用户发出的消息气泡右侧显示用户头像（avatar.png，32px 圆形，白色描边）。
   - 导航栏右侧有「更多」按钮（三个点，和返回按钮同款玻璃圆钮）。
   - 点「更多」弹出菜单，里面是「Start a match」（Text or voice · free today），图标用 Popup 珍珠球（40px，不加投影），任何时候都能点。点了以后进入彩色匹配浮层，和答完 3 题的推荐浮层是同一个，只是文案换成「Ready when you are / Let's find someone for you」。从菜单进入时，「Maybe later」只关闭浮层、回到对话，不发消息。
-- **匹配思考页**：最后一行状态文案会轮换。
+- **匹配思考页**（语音 Standard / Priority、文字匹配，按 2026-10-19 文档）
+  - 三段思考文案依次出现在原位置，打完后变成对应的洞察，已完成的洞察保留在上方：
+    1. Reviewing what you've shared… → 洞察一
+    2. Understanding what helps you open up… → 洞察二
+    3. Noticing the kind of connection you want… → 洞察三
+  - 三条之后的最后一行固定显示、不再轮换：文字匹配和 Standard 语音是「Searching with the signals you've shared…」，Priority 语音是「Prioritizing your search with the signals you've shared…」。
 
 ## 注意事项
 
