@@ -29,6 +29,7 @@
 - `tools/voice_state.js`：语音匹配的剩余免费次数显示（启动页、匹配失败页、通话结束页），次数由 shell 统一管理。
 - `tools/queue_tick.js`：排队页的人数、进度条和预计等待倒数，约 5 秒后进入「轮到你」。
 - `tools/ended_rate.js`：通话结束页的打星交互。
+- `native/PearlOrb/`：三种匹配思考页珍珠球的原生实现（Android Kotlin + OpenGL ES、iOS Swift + Metal），着色器与 Web 版一致，附 Web 参考页和逐像素对照图，接入说明见其中的 README。
 - `tools/profile_scroll.js`：我的主页上滑时的封面视差、顶栏铺封面色和标题淡入。
 
 ## 更新 demo 的流程
