@@ -1,5 +1,5 @@
-// Queue page: people-ahead count, progress ring, progress bar (your avatar moves toward the call) and
-// estimated wait tick down, then hand over to "It's your turn".
+// Queue page (option E: phone booth + avatars moving along the line): the people-ahead count and the
+// estimated wait tick down, then hand over to "It's your turn". (The ring/bar hooks are no-ops now.)
 (function () {
   var ahead = document.querySelector('.q-ahead'), wait = document.querySelector('.q-wait'), arc = document.querySelector('.q-arc');
   var fill = document.querySelector('.q-fill'), you = document.querySelector('.q-you');
