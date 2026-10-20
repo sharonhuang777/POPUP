@@ -186,7 +186,10 @@ screens['pri'] = think('V2VoiceThink1.dc.html', "new PearlOrb(c, { palette: POPU
 screens['text'] = think('TextThink.dc.html', "new PearlOrb(c, { palette: POPUP_MIST, state: 'thinking' });", None)
 
 h, b, lib = parts('ProfileMe.dc.html')
-screens['profile'] = page(h, clean(b), lib + "\nmountGravityTags(document.querySelector('[data-cover]'), document.querySelector('[data-cloud]'));\n", scroll=True)
+PSCROLL = open(S + '/tools/profile_scroll.js').read()
+screens['profile'] = page(h, clean(b), lib + "\nmountGravityTags(document.querySelector('[data-cover]'), document.querySelector('[data-cloud]'));\n" + PSCROLL +
+    "\nvar _pn = document.querySelector('button[aria-label=\"Back\"]').parentNode; _pn.style.position = 'fixed';\n"
+    "mountProfileScroll(window, _pn, document.querySelector('[data-cover]'), { avatar: '" + img('avatar.png') + "', name: 'Jules' });\n", scroll=True)
 
 h, b, lib = parts('ProfileOther.dc.html')
 screens['other'] = page(h, clean(b), lib + "\nmountGravityTags(document.querySelector('[data-cover]'), document.querySelector('[data-cloud]'));\n", scroll=True)

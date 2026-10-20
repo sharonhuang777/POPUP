@@ -29,6 +29,7 @@
 - `tools/voice_state.js`：语音匹配的剩余免费次数显示（启动页、匹配失败页、通话结束页），次数由 shell 统一管理。
 - `tools/queue_tick.js`：排队页的人数、进度条和预计等待倒数，约 5 秒后进入「轮到你」。
 - `tools/ended_rate.js`：通话结束页的打星交互。
+- `tools/profile_scroll.js`：我的主页上滑时的封面视差、顶栏变白和标题淡入。
 
 ## 更新 demo 的流程
 
@@ -46,6 +47,7 @@
   - 进入页面时标签有掉落动画。
   - 「Share a fresh moment」发帖卡片，带 Today 时间戳。
   - 帖子距屏幕左右各 16px。
+  - 帖子上滑效果（2026-10-20，画板 ProfileMeScroll，`tools/profile_scroll.js`）：封面以约 0.45 倍速度视差上移；上滑 120→230px 时顶栏渐变成白色毛玻璃，玻璃按钮变成浅灰底；昵称行滑到顶栏下面时，顶栏正中淡入小头像和「Jules」。
   - 没有 svip / platinum 标识，没有 Cloud 按钮。
 - **他人主页**
   - 蓝天封面，蓝色系标签。
