@@ -158,7 +158,7 @@ body2 = f'''
     {avatar('avatar.png', ME_TINT, pos='left: 0; top: 0;').replace('{cls}','m-r')}
   </div>
 
-  <div class="m-title" style="position: absolute; left: 0; top: 424px; width: 402px; text-align: center; font-size: 34px; font-weight: 800; letter-spacing: -0.8px; background: linear-gradient(100deg, #FF8A4E 0%, #F2545B 45%, #8F6FF0 100%); -webkit-background-clip: text; background-clip: text; color: transparent">Match successfully!</div>
+  <div class="m-title" style="position: absolute; left: 0; top: 424px; width: 402px; text-align: center; font-size: 34px; font-weight: 800; letter-spacing: -0.8px; background: linear-gradient(180deg, #5D57ED 0%, #9057ED 100%); -webkit-background-clip: text; background-clip: text; color: transparent">Match successfully!</div>
   <div class="m-sub" style="position: absolute; left: 24px; top: 474px; width: 354px; text-align: center; font-size: 15px; line-height: 1.45; color: #6E6080">Connecting your voice call…</div>
 '''
 glow2 = 'radial-gradient(ellipse at 50% 34%, rgba(255,186,170,0.32), rgba(255,186,170,0) 44%), radial-gradient(ellipse at 88% 80%, rgba(255,214,190,0.30), rgba(255,214,190,0) 45%), radial-gradient(ellipse at 6% 86%, rgba(190,170,235,0.28), rgba(190,170,235,0) 50%)'
