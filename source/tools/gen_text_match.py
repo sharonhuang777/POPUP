@@ -8,7 +8,8 @@ D = 9.2          # loop length
 LAND = 5.8       # slot lands / success
 def p(t): return f'{t / D * 100:.2f}%'
 
-ME, CANDS, FINAL = 'avatar.png', ['u3.jpg', 'u5.jpg', 'u2.jpg', 'u6.jpg'], 'u1.jpg'
+# Anonymous 3D avatars (the app's avatar set) — no real photos in matching.
+ME, CANDS, FINAL = 'a1.jpg', ['a4.jpg', 'a2.jpg', 'a6.jpg', 'a5.jpg'], 'a3.jpg'
 STEP = 1.35      # one candidate per step: each face holds still for 1s, then a 0.35s roll to the next
 SIZE = 88
 
