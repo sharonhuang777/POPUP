@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Text Match · Matched</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+@keyframes drift{0%,100%{transform:translate(-1%,-.5%)}50%{transform:translate(1%,.6%)}}
+.ambient{animation:drift 28s ease-in-out infinite}
+@property --n{syntax:'<integer>';inherits:false;initial-value:0}
+@property --m{syntax:'<integer>';inherits:false;initial-value:0}
+@keyframes tSlot{0%{transform:translateY(0)}10.00%{transform:translateY(0px);animation-timing-function:cubic-bezier(.5,0,.3,1)}13.03%{transform:translateY(-88px)}18.48%{transform:translateY(-88px);animation-timing-function:cubic-bezier(.5,0,.3,1)}21.52%{transform:translateY(-176px)}26.97%{transform:translateY(-176px);animation-timing-function:cubic-bezier(.5,0,.3,1)}30.00%{transform:translateY(-264px)}35.45%{transform:translateY(-264px);animation-timing-function:cubic-bezier(.5,0,.3,1)}38.48%{transform:translateY(-352px)}43.94%{transform:translateY(-352px);animation-timing-function:cubic-bezier(.5,0,.3,1)}50.61%{transform:translateY(-450px);animation-timing-function:cubic-bezier(.3,1.4,.5,1)}54.24%,100%{transform:translateY(-440px)}}
+.t-strip{animation:tSlot 6.6s linear infinite}
+@keyframes tScene{0%{opacity:0}3.79%,93.18%{opacity:1}100%{opacity:0}}
+.t-scene{animation:tScene 6.6s ease infinite}
+@keyframes tTags{0%,50.76%{opacity:1;transform:translateY(0)}55.30%,100%{opacity:0;transform:translateY(-10px)}}
+.t-tags{animation:tTags 6.6s ease infinite}
+.t-tag:nth-child(2) .t-on{animation:tOn0 6.6s ease infinite}
+@keyframes tOn0{0%,5.30%{opacity:0}6.52%,10.80%{opacity:1}12.92%,100%{opacity:0}}
+.t-tag:nth-child(5) .t-on{animation:tOn1 6.6s ease infinite}
+@keyframes tOn1{0%,10.80%{opacity:0}12.01%,16.29%{opacity:1}18.41%,100%{opacity:0}}
+.t-tag:nth-child(1) .t-on{animation:tOn2 6.6s ease infinite}
+@keyframes tOn2{0%,16.29%{opacity:0}17.50%,21.78%{opacity:1}23.90%,100%{opacity:0}}
+.t-tag:nth-child(7) .t-on{animation:tOn3 6.6s ease infinite}
+@keyframes tOn3{0%,21.78%{opacity:0}22.99%,27.27%{opacity:1}29.39%,100%{opacity:0}}
+.t-tag:nth-child(4) .t-on{animation:tOn4 6.6s ease infinite}
+@keyframes tOn4{0%,27.27%{opacity:0}28.48%,32.77%{opacity:1}34.89%,100%{opacity:0}}
+.t-tag:nth-child(8) .t-on{animation:tOn5 6.6s ease infinite}
+@keyframes tOn5{0%,32.77%{opacity:0}33.98%,38.26%{opacity:1}40.38%,100%{opacity:0}}
+.t-tag:nth-child(3) .t-on{animation:tOn6 6.6s ease infinite}
+@keyframes tOn6{0%,38.26%{opacity:0}39.47%,43.75%{opacity:1}45.87%,100%{opacity:0}}
+.t-tag:nth-child(6) .t-on{animation:tOn7 6.6s ease infinite}
+@keyframes tOn7{0%,43.75%{opacity:0}44.96%,49.24%{opacity:1}51.36%,100%{opacity:0}}
+@keyframes tBumpL{0%,51.52%{transform:translateX(0)}53.03%{transform:translateX(7px) scaleX(.95)}56.36%,100%{transform:translateX(0)}}
+@keyframes tBumpR{0%,51.52%{transform:translateX(0)}53.03%{transform:translateX(-7px) scaleX(.95)}56.36%,100%{transform:translateX(0)}}
+.t-bl{animation:tBumpL 6.6s cubic-bezier(.3,1.3,.5,1) infinite}
+.t-br{animation:tBumpR 6.6s cubic-bezier(.3,1.3,.5,1) infinite}
+@keyframes tFlash{0%,51.52%{transform:scale(.3);opacity:0}52.42%{opacity:.9}60.61%,100%{transform:scale(2.4);opacity:0}}
+.t-flash{animation:tFlash 6.6s ease-out infinite}
+@keyframes tDeg{0%,53.03%{transform:translateY(8px) scale(.9);opacity:0}56.06%{transform:translateY(0) scale(1.04);opacity:1}57.88%,100%{transform:translateY(0) scale(1);opacity:1}}
+.t-deg{animation:tDeg 6.6s ease-out infinite}
+@keyframes tFill{0%,54.55%{transform:scaleX(0)}65.91%,100%{transform:scaleX(.86)}}
+.t-fill{transform-origin:0 50%;animation:tFill 6.6s cubic-bezier(.2,.7,.3,1) infinite}
+@keyframes tDegN{0%,54.55%{--m:0}65.91%,100%{--m:86}}
+.t-degn{counter-reset:m var(--m);animation:tDegN 6.6s cubic-bezier(.2,.7,.3,1) infinite}
+.t-degn::after{content:counter(m) "%"}
+@keyframes tTitle{0%,55.30%{transform:translateY(10px) scale(.7);opacity:0}57.88%{transform:translateY(0) scale(1.08);opacity:1}60.00%,100%{transform:scale(1);opacity:1}}
+.t-title{animation:tTitle 6.6s cubic-bezier(.2,.8,.3,1) infinite}
+@keyframes tPct{0%,4.55%{--n:0}50.76%{--n:74}51.52%,100%{--n:100}}
+.t-pct{counter-reset:n var(--n);animation:tPct 6.6s linear infinite}
+.t-pct::after{content:counter(n) "%"}
+@keyframes tBar{0%,4.55%{transform:scaleX(0)}50.76%{transform:scaleX(.74)}53.03%,100%{transform:scaleX(1)}}
+.t-bar{transform-origin:0 50%;animation:tBar 6.6s linear infinite}
+@keyframes tLblA{0%,51.52%{opacity:1}53.79%,100%{opacity:0}}
+@keyframes tLblB{0%,51.52%{opacity:0}53.79%,100%{opacity:1}}
+.t-la{animation:tLblA 6.6s ease infinite}.t-lb{animation:tLblB 6.6s ease infinite}
+@keyframes tPill{0%,51.52%{box-shadow:0 8px 20px rgba(90,120,190,0.12)}53.79%{box-shadow:0 0 0 6px rgba(127,183,255,0.25),0 8px 20px rgba(90,120,190,0.18)}60.61%,100%{box-shadow:0 8px 20px rgba(90,120,190,0.12)}}
+.t-pill{animation:tPill 6.6s ease-out infinite}
+@keyframes tConf{0%,52.27%{transform:translate(0,0) rotate(0) scale(.3);opacity:0}53.13%{transform:translate(calc(var(--dx) * 0.449),calc(var(--dy) * 0.449 + 1.0px)) rotate(calc(var(--r) * 0.233)) scale(0.63);opacity:1.00}54.19%{transform:translate(calc(var(--dx) * 0.819),calc(var(--dy) * 0.819 + 5.0px)) rotate(calc(var(--r) * 0.434)) scale(1.00);opacity:1.00}55.32%{transform:translate(calc(var(--dx) * 1.074),calc(var(--dy) * 1.074 + 12.3px)) rotate(calc(var(--r) * 0.583)) scale(1.00);opacity:1.00}56.52%{transform:translate(calc(var(--dx) * 1.240),calc(var(--dy) * 1.240 + 23.3px)) rotate(calc(var(--r) * 0.693)) scale(1.00);opacity:1.00}57.76%{transform:translate(calc(var(--dx) * 1.344),calc(var(--dy) * 1.344 + 37.9px)) rotate(calc(var(--r) * 0.775)) scale(1.00);opacity:1.00}59.04%{transform:translate(calc(var(--dx) * 1.408),calc(var(--dy) * 1.408 + 56.2px)) rotate(calc(var(--r) * 0.840)) scale(1.00);opacity:1.00}60.35%{transform:translate(calc(var(--dx) * 1.447),calc(var(--dy) * 1.447 + 78.0px)) rotate(calc(var(--r) * 0.893)) scale(1.00);opacity:1.00}61.70%{transform:translate(calc(var(--dx) * 1.469),calc(var(--dy) * 1.469 + 103.2px)) rotate(calc(var(--r) * 0.940)) scale(1.00);opacity:1.00}63.06%{transform:translate(calc(var(--dx) * 1.482),calc(var(--dy) * 1.482 + 131.8px)) rotate(calc(var(--r) * 0.983)) scale(1.00);opacity:1.00}64.45%{transform:translate(calc(var(--dx) * 1.490),calc(var(--dy) * 1.490 + 163.4px)) rotate(calc(var(--r) * 1.024)) scale(1.00);opacity:1.00}65.86%{transform:translate(calc(var(--dx) * 1.494),calc(var(--dy) * 1.494 + 198.1px)) rotate(calc(var(--r) * 1.064)) scale(1.00);opacity:1.00}67.29%{transform:translate(calc(var(--dx) * 1.497),calc(var(--dy) * 1.497 + 235.6px)) rotate(calc(var(--r) * 1.104)) scale(1.00);opacity:1.00}68.74%{transform:translate(calc(var(--dx) * 1.498),calc(var(--dy) * 1.498 + 275.7px)) rotate(calc(var(--r) * 1.144)) scale(1.00);opacity:0.93}70.21%{transform:translate(calc(var(--dx) * 1.499),calc(var(--dy) * 1.499 + 318.4px)) rotate(calc(var(--r) * 1.184)) scale(1.00);opacity:0.85}71.69%{transform:translate(calc(var(--dx) * 1.500),calc(var(--dy) * 1.500 + 363.4px)) rotate(calc(var(--r) * 1.224)) scale(1.00);opacity:0.77}73.18%{transform:translate(calc(var(--dx) * 1.500),calc(var(--dy) * 1.500 + 410.6px)) rotate(calc(var(--r) * 1.264)) scale(1.00);opacity:0.68}74.69%{transform:translate(calc(var(--dx) * 1.500),calc(var(--dy) * 1.500 + 459.9px)) rotate(calc(var(--r) * 1.305)) scale(1.00);opacity:0.60}76.22%{transform:translate(calc(var(--dx) * 1.500),calc(var(--dy) * 1.500 + 511.0px)) rotate(calc(var(--r) * 1.346)) scale(1.00);opacity:0.52}77.75%{transform:translate(calc(var(--dx) * 1.500),calc(var(--dy) * 1.500 + 564.0px)) rotate(calc(var(--r) * 1.388)) scale(1.00);opacity:0.43}79.30%{transform:translate(calc(var(--dx) * 1.500),calc(var(--dy) * 1.500 + 618.7px)) rotate(calc(var(--r) * 1.430)) scale(1.00);opacity:0.35}80.86%{transform:translate(calc(var(--dx) * 1.500),calc(var(--dy) * 1.500 + 674.9px)) rotate(calc(var(--r) * 1.472)) scale(1.00);opacity:0.26}82.43%{transform:translate(calc(var(--dx) * 1.500),calc(var(--dy) * 1.500 + 732.6px)) rotate(calc(var(--r) * 1.514)) scale(1.00);opacity:0.17}84.01%{transform:translate(calc(var(--dx) * 1.500),calc(var(--dy) * 1.500 + 791.7px)) rotate(calc(var(--r) * 1.557)) scale(1.00);opacity:0.09}85.61%{transform:translate(calc(var(--dx) * 1.500),calc(var(--dy) * 1.500 + 852.0px)) rotate(calc(var(--r) * 1.600)) scale(1.00);opacity:0.00}85.76%,100%{opacity:0}}
+.t-c{animation:tConf 6.6s linear infinite}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}
+</style>
+</helmet>
+<div style="position: relative; width: 402px; height: 874px; overflow: hidden; font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif; color: #2E3550; background: linear-gradient(180deg, #FCF1E8 0%, #F4F1F3 42%, #EAEFF6 74%, #E3ECF6 100%)">
+  <div aria-hidden="true" class="ambient" style="position: absolute; left: -16px; top: -16px; width: 434px; height: 906px; background: radial-gradient(ellipse at 50% 26%, rgba(156,203,235,0.36), rgba(156,203,235,0) 42%), radial-gradient(ellipse at 88% 70%, rgba(255,214,190,0.24), rgba(255,214,190,0) 45%), radial-gradient(ellipse at 6% 86%, rgba(181,190,240,0.28), rgba(181,190,240,0) 50%)"></div>
+
+  <div style="position: absolute; left: 0; top: 54px; width: 402px; height: 44px; display: flex; align-items: center; justify-content: center">
+    <button aria-label="Close" style="position: absolute; left: 16px; top: 0; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.7); background: rgba(255,255,255,0.44); display: flex; align-items: center; justify-content: center; color: #41506E; cursor: pointer">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+    </button>
+    <div style="font-size: 17px; font-weight: 700; letter-spacing: -0.2px; color: #41506E">Text Match</div>
+  </div>
+  <div style="position: absolute; left: 24px; top: 116px; width: 354px; box-sizing: border-box; padding: 10px 14px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.85); background: rgba(255,255,255,0.5); text-align: center; font-size: 13px; line-height: 1.4; color: #6F7A96">Match count refreshes at <b style="font-weight: 700; color: #41506E">8:00</b> every day</div>
+
+  <div class="t-scene">
+    <div style="position: absolute; left: 0; top: 230px; width: 402px; height: 0">
+      <span class="t-flash" aria-hidden="true" style="position: absolute; left: 141px; top: -60px; width: 120px; height: 120px; border-radius: 50%; filter: blur(3px); background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(170,205,255,0.6) 38%, rgba(170,205,255,0) 70%)"></span>
+      <span class="t-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 10px; height: 10px; border-radius: 3px; background: #7FB7FF; --dx: 7px; --dy: -120px; --r: 153deg"></span><span class="t-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 12px; height: 12px; border-radius: 50%; border: 2.5px solid #9C8CF5; box-sizing: border-box; --dx: 81px; --dy: -102px; --r: 71deg"></span><span class="t-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 14px; height: 4px; border-radius: 2px; background: #5FC8E8; --dx: 76px; --dy: -90px; --r: -73deg"></span><span class="t-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 8px; height: 8px; border-radius: 50%; background: #FFB38A; --dx: 151px; --dy: -42px; --r: -143deg"></span><span class="t-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 10px; height: 10px; border-radius: 3px; background: #B9A8FF; --dx: 158px; --dy: -6px; --r: -6deg"></span><span class="t-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 12px; height: 12px; border-radius: 50%; border: 2.5px solid #8FD3F0; box-sizing: border-box; --dx: 130px; --dy: 45px; --r: -194deg"></span><span class="t-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 14px; height: 4px; border-radius: 2px; background: #FF9AC1; --dx: 85px; --dy: 82px; --r: -107deg"></span><span class="t-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 8px; height: 8px; border-radius: 50%; background: #6E9BFF; --dx: 34px; --dy: 119px; --r: -119deg"></span><span class="t-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 10px; height: 10px; border-radius: 3px; background: #7FB7FF; --dx: -12px; --dy: 91px; --r: 116deg"></span><span class="t-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 12px; height: 12px; border-radius: 50%; border: 2.5px solid #9C8CF5; box-sizing: border-box; --dx: -50px; --dy: 85px; --r: -200deg"></span><span class="t-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 14px; height: 4px; border-radius: 2px; background: #5FC8E8; --dx: -91px; --dy: 50px; --r: 196deg"></span><span class="t-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 8px; height: 8px; border-radius: 50%; background: #FFB38A; --dx: -143px; --dy: 64px; --r: -115deg"></span><span class="t-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 10px; height: 10px; border-radius: 3px; background: #B9A8FF; --dx: -162px; --dy: 11px; --r: 76deg"></span><span class="t-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 12px; height: 12px; border-radius: 50%; border: 2.5px solid #8FD3F0; box-sizing: border-box; --dx: -124px; --dy: -60px; --r: -107deg"></span><span class="t-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 14px; height: 4px; border-radius: 2px; background: #FF9AC1; --dx: -85px; --dy: -97px; --r: -4deg"></span><span class="t-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 8px; height: 8px; border-radius: 50%; background: #6E9BFF; --dx: -59px; --dy: -92px; --r: -116deg"></span>
+    </div>
+    <div class="t-bl" style="position: absolute; left: 107px; top: 186px"><div style="width: 88px; height: 88px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 3px #FFFFFF, 0 12px 26px rgba(80,110,170,0.22); background: #DCE6F4"><img src="./img/avatar.png" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block"></div></div>
+    <div class="t-br" style="position: absolute; left: 207px; top: 186px">
+      <div style="width: 88px; height: 88px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 3px #FFFFFF, 0 12px 26px rgba(80,110,170,0.22); background: #DCE6F4">
+        <div class="t-strip"><img src="./img/u3.jpg" alt="" style="display: block; width: 88px; height: 88px; object-fit: cover"><img src="./img/u5.jpg" alt="" style="display: block; width: 88px; height: 88px; object-fit: cover"><img src="./img/u2.jpg" alt="" style="display: block; width: 88px; height: 88px; object-fit: cover"><img src="./img/u6.jpg" alt="" style="display: block; width: 88px; height: 88px; object-fit: cover"><img src="./img/u4.jpg" alt="" style="display: block; width: 88px; height: 88px; object-fit: cover"><img src="./img/u1.jpg" alt="" style="display: block; width: 88px; height: 88px; object-fit: cover"></div>
+      </div>
+    </div>
+
+    <div class="t-tags" style="position: absolute; left: 0; top: 304px; width: 402px"><div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 8px; width: 300px; margin: 0 auto"><span class="t-tag" style="position: relative; height: 30px; padding: 0 13px; border-radius: 15px; display: inline-flex; align-items: center; font-size: 13px; font-weight: 600; color: #8C93AE; background: rgba(255,255,255,0.45); border: 1px solid rgba(255,255,255,0.8)">Taurus<span class="t-on" aria-hidden="true" style="position: absolute; inset: -1px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #2F4A7A; background: linear-gradient(150deg, #FFFFFF, #E6F0FF); border: 1px solid rgba(127,183,255,0.7); box-shadow: 0 6px 14px rgba(90,140,220,0.22); opacity: 0">Taurus</span></span><span class="t-tag" style="position: relative; height: 30px; padding: 0 13px; border-radius: 15px; display: inline-flex; align-items: center; font-size: 13px; font-weight: 600; color: #8C93AE; background: rgba(255,255,255,0.45); border: 1px solid rgba(255,255,255,0.8)">Night owl<span class="t-on" aria-hidden="true" style="position: absolute; inset: -1px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #2F4A7A; background: linear-gradient(150deg, #FFFFFF, #E6F0FF); border: 1px solid rgba(127,183,255,0.7); box-shadow: 0 6px 14px rgba(90,140,220,0.22); opacity: 0">Night owl</span></span><span class="t-tag" style="position: relative; height: 30px; padding: 0 13px; border-radius: 15px; display: inline-flex; align-items: center; font-size: 13px; font-weight: 600; color: #8C93AE; background: rgba(255,255,255,0.45); border: 1px solid rgba(255,255,255,0.8)">Austin<span class="t-on" aria-hidden="true" style="position: absolute; inset: -1px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #2F4A7A; background: linear-gradient(150deg, #FFFFFF, #E6F0FF); border: 1px solid rgba(127,183,255,0.7); box-shadow: 0 6px 14px rgba(90,140,220,0.22); opacity: 0">Austin</span></span><span class="t-tag" style="position: relative; height: 30px; padding: 0 13px; border-radius: 15px; display: inline-flex; align-items: center; font-size: 13px; font-weight: 600; color: #8C93AE; background: rgba(255,255,255,0.45); border: 1px solid rgba(255,255,255,0.8)">Indie music<span class="t-on" aria-hidden="true" style="position: absolute; inset: -1px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #2F4A7A; background: linear-gradient(150deg, #FFFFFF, #E6F0FF); border: 1px solid rgba(127,183,255,0.7); box-shadow: 0 6px 14px rgba(90,140,220,0.22); opacity: 0">Indie music</span></span><span class="t-tag" style="position: relative; height: 30px; padding: 0 13px; border-radius: 15px; display: inline-flex; align-items: center; font-size: 13px; font-weight: 600; color: #8C93AE; background: rgba(255,255,255,0.45); border: 1px solid rgba(255,255,255,0.8)">Hiking<span class="t-on" aria-hidden="true" style="position: absolute; inset: -1px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #2F4A7A; background: linear-gradient(150deg, #FFFFFF, #E6F0FF); border: 1px solid rgba(127,183,255,0.7); box-shadow: 0 6px 14px rgba(90,140,220,0.22); opacity: 0">Hiking</span></span><span class="t-tag" style="position: relative; height: 30px; padding: 0 13px; border-radius: 15px; display: inline-flex; align-items: center; font-size: 13px; font-weight: 600; color: #8C93AE; background: rgba(255,255,255,0.45); border: 1px solid rgba(255,255,255,0.8)">Introvert<span class="t-on" aria-hidden="true" style="position: absolute; inset: -1px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #2F4A7A; background: linear-gradient(150deg, #FFFFFF, #E6F0FF); border: 1px solid rgba(127,183,255,0.7); box-shadow: 0 6px 14px rgba(90,140,220,0.22); opacity: 0">Introvert</span></span><span class="t-tag" style="position: relative; height: 30px; padding: 0 13px; border-radius: 15px; display: inline-flex; align-items: center; font-size: 13px; font-weight: 600; color: #8C93AE; background: rgba(255,255,255,0.45); border: 1px solid rgba(255,255,255,0.8)">Coffee snob<span class="t-on" aria-hidden="true" style="position: absolute; inset: -1px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #2F4A7A; background: linear-gradient(150deg, #FFFFFF, #E6F0FF); border: 1px solid rgba(127,183,255,0.7); box-shadow: 0 6px 14px rgba(90,140,220,0.22); opacity: 0">Coffee snob</span></span><span class="t-tag" style="position: relative; height: 30px; padding: 0 13px; border-radius: 15px; display: inline-flex; align-items: center; font-size: 13px; font-weight: 600; color: #8C93AE; background: rgba(255,255,255,0.45); border: 1px solid rgba(255,255,255,0.8)">Sci-fi<span class="t-on" aria-hidden="true" style="position: absolute; inset: -1px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #2F4A7A; background: linear-gradient(150deg, #FFFFFF, #E6F0FF); border: 1px solid rgba(127,183,255,0.7); box-shadow: 0 6px 14px rgba(90,140,220,0.22); opacity: 0">Sci-fi</span></span></div></div>
+
+    <div class="t-deg" style="position: absolute; left: 0; top: 296px; width: 402px; display: flex; flex-direction: column; align-items: center">
+      <div style="position: relative; width: 112px; height: 26px; border-radius: 13px; overflow: hidden; background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.9); box-shadow: 0 6px 14px rgba(90,120,190,0.14)">
+        <span class="t-fill" aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(90deg, #7FB7FF, #9C8CF5)"></span>
+        <span class="t-degn" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: #FFFFFF; text-shadow: 0 1px 2px rgba(60,80,150,0.35); font-variant-numeric: tabular-nums"></span>
+      </div>
+      <div style="margin-top: 6px; font-size: 12px; font-weight: 500; color: #6F7A96">Match degree</div>
+    </div>
+    <div class="t-title" style="position: absolute; left: 0; top: 352px; width: 402px; text-align: center; font-size: 34px; font-weight: 800; letter-spacing: -0.8px; background: linear-gradient(100deg, #5FA8FF 0%, #7C8CF5 50%, #B07CF0 100%); -webkit-background-clip: text; background-clip: text; color: transparent">Chat now!</div>
+
+    <div style="position: absolute; left: 0; top: 476px; width: 402px; display: flex; flex-direction: column; align-items: center">
+      <div class="t-pill" style="position: relative; width: 104px; height: 40px; box-sizing: border-box; border-radius: 20px; border: 1.5px solid rgba(255,255,255,0.95); background: linear-gradient(150deg, rgba(255,255,255,0.8), rgba(255,255,255,0.45)); display: flex; align-items: center; justify-content: center">
+        <span class="t-pct" style="font-size: 15px; font-weight: 800; color: #2E3550; font-variant-numeric: tabular-nums"></span>
+        <span style="position: absolute; left: 22px; right: 22px; bottom: 7px; height: 2px; border-radius: 1px; background: rgba(127,150,200,0.2); overflow: hidden"><span class="t-bar" style="position: absolute; inset: 0; background: linear-gradient(90deg, #7FB7FF, #B07CF0)"></span></span>
+      </div>
+      <div style="position: relative; margin-top: 8px; width: 120px; height: 16px; text-align: center; font-size: 12px; font-weight: 500; color: #6F7A96">
+        <span class="t-la" style="position: absolute; inset: 0">Matching</span><span class="t-lb" style="position: absolute; inset: 0">Matched</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 16px; top: 752px; width: 370px; box-sizing: border-box; padding: 18px 20px; border-radius: 22px; border: 1.5px solid rgba(255,255,255,0.85); background: linear-gradient(150deg, rgba(255,255,255,0.66), rgba(255,255,255,0.34)); box-shadow: 0 14px 30px rgba(90,120,190,0.10); text-align: center; font-size: 13px; line-height: 1.45; color: #6F7A96"><b style="font-weight: 700; color: #41506E">Tip</b> · Share your thoughts by commenting on others' posts</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":402,"height":874}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
