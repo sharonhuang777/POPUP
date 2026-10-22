@@ -96,7 +96,7 @@ open('project/VoiceNetCheck.dc.html','w').write(HEAD.format(title='Voice Match Â
 def confetti_kf(D, t0=.5, T=2.0):
     # Burst outward with air drag, gravity pulls down from the first frame (no hang at the top).
     import math
-    k, c, vt = .16, .38, 300.0
+    k, c, vt = .16, 1.0, 650.0
     norm = 1 - math.exp(-T / k)
     fr = []
     for i in range(25):
