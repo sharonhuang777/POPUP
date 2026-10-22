@@ -34,7 +34,7 @@ a{color:#604580}a:hover{color:#3f2c5a}
 .vrow.done{animation:rowOpen .5s cubic-bezier(.2,.7,.2,1) both,rowSettle .6s ease forwards}
 .vrow.done .copy{animation:copyIn .85s ease both,sweep 2.05s cubic-bezier(.45,0,.25,1) both,copySettle .6s ease forwards,cGrow .55s cubic-bezier(.2,.7,.2,1) both}
 .vrow.done svg{transform-origin:center;animation:dim .6s ease forwards;animation-delay:var(--settle)}
-@media (prefers-reduced-motion: reduce){.ambient,.vrow,.orbit,.m1,.m2,.m3,.copy,.copy.loop,.vrow.done,.vrow.done .copy,.vrow.done svg{animation:none}}
+@media (prefers-reduced-motion: reduce){.netrow,.net-check,.net-spin,.net-ok,.net-okt,.ambient,.vrow,.orbit,.m1,.m2,.m3,.copy,.copy.loop,.vrow.done,.vrow.done .copy,.vrow.done svg{animation:none}}
 @keyframes type{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
 @keyframes qOut{to{opacity:0;filter:blur(2px)}}
 .qa{flex:1;min-width:0;display:grid}
@@ -44,6 +44,19 @@ a{color:#604580}a:hover{color:#3f2c5a}
 @keyframes cGrow{from{max-height:22px}to{max-height:66px}}
 .q{justify-self:start;white-space:nowrap;font-size:14px;letter-spacing:-0.2px;line-height:1.45;color:#8A7E9C;clip-path:inset(0 100% 0 0);animation:type 1.3s forwards,qOut .45s ease forwards}
 @media (prefers-reduced-motion: reduce){.q{display:none}}
+
+@keyframes netIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes netOut{to{opacity:0}}
+@keyframes netArc{0%,100%{opacity:.25}40%,60%{opacity:1}}
+@keyframes netSpin{to{transform:rotate(360deg)}}
+@keyframes netPop{0%{opacity:0;transform:scale(.4)}70%{opacity:1;transform:scale(1.15)}100%{opacity:1;transform:scale(1)}}
+.netrow{animation:netIn .45s cubic-bezier(.2,.7,.2,1) .2s both}
+.net-a1{animation:netArc 1.5s ease-in-out infinite}.net-a2{animation:netArc 1.5s ease-in-out .2s infinite}.net-a3{animation:netArc 1.5s ease-in-out .4s infinite}
+.net-check{animation:netOut .25s ease 4.6s forwards}
+.net-spin{animation:netSpin .9s linear infinite,netOut .25s ease 4.6s forwards}
+.net-ok{opacity:0;animation:netPop .45s cubic-bezier(.34,1.5,.64,1) 4.8s forwards}
+.net-okt{opacity:0;animation:netIn .4s ease 4.85s forwards}
+@media (prefers-reduced-motion: reduce){.net-ok,.net-okt{opacity:1!important}.net-check,.net-spin{display:none}}
 </style>
 </helmet>
 <div style="position: relative; width: 402px; height: 874px; overflow: hidden; font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif; color: #342b43; background: linear-gradient(180deg, #FCF1E8 0%, #F7EFF2 45%, #EEE8F6 75%, #E8E2F6 100%)">
@@ -78,6 +91,18 @@ a{color:#604580}a:hover{color:#3f2c5a}
         <svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true" style="flex: none; margin-top: 1px; overflow: visible"><g filter="url(#tmMerge)"><g class="orbit"><g transform="rotate(0 20 20)"><circle class="dot s1" cx="20" cy="20" r="4.5"></circle></g><g transform="rotate(120 20 20)"><circle class="dot s2" cx="20" cy="20" r="4.5"></circle></g><g transform="rotate(240 20 20)"><circle class="dot s3" cx="20" cy="20" r="4.5"></circle></g></g></g></svg>
         <span class="copy loop" style="font-weight: 600; animation-delay: 16.85s, 17.8s">Searching with the signals you've shared…</span>
       </div>
+
+      <div class="netrow" style="margin-top: 8px; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 16px; background: rgba(255,255,255,0.32); border: 1px dashed rgba(140,115,210,0.28)">
+        <span style="position: relative; flex: none; width: 20px; height: 20px">
+          <svg class="net-check" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7356D4" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="position: absolute; inset: 0"><path class="net-a3" d="M2.5 8.8a14 14 0 0 1 19 0"></path><path class="net-a2" d="M5.6 12.3a9.5 9.5 0 0 1 12.8 0"></path><path class="net-a1" d="M8.8 15.7a5 5 0 0 1 6.4 0"></path><circle cx="12" cy="19.2" r="1.3" fill="#7356D4" stroke="none"></circle></svg>
+          <svg class="net-ok" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="position: absolute; inset: 0"><circle cx="12" cy="12" r="10" fill="#34C27A"></circle><path d="M7.5 12.4l3 3 6-6.4" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </span>
+        <span style="position: relative; flex: 1; height: 18px; font-size: 13.5px; line-height: 18px; font-weight: 600; white-space: nowrap">
+          <span class="net-check" style="position: absolute; left: 0; top: 0; color: #5A5170">Checking your network…</span>
+          <span class="net-okt" style="position: absolute; left: 0; top: 0; color: #2E8F60">Network is stable</span>
+        </span>
+        <svg class="net-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="9" stroke="rgba(140,115,210,0.28)" stroke-width="2.8"></circle><path d="M12 3a9 9 0 0 1 9 9" stroke="#7356D4" stroke-width="2.8" stroke-linecap="round"></path></svg>
+      </div>
     </sc-if>
     <sc-if value="{{ odd }}" hint-placeholder-val="{{ false }}">
       <div class="vrow done" style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; margin-top: 0; border-radius: 18px; background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.8); overflow: hidden; animation-delay: 0s, 5.5s; --settle: 5.5s">
@@ -95,6 +120,18 @@ a{color:#604580}a:hover{color:#3f2c5a}
       <div class="vrow" style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; margin-top: 8px; border-radius: 18px; background: rgba(255,255,255,0.75); border: 1px solid #FFFFFF; overflow: hidden; animation-delay: 16.5s">
         <svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true" style="flex: none; margin-top: 1px; overflow: visible"><g filter="url(#tmMerge)"><g class="orbit"><g transform="rotate(0 20 20)"><circle class="dot s1" cx="20" cy="20" r="4.5"></circle></g><g transform="rotate(120 20 20)"><circle class="dot s2" cx="20" cy="20" r="4.5"></circle></g><g transform="rotate(240 20 20)"><circle class="dot s3" cx="20" cy="20" r="4.5"></circle></g></g></g></svg>
         <span class="copy loop" style="font-weight: 600; animation-delay: 16.85s, 17.8s">Searching with the signals you've shared…</span>
+      </div>
+
+      <div class="netrow" style="margin-top: 8px; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 16px; background: rgba(255,255,255,0.32); border: 1px dashed rgba(140,115,210,0.28)">
+        <span style="position: relative; flex: none; width: 20px; height: 20px">
+          <svg class="net-check" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7356D4" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="position: absolute; inset: 0"><path class="net-a3" d="M2.5 8.8a14 14 0 0 1 19 0"></path><path class="net-a2" d="M5.6 12.3a9.5 9.5 0 0 1 12.8 0"></path><path class="net-a1" d="M8.8 15.7a5 5 0 0 1 6.4 0"></path><circle cx="12" cy="19.2" r="1.3" fill="#7356D4" stroke="none"></circle></svg>
+          <svg class="net-ok" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="position: absolute; inset: 0"><circle cx="12" cy="12" r="10" fill="#34C27A"></circle><path d="M7.5 12.4l3 3 6-6.4" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </span>
+        <span style="position: relative; flex: 1; height: 18px; font-size: 13.5px; line-height: 18px; font-weight: 600; white-space: nowrap">
+          <span class="net-check" style="position: absolute; left: 0; top: 0; color: #5A5170">Checking your network…</span>
+          <span class="net-okt" style="position: absolute; left: 0; top: 0; color: #2E8F60">Network is stable</span>
+        </span>
+        <svg class="net-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="9" stroke="rgba(140,115,210,0.28)" stroke-width="2.8"></circle><path d="M12 3a9 9 0 0 1 9 9" stroke="#7356D4" stroke-width="2.8" stroke-linecap="round"></path></svg>
       </div>
     </sc-if>
   </div>
