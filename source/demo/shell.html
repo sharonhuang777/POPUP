@@ -79,13 +79,14 @@ body.m .island,body.m .status,body.m .home-ind,body.m .side{display:none}
 var SCREENS = /*SCREENS*/{};
 var phoneEl = document.querySelector('.phone');
 var frames = {};          // name -> iframe (kept alive for tab screens)
-var NOCACHE = { matched: 1, pmatched: 1, std: 1, pri: 1, text: 1, call: 1, queue: 1, turn: 1, fail: 1, ended: 1 };
+var NOCACHE = { matched: 1, pmatched: 1, preceived: 1, std: 1, pri: 1, text: 1, call: 1, queue: 1, turn: 1, fail: 1, ended: 1 };
 var DARK = { call: 1, ended: 1 };   // animation pages replay each visit
 var TABS = { plaza: 0, home: 1, messages: 2 };
 var current = null, stack = [];
 // Voice match: standard attempts left today (launch shows 2 of 3). The first standard search thinks, then queues;
-// after the queue the regular line fails once, and the retry connects without queueing.
-var LEFT = 2, FAILED = 0, QUEUED = 0, SHOWS_LEFT = { voice: 1, fail: 1, ended: 1 };
+// after the queue the regular line fails once. The 2nd standard search connects (standard success); the 3rd is picked up
+// by someone using Priority (receiving-side success). Launch shows 3 left so all three can be tried in one session.
+var LEFT = 3, FAILED = 0, QUEUED = 0, STD_OK = 0, SHOWS_LEFT = { voice: 1, fail: 1, ended: 1 };
 var toastEl = null, toastT = 0;
 function toast(msg) {
   toastEl = toastEl || document.getElementById('toast');
@@ -101,7 +102,8 @@ function route(name) {
   }
   if (name === 'call' && current === 'std' && !QUEUED) { QUEUED = 1; return 'queue'; }
   // every connect shows a match-success beat first: priority paths (boosted thinking, Skip the line, Priority on your turn) get the halo one
-  if (name === 'call' && current !== 'matched' && current !== 'pmatched') return (current === 'pri' || current === 'queue' || current === 'turn') ? 'pmatched' : 'matched';
+  if (name === 'call' && current === 'std') { STD_OK++; return STD_OK >= 2 ? 'preceived' : 'matched'; }
+  if (name === 'call' && current !== 'matched' && current !== 'pmatched' && current !== 'preceived') return (current === 'pri' || current === 'queue' || current === 'turn') ? 'pmatched' : 'matched';
   if (name === 'regular') { if (!FAILED) { FAILED = 1; return 'fail'; } return 'matched'; }
   return name;
 }

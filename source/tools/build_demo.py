@@ -219,6 +219,11 @@ b = re.sub(r' data-loop="\d+" ref="\{\{ rootRef \}\}"', '', clean(b)).replace('d
 assert b.count('<button aria-label="Close"') == 1 and b.count('<button aria-label="Minimize"') == 1
 b = b.replace('<button aria-label="Close"', '<button data-go="voice" aria-label="Close"').replace('<button aria-label="Minimize"', '<button data-go="home" aria-label="Minimize"')
 screens['pmatched'] = page(h, b, "setTimeout(function () { parent.postMessage({ go: 'call' }, '*'); }, 3200);\n")
+# Priority match success, receiving side (someone else used Priority and reached you): in by ~1.6s, then 1s, then the call.
+h, b, _ = parts('VoicePriorityReceived.dc.html')
+b = re.sub(r' data-loop="\d+" ref="\{\{ rootRef \}\}"', '', clean(b)).replace('data-ms-root  style="cursor: pointer; ', 'style="')
+b = b.replace('<button aria-label="Close"', '<button data-go="voice" aria-label="Close"').replace('<button aria-label="Minimize"', '<button data-go="home" aria-label="Minimize"')
+screens['preceived'] = page(h, b, "setTimeout(function () { parent.postMessage({ go: 'call' }, '*'); }, 2600);\n")
 h, b, _ = parts('VoiceCall.dc.html')
 b = clean(b).replace('<button aria-label="End call"', '<button data-go="ended" aria-label="End call"').replace('<button aria-label="Minimize"', '<button data-go="home" aria-label="Minimize"')
 screens['call'] = page(h.replace('body{margin:0}', 'body{margin:0;background:#1F1540}'), b, open(S+'/tools/call_reveal.js').read())
