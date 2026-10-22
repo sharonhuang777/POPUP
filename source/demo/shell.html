@@ -21,6 +21,12 @@ iframe.on{opacity:1;visibility:visible;z-index:1;transition:opacity .18s ease,vi
 .side h1{margin:0;font-size:22px;font-weight:700}
 .side p{margin:8px 0 0;font-size:14px;line-height:1.55;color:var(--muted)}
 .side button{margin-top:16px;height:36px;padding:0 14px;border-radius:999px;border:1px solid color-mix(in srgb,var(--ink) 18%,transparent);background:transparent;color:var(--ink);font:500 14px 'Outfit',sans-serif;cursor:pointer}
+.side .jump{margin-top:22px;padding-top:16px;border-top:1px solid color-mix(in srgb,var(--ink) 12%,transparent)}
+.side .jump h2{margin:0 0 10px;font-size:14px;font-weight:700}
+.side .jump div{display:flex;flex-wrap:wrap;gap:6px}
+.side .jump button{margin:0;height:30px;padding:0 11px;font-size:13px}
+.side .jump button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.side .jump small{display:block;margin-top:8px;font-size:12px;line-height:1.45;color:var(--muted)}
 @media (max-width:900px){.side{display:none}}
 @media (max-width:440px){.phone{border-radius:0;box-shadow:none}}
 body.m{background:#FCF1E8;display:block;overflow:hidden}
@@ -71,8 +77,25 @@ body.m .island,body.m .status,body.m .home-ind,body.m .side{display:none}
   <div class="side">
     <h1>Popup 交互 Demo</h1>
     <p>从首页点「Talk with Popup」进入每日对话，答完 3 题后可选择匹配或稍后；点「Text Match」或「Voice Match」直接进入匹配流程。</p>
-    <p>语音匹配走 Standard：先进思考页 → 排队 → 轮到你 → Regular line 第一次匹配失败 → Standard match 再试一次（思考后直接接通）；挂断后是通话结束页，可以打星。免费次数用完后，点 Standard 会提示去 Priority。Priority 直接匹配。</p>
+    <p>语音匹配：第 1 次 Standard 思考 → 排队 → 轮到你（Regular 失败一次）；第 2 次 Standard 普通匹配成功；第 3 次被加速卡用户匹配到。Priority 走加速卡匹配成功。也可以用下面的按钮直接切到某个状态。</p>
     <button type="button" id="restart">回到首页</button>
+    <div class="jump" aria-label="语音匹配状态">
+      <h2>语音匹配 · 直接切到状态</h2>
+      <div>
+        <button type="button" data-jump="voice">起始页</button>
+        <button type="button" data-jump="std">普通匹配中</button>
+        <button type="button" data-jump="pri">加速卡匹配中</button>
+        <button type="button" data-jump="queue">排队中</button>
+        <button type="button" data-jump="turn">排队成功 · 轮到你</button>
+        <button type="button" data-jump="fail">匹配失败</button>
+        <button type="button" data-jump="matched">匹配成功</button>
+        <button type="button" data-jump="pmatched">加速卡匹配成功</button>
+        <button type="button" data-jump="preceived">被加速卡用户匹配成功</button>
+        <button type="button" data-jump="call">语音通话</button>
+        <button type="button" data-jump="ended">通话结束</button>
+      </div>
+      <small>切过去后页面照常往下走（比如匹配中会自动进排队或匹配成功）；再点一次同一个按钮可重播。</small>
+    </div>
   </div>
 </div>
 <script>
@@ -132,6 +155,7 @@ function show(name, push, from) {
     if (prev && prev !== f) prev.classList.remove('on');
   });
   current = name;
+  if (typeof markJump === 'function') markJump(name);
   phoneEl.classList.toggle('dark', !!DARK[name]);
   setTab(name);
 }
@@ -158,7 +182,22 @@ window.addEventListener('message', function (e) {
   if (e.data.go) { var to = route(e.data.go); if (to) show(to, true, e.data.from); }
   else if (e.data.back) { if (stack.length > 1) { stack.pop(); show(stack[stack.length - 1], false); } }
 });
-document.getElementById('restart').addEventListener('click', function () { LEFT = 2; FAILED = 0; QUEUED = 0; show('home'); });
+document.getElementById('restart').addEventListener('click', function () { LEFT = 3; FAILED = 0; QUEUED = 0; STD_OK = 0; show('home'); });
+// Dev shortcut: jump straight to a voice-match state (Back from there returns to the Voice Match launch page).
+Array.prototype.forEach.call(document.querySelectorAll('[data-jump]'), function (b) {
+  b.addEventListener('click', function () {
+    var n = b.getAttribute('data-jump');
+    if (n === 'std') { QUEUED = 0; STD_OK = 0; }          // the standard search shows the queue next, like a first attempt
+    if (n === 'turn' || n === 'queue') FAILED = 0;        // so Regular on "your turn" shows the failure once
+    if (frames[n]) { frames[n].remove(); delete frames[n]; }
+    stack = ['home'];
+    if (n !== 'voice') stack.push('voice');
+    show(n);
+  });
+});
+function markJump(name) {
+  Array.prototype.forEach.call(document.querySelectorAll('[data-jump]'), function (b) { b.classList.toggle('on', b.getAttribute('data-jump') === name); });
+}
 function isPhone() {
   var q = location.search;
   if (/[?&]frame=1/.test(q)) return false;
