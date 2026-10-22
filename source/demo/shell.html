@@ -41,6 +41,11 @@ iframe.on{opacity:1;visibility:visible;z-index:1;transition:opacity .18s ease,vi
 .mini .mt{margin:6px auto 0;width:max-content;padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.78);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:#3A2B66;font:700 11px/1.2 'Outfit',sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.3px;box-shadow:0 4px 12px rgba(110,80,170,.16),inset 0 0 0 1px rgba(255,255,255,.95)}
 .mini .mt.warn{color:#E8453F}
 .mini .mt i{display:inline-block;width:6px;height:6px;margin-right:4px;border-radius:50%;background:#34C27A;vertical-align:1px;font-style:normal}
+/* unread badges on the tab bar: red dot on Plaza (new posts, cleared once you open Plaza), count on Messages */
+.tabbar .tb-dot,.tabbar .tb-cnt{position:absolute;box-sizing:border-box;background:#FF4D5E;border:1.5px solid #fff;pointer-events:none;transition:transform .25s cubic-bezier(.34,1.5,.64,1),opacity .2s ease}
+.tabbar .tb-dot{top:9px;left:calc(50% + 8px);width:9px;height:9px;border-radius:50%}
+.tabbar .tb-cnt{top:4px;left:calc(50% + 6px);min-width:18px;height:18px;padding:0 5px;border-radius:9px;display:flex;align-items:center;justify-content:center;font:700 10.5px/1 'Outfit',sans-serif;color:#fff}
+.tabbar .tb-dot.off{transform:scale(0);opacity:0}
 @media (max-width:900px){.side{display:none}}
 @media (max-width:440px){.phone{border-radius:0;box-shadow:none}}
 body.m{background:#FCF1E8;display:block;overflow:hidden}
@@ -71,9 +76,9 @@ body.m .island,body.m .status,body.m .home-ind,body.m .side{display:none}
   <div class="phone">
     <nav class="tabbar hide" id="tabbar" aria-label="Tab bar">
       <span class="pill" id="pill"></span>
-      <button type="button" data-tab="plaza" aria-label="Plaza"><span class="ic"><svg class="i" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.6 8.4l-2.1 5.1-5.1 2.1 2.1-5.1z"/></svg><svg class="a" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.6" fill="currentColor"/><path d="M15.9 8.1l-2.3 5.5-5.5 2.3 2.3-5.5z" fill="#FFFFFF"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></span></button>
+      <button type="button" data-tab="plaza" aria-label="Plaza"><span class="ic"><svg class="i" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.6 8.4l-2.1 5.1-5.1 2.1 2.1-5.1z"/></svg><svg class="a" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.6" fill="currentColor"/><path d="M15.9 8.1l-2.3 5.5-5.5 2.3 2.3-5.5z" fill="#FFFFFF"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></span><span class="tb-dot" aria-label="New posts"></span></button>
       <button type="button" data-tab="home" aria-label="Home · Popup"><span class="ic orb" style="background-image:url(/*ORB*/)"></span></button>
-      <button type="button" data-tab="messages" aria-label="Messages"><span class="ic"><svg class="i" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4c-4.7 0-8.5 3.2-8.5 7.2 0 2.2 1.2 4.2 3 5.5l-.6 2.8 3.2-1.5c.9.3 1.9.4 2.9.4 4.7 0 8.5-3.2 8.5-7.2S16.7 4 12 4z"/></svg><svg class="a" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 4c-4.7 0-8.5 3.2-8.5 7.2 0 2.2 1.2 4.2 3 5.5l-.6 2.8 3.2-1.5c.9.3 1.9.4 2.9.4 4.7 0 8.5-3.2 8.5-7.2S16.7 4 12 4z"/></svg></span></button>
+      <button type="button" data-tab="messages" aria-label="Messages"><span class="ic"><svg class="i" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4c-4.7 0-8.5 3.2-8.5 7.2 0 2.2 1.2 4.2 3 5.5l-.6 2.8 3.2-1.5c.9.3 1.9.4 2.9.4 4.7 0 8.5-3.2 8.5-7.2S16.7 4 12 4z"/></svg><svg class="a" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 4c-4.7 0-8.5 3.2-8.5 7.2 0 2.2 1.2 4.2 3 5.5l-.6 2.8 3.2-1.5c.9.3 1.9.4 2.9.4 4.7 0 8.5-3.2 8.5-7.2S16.7 4 12 4z"/></svg></span><span class="tb-cnt" aria-label="23 unread">23</span></button>
     </nav>
     <button type="button" class="fab hide" id="fab" aria-label="Create a post"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#101010" stroke-width="2.3" stroke-linecap="round" aria-hidden="true"><path d="M10 1.4v17.2M1.4 10h17.2"/></svg></button>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -184,6 +189,7 @@ function show(name, push, from) {
 var tabbar = document.getElementById('tabbar'), pill = document.getElementById('pill');
 var tabBtns = Array.prototype.slice.call(tabbar.querySelectorAll('button'));
 function setTab(name) {
+  if (name === 'plaza') { var _d = document.querySelector('.tabbar .tb-dot'); if (_d) _d.classList.add('off'); }
   var i = TABS[name];
   document.getElementById('fab').classList.toggle('hide', name !== 'plaza');
   if (i == null) { tabbar.classList.add('hide'); return; }
@@ -196,6 +202,7 @@ tabBtns.forEach(function (b) {
     var name = b.getAttribute('data-tab');
     var ic = b.querySelector('.ic'); ic.classList.remove('pop'); void ic.offsetWidth; ic.classList.add('pop');
     if (name !== current) show(name);
+    else if (name === 'messages' && frames.messages) frames.messages.contentWindow.postMessage({ toTop: 1 }, '*');   // tap again: back to top
   });
 });
 function preload() { ['plaza', 'messages'].forEach(function (n) { if (!frames[n]) frames[n] = makeFrame(n); }); }

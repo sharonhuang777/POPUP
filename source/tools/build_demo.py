@@ -249,8 +249,11 @@ MONT = ''.join("@font-face{font-family:Montserrat;font-style:normal;font-weight:
 screens['call'] = page(h.replace('body{margin:0}', MONT + 'body{margin:0;background:#1F1540}'), b, open(S+'/tools/call_reveal.js').read())
 h, b, _ = parts('VoiceEnded.dc.html')
 screens['ended'] = page(h.replace('body{margin:0}', 'body{margin:0;background:#1F1540}'), clean(b), VSTATE + open(S + '/tools/ended_rate.js').read())
-h, b, _ = parts('Messages.dc.html')
-screens['messages'] = page(h, clean(b), '')
+h, b, lib = parts('Messages.dc.html')
+# The list scrolls inside the page under a pinned header (frosted bar + smaller title once scrolled).
+# Tapping the Messages tab again scrolls back to the top.
+b = clean(b).replace(' ref="{{ scRef }}"', '')
+screens['messages'] = page(h, b, lib + "\nvar _sc = document.querySelector('[data-msc]'); mountMsgScroll(_sc);\nwindow.addEventListener('message', function (e) { if (e.data && e.data.toTop) _sc.scrollTo({ top: 0, behavior: 'smooth' }); });\n")
 
 def premul(v):
     v = v.replace("premultipliedAlpha: false", "premultipliedAlpha: true")
