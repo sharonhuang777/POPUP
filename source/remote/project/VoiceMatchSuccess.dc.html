@@ -32,7 +32,7 @@ body{margin:0}
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}
 </style>
 </helmet>
-<div data-ms-root onClick="{{ replay }}" style="cursor: pointer; position: relative; width: 402px; height: 874px; overflow: hidden; font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif; color: #342b43; background: linear-gradient(180deg, #FCF1E8 0%, #FAF0EE 40%, #F3ECF3 72%, #ECE6F5 100%)">
+<div data-ms-root data-loop="4200" ref="{{ rootRef }}" onClick="{{ replay }}" style="cursor: pointer; position: relative; width: 402px; height: 874px; overflow: hidden; font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif; color: #342b43; background: linear-gradient(180deg, #FCF1E8 0%, #FAF0EE 40%, #F3ECF3 72%, #ECE6F5 100%)">
 
   <div aria-hidden="true" class="ambient" style="position: absolute; left: -16px; top: -16px; width: 434px; height: 906px; background: radial-gradient(ellipse at 50% 34%, rgba(255,186,170,0.32), rgba(255,186,170,0) 44%), radial-gradient(ellipse at 88% 80%, rgba(255,214,190,0.30), rgba(255,214,190,0) 45%), radial-gradient(ellipse at 6% 86%, rgba(190,170,235,0.28), rgba(190,170,235,0) 50%)"></div>
 
@@ -76,13 +76,25 @@ body{margin:0}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":402,"height":874}}'>
 class Component extends DCLogic {
+  componentDidMount() { this.loop(); }
+  componentWillUnmount() { clearInterval(this.iv); }
+  restart() {
+    var r = this.root;
+    if (!r || !r.getAnimations) return;
+    r.getAnimations({ subtree: true }).forEach(function (a) { if (a.animationName !== 'drift') { a.currentTime = 0; a.play(); } });
+  }
+  loop() {
+    var self = this;
+    clearInterval(this.iv);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var ms = +((this.root && this.root.getAttribute('data-loop')) || 4200);
+    this.iv = setInterval(function () { self.restart(); }, ms);
+  }
   renderVals() {
-    if (!this._replay) this._replay = function (e) {
-      var r = (e && e.currentTarget && e.currentTarget.closest && e.currentTarget.closest('[data-ms-root]')) || document.querySelector('[data-ms-root]');
-      if (!r || !r.getAnimations) return;
-      r.getAnimations({ subtree: true }).forEach(function (a) { if (a.animationName !== 'drift') { a.currentTime = 0; a.play(); } });
-    };
-    return { replay: this._replay };
+    var self = this;
+    if (!this._rootRef) this._rootRef = function (el) { self.root = el; if (el) self.loop(); };
+    if (!this._replay) this._replay = function () { self.restart(); self.loop(); };
+    return { rootRef: this._rootRef, replay: this._replay };
   }
 }
 </script>

@@ -89,8 +89,8 @@ def avatars(lcls, rcls, extra=''):
     return ('  <div style="position: absolute; left: 145px; top: 266px; width: 112px; height: 112px">\n' + extra +
             av_l.replace('class="m-l"', f'class="{lcls}"') + av_r.replace('class="m-r"', f'class="{rcls}"') + '  </div>\n')
 
-def write(name, css, body):
-    s = head + COMMON_CSS + css + '\n' + tail_css + body_open + body + script
+def write(name, css, body, loop):
+    s = head + COMMON_CSS + css + '\n' + tail_css + body_open.replace('data-loop="4200"', f'data-loop="{loop}"') + body + script
     assert '{{ replay }}' in s and s.count('<x-dc>') == 1
     open('project/' + name, 'w').write(s)
 
@@ -130,7 +130,7 @@ bodyA = f'''  <div class="a-glow" aria-hidden="true" style="position: absolute; 
     {sparks()}
   </div>
 ''' + avatars('a-l', 'a-r', trail('a-trl', 'right: 56px') + trail('a-trr', 'left: 56px')) + '\n' + TITLE
-write('VoicePrioritySuccessA.dc.html', cssA, bodyA)
+write('VoicePrioritySuccessA.dc.html', cssA, bodyA, 4200)
 
 # ---------------- B: halo spin-collapse, avatars pop out and collide ----------------
 D = 3.4; C = .85; H = 1.3   # collapse, impact
@@ -172,7 +172,7 @@ bodyB = f'''  <div style="position: absolute; left: 0; top: 322px; width: 402px;
     <span style="position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(ellipse at 50% 50%, rgba(255,168,128,0.38) 0%, rgba(255,180,150,0.18) 45%, rgba(255,190,160,0) 70%)"></span>
   </div>
 ''' + avatars('b-l', 'b-r') + '\n' + TITLE
-write('VoicePrioritySuccessB.dc.html', cssB, bodyB)
+write('VoicePrioritySuccessB.dc.html', cssB, bodyB, 5000)
 # B was chosen (2026-10-22): it is the priority match-success page.
-write('VoicePrioritySuccess.dc.html', cssB, bodyB)
+write('VoicePrioritySuccess.dc.html', cssB, bodyB, 5000)
 print('ok')

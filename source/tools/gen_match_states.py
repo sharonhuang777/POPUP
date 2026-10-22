@@ -165,8 +165,29 @@ out2 = HEAD.format(title='Voice Match · Matched', css=css2, glow=glow2, body=bo
 # Plays once and holds the final frame; tap anywhere on the board to replay.
 _root = '<div style="position: relative; width: 402px; height: 874px;'
 assert out2.count(_root) == 1 and out2.count('renderVals() { return {}; }') == 1
-out2 = out2.replace(_root, '<div data-ms-root onClick="{{ replay }}" style="cursor: pointer; position: relative; width: 402px; height: 874px;', 1)
-out2 = out2.replace('renderVals() { return {}; }', "renderVals() {\n    if (!this._replay) this._replay = function (e) {\n      var r = (e && e.currentTarget && e.currentTarget.closest && e.currentTarget.closest('[data-ms-root]')) || document.querySelector('[data-ms-root]');\n      if (!r || !r.getAnimations) return;\n      r.getAnimations({ subtree: true }).forEach(function (a) { if (a.animationName !== 'drift') { a.currentTime = 0; a.play(); } });\n    };\n    return { replay: this._replay };\n  }")
+out2 = out2.replace(_root, '<div data-ms-root data-loop="4200" ref="{{ rootRef }}" onClick="{{ replay }}" style="cursor: pointer; position: relative; width: 402px; height: 874px;', 1)
+# On the canvas the board loops (plays, holds the last frame a moment, plays again); tap to replay at once.
+# The demo strips this script and plays the page once.
+out2 = out2.replace('renderVals() { return {}; }', """componentDidMount() { this.loop(); }
+  componentWillUnmount() { clearInterval(this.iv); }
+  restart() {
+    var r = this.root;
+    if (!r || !r.getAnimations) return;
+    r.getAnimations({ subtree: true }).forEach(function (a) { if (a.animationName !== 'drift') { a.currentTime = 0; a.play(); } });
+  }
+  loop() {
+    var self = this;
+    clearInterval(this.iv);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var ms = +((this.root && this.root.getAttribute('data-loop')) || 4200);
+    this.iv = setInterval(function () { self.restart(); }, ms);
+  }
+  renderVals() {
+    var self = this;
+    if (!this._rootRef) this._rootRef = function (el) { self.root = el; if (el) self.loop(); };
+    if (!this._replay) this._replay = function () { self.restart(); self.loop(); };
+    return { rootRef: this._rootRef, replay: this._replay };
+  }""")
 open('project/VoiceMatchSuccess.dc.html','w').write(out2)
 
 # ---------------- 3. priority match success (bolt) ----------------
