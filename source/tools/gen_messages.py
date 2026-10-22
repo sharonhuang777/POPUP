@@ -1,7 +1,7 @@
 # Messages list: longer list + what happens when it scrolls under the top bar, and unread badges on the tab bar.
 # - The list scrolls inside the page; the header (title + buttons) stays pinned. As soon as the list scrolls,
 #   the header gets a frosted white bar with a hairline, the "Messages" title keeps its size.
-# - Tab bar: red dot on Plaza (new posts), red count on Messages (total unread chats).
+# - Tab bar: red count badges on Plaza (5, same as the bell) and Messages (total unread chats).
 # - Canvas board: auto-demo scrolls down and back to the top in a loop; scrolling / tapping by hand takes over.
 # Usage: python3 gen_messages.py <in Messages.dc.html> <out path>
 import re, sys
@@ -54,8 +54,9 @@ hbar = ('  <div class="mh-bg" aria-hidden="true" style="position: absolute; left
         'box-shadow: 0 0.5px 0 rgba(46,36,64,0.12), 0 6px 18px rgba(46,36,64,0.05); pointer-events: none"></div>\n')
 
 # tab bar badges
-DOT = ('<span class="tb-dot" aria-label="New posts" style="position: absolute; top: 9px; left: calc(50% + 8px); width: 9px; height: 9px; '
-       'box-sizing: border-box; border-radius: 50%; background: #FF4D5E; border: 1.5px solid #FFFFFF"></span>')
+DOT = ('<span class="tb-cnt" aria-label="5 new in Plaza" style="position: absolute; top: 4px; left: calc(50% + 6px); min-width: 18px; height: 18px; '
+       'box-sizing: border-box; padding: 0 5px; border-radius: 9px; background: #FF4D5E; border: 1.5px solid #FFFFFF; display: flex; '
+       'align-items: center; justify-content: center; font-size: 10.5px; font-weight: 700; line-height: 1; color: #FFFFFF">5</span>')
 CNT = (f'<span class="tb-cnt" aria-label="{total} unread" style="position: absolute; top: 4px; left: calc(50% + 6px); min-width: 18px; height: 18px; '
        'box-sizing: border-box; padding: 0 5px; border-radius: 9px; background: #FF4D5E; border: 1.5px solid #FFFFFF; display: flex; '
        f'align-items: center; justify-content: center; font-size: 10.5px; font-weight: 700; line-height: 1; color: #FFFFFF">{total if total < 100 else "99+"}</span>')
