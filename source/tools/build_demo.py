@@ -224,6 +224,15 @@ h, b, _ = parts('VoicePriorityReceived.dc.html')
 b = re.sub(r' data-loop="\d+" ref="\{\{ rootRef \}\}"', '', clean(b)).replace('data-ms-root  style="cursor: pointer; ', 'style="')
 b = b.replace('<button aria-label="Close"', '<button data-go="voice" aria-label="Close"').replace('<button aria-label="Minimize"', '<button data-go="home" aria-label="Minimize"')
 screens['preceived'] = page(h, b, "setTimeout(function () { parent.postMessage({ go: 'call' }, '*'); }, 2600);\n")
+# Device check failed (network): Close → Voice Match, Try again → the check/thinking page again, Back home → home.
+h, b, _ = parts('VoiceDeviceFail.dc.html')
+b = clean(b)
+assert b.count('<button aria-label="Close"') == 1 and b.count('>Try again</button>') == 1 and b.count('>Back home</button>') == 1
+b = b.replace('<button aria-label="Close"', '<button data-go="voice" aria-label="Close"')
+b = b.replace('<button style="position: absolute; left: 16px; top: 728px;', '<button data-go="std" style="position: absolute; left: 16px; top: 728px;')
+b = b.replace('<button style="position: absolute; left: 16px; top: 794px;', '<button data-go="home" style="position: absolute; left: 16px; top: 794px;')
+assert b.count('data-go="std"') == 1 and b.count('data-go="home"') == 1
+screens['devfail'] = page(h, b, '')
 h, b, _ = parts('VoiceCall.dc.html')
 b = clean(b).replace('<button aria-label="End call"', '<button data-go="ended" aria-label="End call"').replace('<button aria-label="Minimize"', '<button data-go="home" aria-label="Minimize"')
 screens['call'] = page(h.replace('body{margin:0}', 'body{margin:0;background:#1F1540}'), b, open(S+'/tools/call_reveal.js').read())

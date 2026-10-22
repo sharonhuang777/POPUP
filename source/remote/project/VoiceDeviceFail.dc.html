@@ -35,21 +35,20 @@ body{margin:0}
     <div style="font-size: 17px; font-weight: 700; letter-spacing: -0.2px; color: #53416e">Voice Match</div>
   </div>
 
-  <div style="position: absolute; left: 111px; top: 116px; width: 180px; height: 180px">
-    <span class="w-ring" aria-hidden="true" style="position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid rgba(242,110,100,0.45)"></span>
-    <span class="w-ring r2" aria-hidden="true" style="position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid rgba(255,160,120,0.4)"></span>
+  <div style="position: absolute; left: 24px; top: 116px; width: 354px; box-sizing: border-box; padding: 10px 14px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.85); background: rgba(255,255,255,0.5); text-align: center; font-size: 13px; line-height: 1.4; color: #7A6E92">Match count refreshes at <b style="font-weight: 700; color: #53416E">8:00</b> every day</div>
+
+  <div style="position: absolute; left: 111px; top: 168px; width: 180px; height: 180px">
+    <span aria-hidden="true" style="position: absolute; inset: 0; border-radius: 50%; border: 1px solid rgba(242,110,100,0.18); background: radial-gradient(circle, rgba(255,200,180,0) 55%, rgba(255,190,170,0.18) 100%)"></span>
+    <span aria-hidden="true" style="position: absolute; inset: 18px; border-radius: 50%; border: 1px solid rgba(242,110,100,0.24); background: rgba(255,255,255,0.22)"></span>
+    <span class="w-ring" aria-hidden="true" style="position: absolute; inset: 30px; border-radius: 50%; border: 1.5px solid rgba(242,110,100,0.45)"></span>
+    <span class="w-ring r2" aria-hidden="true" style="position: absolute; inset: 30px; border-radius: 50%; border: 1.5px solid rgba(255,160,120,0.4)"></span>
     <div class="w-orb" style="position: absolute; left: 30px; top: 30px; width: 120px; height: 120px; box-sizing: border-box; border-radius: 50%; border: 1.5px solid transparent; background: radial-gradient(circle at 50% 28%, #FFFFFF 0%, rgba(255,246,240,0.96) 60%, rgba(255,226,212,0.92) 100%) padding-box, linear-gradient(150deg, #FFFFFF 0%, rgba(255,200,170,0.8) 50%, rgba(242,84,91,0.5) 100%) border-box; box-shadow: inset 0 3px 4px #FFFFFF, inset 0 -6px 12px rgba(210,110,80,0.16), 0 18px 40px rgba(240,100,80,0.26); display: flex; align-items: center; justify-content: center">
       <svg class="w-ic" width="54" height="50" viewBox="0 0 54 50" aria-hidden="true"><defs><linearGradient id="wTri" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#FFB070"></stop><stop offset="1" stop-color="#EE5A46"></stop></linearGradient></defs><path d="M23.5 4.6c1.6-2.7 5.4-2.7 7 0l21 36.4c1.6 2.7-.4 6.1-3.5 6.1H6c-3.1 0-5.1-3.4-3.5-6.1z" fill="url(#wTri)"></path><path d="M27 16v14" stroke="#FFFFFF" stroke-width="4.6" stroke-linecap="round"></path><circle cx="27" cy="38" r="2.9" fill="#FFFFFF"></circle></svg>
     </div>
   </div>
 
-  <div style="position: absolute; left: 24px; top: 318px; width: 354px; text-align: center">
-    <h1 style="margin: 0; font-size: 28px; line-height: 1.2; font-weight: 750; letter-spacing: -0.6px">Can't start matching</h1>
-    <p style="margin: 8px auto 0; max-width: 320px; font-size: 15px; line-height: 1.45; color: #6E6080">Your network seems unstable. Please try again once it's back.</p>
-  </div>
-
-  <div style="position: absolute; left: 16px; top: 430px; width: 370px; box-sizing: border-box; padding: 16px; border-radius: 32px; border: 1.5px solid rgba(255,255,255,0.85); background: linear-gradient(150deg, rgba(255,255,255,0.72), rgba(255,255,255,0.36)); box-shadow: 0 22px 44px rgba(120,90,170,0.14), inset 0 1px 1px rgba(255,255,255,0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); display: flex; flex-direction: column; gap: 8px">
-    <div style="margin: 0 0 4px; text-align: center; font-size: 13px; font-weight: 500; color: #7A6E92">Before matching, we check</div>
+  <div style="position: absolute; left: 16px; top: 370px; width: 370px; box-sizing: border-box; padding: 16px; border-radius: 32px; border: 1.5px solid rgba(255,255,255,0.85); background: linear-gradient(150deg, rgba(255,255,255,0.72), rgba(255,255,255,0.36)); box-shadow: 0 22px 44px rgba(120,90,170,0.14), inset 0 1px 1px rgba(255,255,255,0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); display: flex; flex-direction: column; gap: 8px">
+    <div style="margin: 0 0 4px; text-align: center; font-size: 13px; font-weight: 500; color: #7A6E92">Make sure before matching</div>
       <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 16px; background: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.9)">
         <span style="flex: none; width: 34px; height: 34px; border-radius: 50%; background: rgba(140,115,210,0.14); display: flex; align-items: center; justify-content: center; color: #7356D4"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3"></path></svg></span>
         <span style="flex: 1; font-size: 15px; font-weight: 600; color: #2E2A40">Microphone</span>
@@ -67,8 +66,13 @@ body{margin:0}
       </div>
   </div>
 
-  <button style="position: absolute; left: 16px; top: 706px; width: 370px; height: 56px; border-radius: 16px; background: radial-gradient(120% 120% at 20% 0%, rgba(255,255,255,0.30), rgba(255,255,255,0) 55%), linear-gradient(155deg, #FFA45C 0%, #FF7A4E 55%, #F2545B 100%); box-shadow: 0 12px 26px rgba(240,100,80,0.30), inset 0 1px 1px rgba(255,255,255,0.6); font-family: inherit; font-size: 16px; font-weight: 700; color: #FFFFFF; cursor: pointer; border-style: none">Try again</button>
-  <button style="position: absolute; left: 16px; top: 772px; width: 370px; height: 54px; border-radius: 16px; border: 1px solid #FFFFFF; background: rgba(255,255,255,0.78); box-shadow: 0 6px 16px rgba(83,65,110,0.08); font-family: inherit; font-size: 16px; font-weight: 650; color: #2E2A40; cursor: pointer">Back to home</button>
+  <div style="position: absolute; left: 32px; top: 650px; width: 338px; text-align: center">
+    <div style="font-size: 18px; line-height: 1.3; font-weight: 700; letter-spacing: -0.2px; color: #2E2A40">Network unavailable</div>
+    <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.45; color: #6E6080">Please try again once your connection is back.</p>
+  </div>
+
+  <button style="position: absolute; left: 16px; top: 728px; width: 370px; height: 56px; border-radius: 16px; background: radial-gradient(120% 120% at 20% 0%, rgba(255,255,255,0.30), rgba(255,255,255,0) 55%), linear-gradient(155deg, #FFA45C 0%, #FF7A4E 55%, #F2545B 100%); box-shadow: 0 12px 26px rgba(240,100,80,0.30), inset 0 1px 1px rgba(255,255,255,0.6); font-family: inherit; font-size: 16px; font-weight: 700; color: #FFFFFF; cursor: pointer; border-style: none">Try again</button>
+  <button style="position: absolute; left: 16px; top: 794px; width: 370px; height: 54px; border-radius: 16px; border: 1px solid #FFFFFF; background: rgba(255,255,255,0.78); box-shadow: 0 6px 16px rgba(83,65,110,0.08); font-family: inherit; font-size: 16px; font-weight: 650; color: #2E2A40; cursor: pointer">Back home</button>
 
 </div>
 </x-dc>

@@ -88,6 +88,7 @@ body.m .island,body.m .status,body.m .home-ind,body.m .side{display:none}
         <button type="button" data-jump="queue">排队中</button>
         <button type="button" data-jump="turn">排队成功 · 轮到你</button>
         <button type="button" data-jump="fail">匹配失败</button>
+        <button type="button" data-jump="devfail">设备检测失败</button>
         <button type="button" data-jump="matched">匹配成功</button>
         <button type="button" data-jump="pmatched">加速卡匹配成功</button>
         <button type="button" data-jump="preceived">被加速卡用户匹配成功</button>
@@ -102,7 +103,7 @@ body.m .island,body.m .status,body.m .home-ind,body.m .side{display:none}
 var SCREENS = /*SCREENS*/{};
 var phoneEl = document.querySelector('.phone');
 var frames = {};          // name -> iframe (kept alive for tab screens)
-var NOCACHE = { matched: 1, pmatched: 1, preceived: 1, std: 1, pri: 1, text: 1, call: 1, queue: 1, turn: 1, fail: 1, ended: 1 };
+var NOCACHE = { devfail: 1, matched: 1, pmatched: 1, preceived: 1, std: 1, pri: 1, text: 1, call: 1, queue: 1, turn: 1, fail: 1, ended: 1 };
 var DARK = { call: 1, ended: 1 };   // animation pages replay each visit
 var TABS = { plaza: 0, home: 1, messages: 2 };
 var current = null, stack = [];
