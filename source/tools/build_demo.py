@@ -244,7 +244,9 @@ b = b.replace('<button aria-label="Close"', '<button data-go="home" aria-label="
 screens['tmatched'] = page(h, b, '')
 h, b, _ = parts('VoiceCall.dc.html')
 b = clean(b).replace('<button aria-label="End call"', '<button data-go="ended" aria-label="End call"').replace('<button aria-label="Minimize"', '<button data-go="home" aria-label="Minimize"')
-screens['call'] = page(h.replace('body{margin:0}', 'body{margin:0;background:#1F1540}'), b, open(S+'/tools/call_reveal.js').read())
+# The call page's His Tag row and bottom controls keep the old app's Montserrat; embed it (Google Fonts links are stripped).
+MONT = ''.join("@font-face{font-family:Montserrat;font-style:normal;font-weight:%d;font-display:swap;src:url(data:font/woff2;base64,%s) format('woff2')}" % (w, base64.b64encode(open(S + '/demo/montserrat-%d.woff2' % w, 'rb').read()).decode()) for w in (500, 600))
+screens['call'] = page(h.replace('body{margin:0}', MONT + 'body{margin:0;background:#1F1540}'), b, open(S+'/tools/call_reveal.js').read())
 h, b, _ = parts('VoiceEnded.dc.html')
 screens['ended'] = page(h.replace('body{margin:0}', 'body{margin:0;background:#1F1540}'), clean(b), VSTATE + open(S + '/tools/ended_rate.js').read())
 h, b, _ = parts('Messages.dc.html')
