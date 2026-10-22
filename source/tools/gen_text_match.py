@@ -80,10 +80,10 @@ css = f'''body{{margin:0}}
 @keyframes tTags{{0%,{p(LAND - .05)}{{opacity:1;transform:translateY(0)}}{p(LAND + .25)},100%{{opacity:0;transform:translateY(-10px)}}}}
 .t-tags{{animation:tTags {D}s ease infinite}}
 {chr(10).join(tag_css).replace(' both}', ' infinite}')}
-@keyframes tBumpL{{0%,{p(LAND)}{{transform:translateX(0)}}{p(LAND + .1)}{{transform:translateX(7px) scaleX(.95)}}{p(LAND + .32)},100%{{transform:translateX(0)}}}}
-@keyframes tBumpR{{0%,{p(LAND)}{{transform:translateX(0)}}{p(LAND + .1)}{{transform:translateX(-7px) scaleX(.95)}}{p(LAND + .32)},100%{{transform:translateX(0)}}}}
-.t-bl{{animation:tBumpL {D}s cubic-bezier(.3,1.3,.5,1) infinite}}
-.t-br{{animation:tBumpR {D}s cubic-bezier(.3,1.3,.5,1) infinite}}
+@keyframes tBumpL{{0%,{p(LAND)}{{transform:translateX(0);animation-timing-function:cubic-bezier(.5,0,.9,.6)}}{p(LAND + .16)}{{transform:translateX(7px) scaleX(.94)}}{p(LAND + .24)}{{transform:translateX(6px) scaleX(.95);animation-timing-function:cubic-bezier(.2,.7,.35,1)}}{p(LAND + .7)}{{transform:translateX(-3px) scaleX(1);animation-timing-function:ease-in-out}}{p(LAND + 1.05)},100%{{transform:translateX(0)}}}}
+@keyframes tBumpR{{0%,{p(LAND)}{{transform:translateX(0);animation-timing-function:cubic-bezier(.5,0,.9,.6)}}{p(LAND + .16)}{{transform:translateX(-7px) scaleX(.94)}}{p(LAND + .24)}{{transform:translateX(-6px) scaleX(.95);animation-timing-function:cubic-bezier(.2,.7,.35,1)}}{p(LAND + .7)}{{transform:translateX(3px) scaleX(1);animation-timing-function:ease-in-out}}{p(LAND + 1.05)},100%{{transform:translateX(0)}}}}
+.t-bl{{transform-origin:100% 50%;animation:tBumpL {D}s linear infinite}}
+.t-br{{transform-origin:0 50%;animation:tBumpR {D}s linear infinite}}
 @keyframes tFlash{{0%,{p(LAND)}{{transform:scale(.3);opacity:0}}{p(LAND + .06)}{{opacity:.9}}{p(LAND + .6)},100%{{transform:scale(2.4);opacity:0}}}}
 .t-flash{{animation:tFlash {D}s ease-out infinite}}
 @keyframes tDeg{{0%,{p(LAND + .1)}{{transform:translateY(8px) scale(.9);opacity:0}}{p(LAND + .3)}{{transform:translateY(0) scale(1.04);opacity:1}}{p(LAND + .42)},100%{{transform:translateY(0) scale(1);opacity:1}}}}
