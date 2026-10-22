@@ -96,22 +96,20 @@ open('project/VoiceNetCheck.dc.html','w').write(HEAD.format(title='Voice Match Â
 D = 4.6  # loop length on the canvas
 def pct(t): return f'{t/D*100:.2f}%'
 css2 = f'''
-@keyframes mL{{0%{{transform:translateX(-260px) scale(.9);opacity:0}}{pct(.08)}{{opacity:1}}{pct(.38)}{{transform:translateX(-78px) scale(1)}}{pct(.52)}{{transform:translateX(-50px) scaleX(.9) scaleY(1.06)}}{pct(.70)}{{transform:translateX(-64px) scale(1.02)}}{pct(.86)},{pct(4.2)}{{transform:translateX(-60px) scale(1);opacity:1}}100%{{transform:translateX(-60px) scale(1);opacity:0}}}}
-@keyframes mR{{0%{{transform:translateX(260px) scale(.9);opacity:0}}{pct(.08)}{{opacity:1}}{pct(.38)}{{transform:translateX(78px) scale(1)}}{pct(.52)}{{transform:translateX(50px) scaleX(.9) scaleY(1.06)}}{pct(.70)}{{transform:translateX(64px) scale(1.02)}}{pct(.86)},{pct(4.2)}{{transform:translateX(60px) scale(1);opacity:1}}100%{{transform:translateX(60px) scale(1);opacity:0}}}}
+@keyframes mL{{0%{{transform:translateX(-260px) scale(.9);opacity:0;animation-timing-function:cubic-bezier(.45,.05,.85,.5)}}{pct(.08)}{{opacity:1}}{pct(.48)}{{transform:translateX(-56px) scale(1);animation-timing-function:linear}}{pct(.53)}{{transform:translateX(-50px) scaleX(.9) scaleY(1.06);animation-timing-function:cubic-bezier(.2,.8,.4,1)}}{pct(.72)}{{transform:translateX(-65px) scale(1.02);animation-timing-function:ease-in-out}}{pct(.92)},{pct(4.2)}{{transform:translateX(-60px) scale(1);opacity:1}}100%{{transform:translateX(-60px) scale(1);opacity:0}}}}
+@keyframes mR{{0%{{transform:translateX(260px) scale(.9);opacity:0;animation-timing-function:cubic-bezier(.45,.05,.85,.5)}}{pct(.08)}{{opacity:1}}{pct(.48)}{{transform:translateX(56px) scale(1);animation-timing-function:linear}}{pct(.53)}{{transform:translateX(50px) scaleX(.9) scaleY(1.06);animation-timing-function:cubic-bezier(.2,.8,.4,1)}}{pct(.72)}{{transform:translateX(65px) scale(1.02);animation-timing-function:ease-in-out}}{pct(.92)},{pct(4.2)}{{transform:translateX(60px) scale(1);opacity:1}}100%{{transform:translateX(60px) scale(1);opacity:0}}}}
 @keyframes mFlash{{0%,{pct(.48)}{{transform:scale(.2);opacity:0}}{pct(.56)}{{opacity:1}}{pct(1.1)},100%{{transform:scale(2.6);opacity:0}}}}
 @keyframes mWave{{0%,{pct(.5)}{{transform:scale(.4);opacity:0}}{pct(.56)}{{opacity:.9}}{pct(1.5)},100%{{transform:scale(3.2);opacity:0}}}}
 @keyframes mTitle{{0%,{pct(.62)}{{transform:translateY(14px) scale(.86);opacity:0}}{pct(.9)}{{transform:translateY(0) scale(1.05);opacity:1}}{pct(1.05)},{pct(4.2)}{{transform:scale(1);opacity:1}}100%{{opacity:0}}}}
 @keyframes mSub{{0%,{pct(.95)}{{transform:translateY(8px);opacity:0}}{pct(1.25)},{pct(4.2)}{{transform:translateY(0);opacity:1}}100%{{opacity:0}}}}
 @keyframes mConf{{0%,{pct(.5)}{{transform:translate(0,0) rotate(0) scale(.3);opacity:0}}{pct(.56)}{{opacity:1}}{pct(1.6)}{{transform:translate(var(--dx),var(--dy)) rotate(var(--r)) scale(1);opacity:1}}{pct(2.4)},100%{{transform:translate(calc(var(--dx) * 1.12),calc(var(--dy) * 1.12 + 26px)) rotate(var(--r)) scale(1);opacity:0}}}}
-@keyframes mHeart{{0%,{pct(.55)}{{transform:translate(-50%,0) scale(0);opacity:0}}{pct(.8)}{{transform:translate(-50%,-18px) scale(1.15);opacity:1}}{pct(1.0)},{pct(4.2)}{{transform:translate(-50%,-14px) scale(1);opacity:1}}100%{{opacity:0}}}}
-.m-l{{animation:mL {D}s cubic-bezier(.3,.7,.3,1) infinite}}
-.m-r{{animation:mR {D}s cubic-bezier(.3,.7,.3,1) infinite}}
+.m-l{{animation:mL {D}s linear infinite}}
+.m-r{{animation:mR {D}s linear infinite}}
 .m-flash{{animation:mFlash {D}s ease-out infinite}}
 .m-wave{{animation:mWave {D}s cubic-bezier(.2,.6,.3,1) infinite}}
 .m-title{{animation:mTitle {D}s cubic-bezier(.34,1.3,.64,1) infinite}}
 .m-sub{{animation:mSub {D}s ease-out infinite}}
 .m-c{{animation:mConf {D}s cubic-bezier(.15,.7,.3,1) infinite}}
-.m-heart{{animation:mHeart {D}s cubic-bezier(.34,1.5,.64,1) infinite}}
 '''
 import math, random
 random.seed(7)
@@ -140,9 +138,6 @@ body2 = f'''
   <div style="position: absolute; left: 145px; top: 266px; width: 112px; height: 112px">
     {avatar('u2.jpg', HIM_TINT, pos='left: 0; top: 0;').replace('{cls}','m-l')}
     {avatar('avatar.png', ME_TINT, pos='left: 0; top: 0;').replace('{cls}','m-r')}
-  </div>
-  <div class="m-heart" aria-hidden="true" style="position: absolute; left: 201px; top: 252px; width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(155deg, #FFA45C 0%, #FF7A4E 55%, #F2545B 100%); box-shadow: 0 0 0 3px #FFFFFF, 0 8px 18px rgba(240,100,80,0.35); display: flex; align-items: center; justify-content: center">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10.3A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.6c0 5.7-7.5 10.3-7.5 10.3z"></path></svg>
   </div>
 
   <div class="m-title" style="position: absolute; left: 0; top: 424px; width: 402px; text-align: center; font-size: 34px; font-weight: 800; letter-spacing: -0.8px; background: linear-gradient(100deg, #FF8A4E 0%, #F2545B 45%, #8F6FF0 100%); -webkit-background-clip: text; background-clip: text; color: transparent">It's a match!</div>

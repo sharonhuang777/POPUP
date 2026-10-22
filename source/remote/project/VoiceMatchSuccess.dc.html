@@ -14,22 +14,20 @@ body{margin:0}
 @keyframes drift{0%,100%{transform:translate(-1%,-.5%)}50%{transform:translate(1%,.6%)}}
 .ambient{animation:drift 28s ease-in-out infinite}
 
-@keyframes mL{0%{transform:translateX(-260px) scale(.9);opacity:0}1.74%{opacity:1}8.26%{transform:translateX(-78px) scale(1)}11.30%{transform:translateX(-50px) scaleX(.9) scaleY(1.06)}15.22%{transform:translateX(-64px) scale(1.02)}18.70%,91.30%{transform:translateX(-60px) scale(1);opacity:1}100%{transform:translateX(-60px) scale(1);opacity:0}}
-@keyframes mR{0%{transform:translateX(260px) scale(.9);opacity:0}1.74%{opacity:1}8.26%{transform:translateX(78px) scale(1)}11.30%{transform:translateX(50px) scaleX(.9) scaleY(1.06)}15.22%{transform:translateX(64px) scale(1.02)}18.70%,91.30%{transform:translateX(60px) scale(1);opacity:1}100%{transform:translateX(60px) scale(1);opacity:0}}
+@keyframes mL{0%{transform:translateX(-260px) scale(.9);opacity:0;animation-timing-function:cubic-bezier(.45,.05,.85,.5)}1.74%{opacity:1}10.43%{transform:translateX(-56px) scale(1);animation-timing-function:linear}11.52%{transform:translateX(-50px) scaleX(.9) scaleY(1.06);animation-timing-function:cubic-bezier(.2,.8,.4,1)}15.65%{transform:translateX(-65px) scale(1.02);animation-timing-function:ease-in-out}20.00%,91.30%{transform:translateX(-60px) scale(1);opacity:1}100%{transform:translateX(-60px) scale(1);opacity:0}}
+@keyframes mR{0%{transform:translateX(260px) scale(.9);opacity:0;animation-timing-function:cubic-bezier(.45,.05,.85,.5)}1.74%{opacity:1}10.43%{transform:translateX(56px) scale(1);animation-timing-function:linear}11.52%{transform:translateX(50px) scaleX(.9) scaleY(1.06);animation-timing-function:cubic-bezier(.2,.8,.4,1)}15.65%{transform:translateX(65px) scale(1.02);animation-timing-function:ease-in-out}20.00%,91.30%{transform:translateX(60px) scale(1);opacity:1}100%{transform:translateX(60px) scale(1);opacity:0}}
 @keyframes mFlash{0%,10.43%{transform:scale(.2);opacity:0}12.17%{opacity:1}23.91%,100%{transform:scale(2.6);opacity:0}}
 @keyframes mWave{0%,10.87%{transform:scale(.4);opacity:0}12.17%{opacity:.9}32.61%,100%{transform:scale(3.2);opacity:0}}
 @keyframes mTitle{0%,13.48%{transform:translateY(14px) scale(.86);opacity:0}19.57%{transform:translateY(0) scale(1.05);opacity:1}22.83%,91.30%{transform:scale(1);opacity:1}100%{opacity:0}}
 @keyframes mSub{0%,20.65%{transform:translateY(8px);opacity:0}27.17%,91.30%{transform:translateY(0);opacity:1}100%{opacity:0}}
 @keyframes mConf{0%,10.87%{transform:translate(0,0) rotate(0) scale(.3);opacity:0}12.17%{opacity:1}34.78%{transform:translate(var(--dx),var(--dy)) rotate(var(--r)) scale(1);opacity:1}52.17%,100%{transform:translate(calc(var(--dx) * 1.12),calc(var(--dy) * 1.12 + 26px)) rotate(var(--r)) scale(1);opacity:0}}
-@keyframes mHeart{0%,11.96%{transform:translate(-50%,0) scale(0);opacity:0}17.39%{transform:translate(-50%,-18px) scale(1.15);opacity:1}21.74%,91.30%{transform:translate(-50%,-14px) scale(1);opacity:1}100%{opacity:0}}
-.m-l{animation:mL 4.6s cubic-bezier(.3,.7,.3,1) infinite}
-.m-r{animation:mR 4.6s cubic-bezier(.3,.7,.3,1) infinite}
+.m-l{animation:mL 4.6s linear infinite}
+.m-r{animation:mR 4.6s linear infinite}
 .m-flash{animation:mFlash 4.6s ease-out infinite}
 .m-wave{animation:mWave 4.6s cubic-bezier(.2,.6,.3,1) infinite}
 .m-title{animation:mTitle 4.6s cubic-bezier(.34,1.3,.64,1) infinite}
 .m-sub{animation:mSub 4.6s ease-out infinite}
 .m-c{animation:mConf 4.6s cubic-bezier(.15,.7,.3,1) infinite}
-.m-heart{animation:mHeart 4.6s cubic-bezier(.34,1.5,.64,1) infinite}
 
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}
 </style>
@@ -69,9 +67,6 @@ body{margin:0}
       <div style="position: absolute; inset: 0; background: radial-gradient(70% 55% at 30% 22%, rgba(255,255,255,0.6), rgba(255,255,255,0) 60%), linear-gradient(125deg, rgba(255,255,255,0) 38%, rgba(255,255,255,0.25) 46%, rgba(255,255,255,0) 54%)"></div>
       <div style="position: absolute; inset: 0; border-radius: 50%; box-shadow: inset 0 0 22px rgba(255,255,255,0.5), inset 0 -10px 18px rgba(90,60,160,0.22)"></div>
     </div>
-  </div>
-  <div class="m-heart" aria-hidden="true" style="position: absolute; left: 201px; top: 252px; width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(155deg, #FFA45C 0%, #FF7A4E 55%, #F2545B 100%); box-shadow: 0 0 0 3px #FFFFFF, 0 8px 18px rgba(240,100,80,0.35); display: flex; align-items: center; justify-content: center">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10.3A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.6c0 5.7-7.5 10.3-7.5 10.3z"></path></svg>
   </div>
 
   <div class="m-title" style="position: absolute; left: 0; top: 424px; width: 402px; text-align: center; font-size: 34px; font-weight: 800; letter-spacing: -0.8px; background: linear-gradient(100deg, #FF8A4E 0%, #F2545B 45%, #8F6FF0 100%); -webkit-background-clip: text; background-clip: text; color: transparent">It's a match!</div>
