@@ -12,11 +12,9 @@
 <style>
 body{margin:0}
 @keyframes talkRing{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.32);opacity:0}}
-@keyframes orbFloat{50%{transform:translateY(-4px)}}
 .talk-ring{animation:talkRing 1.6s cubic-bezier(.2,.7,.3,1) infinite}
 .talk-ring.r2{animation-delay:.8s}
-.orb-float{animation:orbFloat 3.2s ease-in-out infinite}
-@media (prefers-reduced-motion: reduce){.talk-ring,.orb-float{animation:none}}
+@media (prefers-reduced-motion: reduce){.talk-ring{animation:none}}
 .vc-img{transition:filter .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
 .vc-mask{transition:opacity .7s ease}
 .vc-ava.on .vc-img{filter:none!important;transform:scale(1)!important}
@@ -57,8 +55,6 @@ body{margin:0}
       <div style="position: absolute; left: 0; top: 116px; width: 104px; text-align: center; font-size: 15px; font-weight: 600">Him</div>
     </div>
 
-    <img class="orb-float" src="./img/orb-static.png" alt="" style="position: absolute; left: 181px; top: 32px; width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 0 22px rgba(196,170,255,0.55)">
-    <svg width="104" height="12" viewBox="0 0 104 12" aria-hidden="true" style="position: absolute; left: 149px; top: 46px; overflow: visible"><path d="M0 6h24M80 6h24" stroke="rgba(214,196,255,0.55)" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="2 5"/></svg>
 
     <div style="position: absolute; left: 248px; top: 0; width: 104px; height: 104px">
       <div class="vc-ava" data-who="me" style="position: absolute; inset: 0; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 3px rgba(255,255,255,0.85), 0 12px 30px rgba(20,8,60,0.5)">
