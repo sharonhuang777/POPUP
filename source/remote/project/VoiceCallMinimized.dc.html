@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Voice call · Minimized</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+@keyframes mCall{0%,14.29%{transform:none;clip-path:inset(0px 0px 0px 0px round 0px);opacity:1;animation-timing-function:cubic-bezier(.4,0,.2,1)}20.29%{transform:translate(155px,-283px) scale(0.1493);clip-path:inset(236px 0px 236px 0px round 201px);opacity:1}21.43%,69.29%{transform:translate(155px,-283px) scale(0.1493);clip-path:inset(236px 0px 236px 0px round 201px);opacity:0;animation-timing-function:step-end}69.43%{opacity:1;transform:translate(155px,-283px) scale(0.1493);clip-path:inset(236px 0px 236px 0px round 201px);animation-timing-function:cubic-bezier(.2,.8,.2,1)}76.00%,100%{transform:none;clip-path:inset(0px 0px 0px 0px round 0px);opacity:1}}
+@keyframes mBub{0%,18.57%{opacity:0;transform:scale(.9)}21.43%{opacity:1;transform:scale(1)}37.14%{transform:translateY(0)}45.71%{transform:translateY(160px)}51.43%,65.71%{transform:translateY(160px)}67.14%{transform:translateY(160px) scale(.92)}68.86%{opacity:1;transform:translateY(160px) scale(1)}70.00%,100%{opacity:0;transform:translateY(160px) scale(1)}}
+@keyframes mRing{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.35);opacity:0}}
+@keyframes mTap1{0%,6.43%{opacity:0;transform:scale(.6)}8.57%{opacity:.9;transform:scale(1)}13.57%,100%{opacity:0;transform:scale(1.5)}}
+@keyframes mTap2{0%,62.86%{opacity:0;transform:scale(.6)}65.00%{opacity:.9;transform:scale(1)}70.00%,100%{opacity:0;transform:scale(1.5)}}
+@keyframes mHint{0%,30.71%{opacity:0}32.86%,55.71%{opacity:1}57.86%,100%{opacity:0}}
+.m-call{transform-origin:50% 50%;animation:mCall 7.0s linear infinite}
+.m-bub{animation:mBub 7.0s cubic-bezier(.3,1.2,.5,1) infinite}
+.m-ring{animation:mRing 1.6s cubic-bezier(.2,.7,.3,1) infinite}.m-ring.r2{animation-delay:.8s}
+.m-tap1{animation:mTap1 7.0s ease-out infinite}.m-tap2{animation:mTap2 7.0s ease-out infinite}
+.m-hint{animation:mHint 7.0s ease infinite}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}
+</style>
+</helmet>
+<div style="position: relative; width: 402px; height: 874px; overflow: hidden; font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif; background: #F5EEF4 url(./img/mini-home.jpg) 0 0 / 402px 874px no-repeat">
+  <div class="m-call" aria-hidden="true" style="position: absolute; inset: 0; background: #1F1540 url(./img/mini-call.jpg) 0 0 / 402px 874px no-repeat"></div>
+  <span class="m-tap1" aria-hidden="true" style="position: absolute; width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,0.35); border: 2px solid rgba(255,255,255,0.9); box-shadow: 0 0 0 6px rgba(255,255,255,0.15); pointer-events: none; left: 336px; top: 48px"></span>
+
+  <div class="m-bub" style="position: absolute; left: 322px; top: 120px; width: 68px">
+    <div style="position: relative; width: 68px; height: 68px; box-sizing: border-box; padding: 4px; border-radius: 50%; background: linear-gradient(160deg, #3A2A72, #1F1540); box-shadow: 0 12px 28px rgba(31,21,64,0.45), inset 0 0 0 1px rgba(255,255,255,0.18)">
+      <span class="m-ring" aria-hidden="true" style="position: absolute; inset: -2px; border-radius: 50%; border: 2px solid rgba(196,170,255,0.85)"></span>
+      <span class="m-ring r2" aria-hidden="true" style="position: absolute; inset: -2px; border-radius: 50%; border: 2px solid rgba(196,170,255,0.85)"></span>
+      <div style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden"><img src="./img/a3.jpg" alt="" style="display: block; width: 60px; height: 60px; object-fit: cover"></div>
+    </div>
+    <div style="margin: 6px auto 0; width: max-content; padding: 3px 8px; border-radius: 999px; background: rgba(31,21,64,0.88); color: #FF8A8C; font-size: 11px; font-weight: 700; line-height: 1.2; font-variant-numeric: tabular-nums; letter-spacing: 0.3px; box-shadow: 0 4px 10px rgba(31,21,64,0.3)"><i style="display: inline-block; width: 6px; height: 6px; margin-right: 4px; border-radius: 50%; background: #5EE6A0; vertical-align: 1px"></i>00:28</div>
+    <span class="m-tap2" aria-hidden="true" style="position: absolute; width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,0.35); border: 2px solid rgba(255,255,255,0.9); box-shadow: 0 0 0 6px rgba(255,255,255,0.15); pointer-events: none; left: 6px; top: 6px"></span>
+  </div>
+
+  <div class="m-hint" style="position: absolute; left: 50%; bottom: 112px; transform: translateX(-50%); padding: 8px 14px; border-radius: 999px; background: rgba(24,18,38,0.82); color: #FFFFFF; font-size: 12.5px; font-weight: 500; white-space: nowrap">Tap ⤡ to keep browsing · tap the bubble to go back</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":402,"height":874}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
