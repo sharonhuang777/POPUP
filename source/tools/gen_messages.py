@@ -1,6 +1,6 @@
 # Messages list: longer list + what happens when it scrolls under the top bar, and unread badges on the tab bar.
 # - The list scrolls inside the page; the header (title + buttons) stays pinned. As soon as the list scrolls,
-#   the header gets a frosted white bar with a hairline, and the big "Messages" title eases from 26px to 20px.
+#   the header gets a frosted white bar with a hairline, the "Messages" title keeps its size.
 # - Tab bar: red dot on Plaza (new posts), red count on Messages (total unread chats).
 # - Canvas board: auto-demo scrolls down and back to the top in a loop; scrolling / tapping by hand takes over.
 # Usage: python3 gen_messages.py <in Messages.dc.html> <out path>
@@ -74,16 +74,15 @@ a = s.index(root_open); b = s.index('</x-dc>')
 s = s[:a] + new_body + s[b:]
 
 css_add = '''.msc::-webkit-scrollbar{display:none}
-.mh-t{transition:transform .25s cubic-bezier(.2,.8,.2,1)}
 '''
 s = s.replace('.tab{width:44px;', css_add + '.tab{width:44px;', 1)
 
 LIB = r'''
-// Pinned header over a scrolling list: frosted bar fades in over the first 24px of scroll, title 26px → 20px.
+// Pinned header over a scrolling list: frosted bar fades in over the first 24px of scroll (the title keeps its size).
 function mountMsgScroll(sc) {
   if (!sc) return;
   var root = sc.parentNode, bar = root.querySelector('.mh-bg'), t = root.querySelector('.mh-t');
-  function paint() { var y = sc.scrollTop, k = Math.max(0, Math.min(1, y / 24)); bar.style.opacity = k.toFixed(3); t.style.transform = 'scale(' + (1 - k * 0.23).toFixed(3) + ')'; }
+  function paint() { var k = Math.max(0, Math.min(1, sc.scrollTop / 24)); bar.style.opacity = k.toFixed(3); }
   sc.addEventListener('scroll', function () { requestAnimationFrame(paint); }, { passive: true });
   paint();
   return paint;

@@ -23,7 +23,6 @@ body{margin:0}
 .tm{font-size:12px;line-height:16px;color:#A29AB2}
 .badge{min-width:20px;height:20px;box-sizing:border-box;padding:0 6px;border-radius:7px;background:linear-gradient(135deg,#A487F2,#7A5BD6);display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;color:#FFFFFF}
 .msc::-webkit-scrollbar{display:none}
-.mh-t{transition:transform .25s cubic-bezier(.2,.8,.2,1)}
 .tab{width:44px;height:44px;padding:0;border:none;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer}
 </style>
 </helmet>
@@ -197,11 +196,11 @@ body{margin:0}
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":402,"height":874}}'>
-// Pinned header over a scrolling list: frosted bar fades in over the first 24px of scroll, title 26px → 20px.
+// Pinned header over a scrolling list: frosted bar fades in over the first 24px of scroll (the title keeps its size).
 function mountMsgScroll(sc) {
   if (!sc) return;
   var root = sc.parentNode, bar = root.querySelector('.mh-bg'), t = root.querySelector('.mh-t');
-  function paint() { var y = sc.scrollTop, k = Math.max(0, Math.min(1, y / 24)); bar.style.opacity = k.toFixed(3); t.style.transform = 'scale(' + (1 - k * 0.23).toFixed(3) + ')'; }
+  function paint() { var k = Math.max(0, Math.min(1, sc.scrollTop / 24)); bar.style.opacity = k.toFixed(3); }
   sc.addEventListener('scroll', function () { requestAnimationFrame(paint); }, { passive: true });
   paint();
   return paint;
