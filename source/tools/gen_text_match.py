@@ -29,13 +29,21 @@ slot_css = '@keyframes tSlot{' + ''.join(kf) + '}'
 # ---- tags: light up one at a time while scanning, then clear
 TAGS = [['Taurus', 'Night owl', 'Austin'], ['Indie music', 'Hiking', 'Introvert'], ['Coffee snob', 'Sci-fi']]
 flat = [t for row in TAGS for t in row]
-order = [1, 4, 0, 6, 3, 7, 2, 5]
+# one tag per face, in sync with the slot: it lights when that face has rolled in and goes out as the next roll starts
+# (the tag is what you and that person have in common); the final face lights its tag as it lands.
+order = [1, 4, 0, 6, 3]
 tag_css = []
-for k, idx in enumerate(order):
-    a = .35 + k * (LAND - .5) / len(order)
-    b = a + (LAND - .5) / len(order)
+n_faces = len(strip)
+for k, idx in enumerate(order[:n_faces]):
+    if k == 0:
+        a = .3
+    elif k < n_faces - 1:
+        a = .3 + k * STEP
+    else:
+        a = LAND - .06
+    b = (.3 + (k + 1) * STEP - .35) if k < n_faces - 1 else LAND + .1
     tag_css.append(f'.t-tag:nth-child({idx + 1}) .t-on{{animation:tOn{k} {D}s ease both}}')
-    tag_css.append(f'@keyframes tOn{k}{{0%,{p(a)}{{opacity:0}}{p(a + .08)},{p(b)}{{opacity:1}}{p(b + .14)},100%{{opacity:0}}}}')
+    tag_css.append(f'@keyframes tOn{k}{{0%,{p(a)}{{opacity:0;transform:scale(.92)}}{p(a + .1)}{{opacity:1;transform:scale(1.06)}}{p(a + .22)},{p(b)}{{opacity:1;transform:scale(1)}}{p(b + .12)},100%{{opacity:0;transform:scale(1)}}}}')
 
 # ---- confetti (same physics as voice match: drag + gravity, no hang)
 def confetti_kf(name, t0, T=2.2, amp=1.5):
