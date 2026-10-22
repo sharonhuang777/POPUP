@@ -219,4 +219,43 @@ bodyB = f'''  <div style="position: absolute; left: 0; top: 322px; width: 402px;
 write('VoicePrioritySuccessB.dc.html', cssB, bodyB, 5000)
 # B was chosen (2026-10-22): it is the priority match-success page.
 write('VoicePrioritySuccess.dc.html', cssB, bodyB, 5000)
+# ---------------- C: priority, receiving side (the other person used Priority) ----------------
+# Your avatar is already there, waiting; theirs rushes in from their side with a coral light trail and hits yours.
+# Same soft bloom + light particles as the sender page. No number: the count means nothing to the receiver.
+D = 3.0; H = .72
+p = lambda t: pct(t, D)
+cssC = f"""@keyframes cMe{{0%{{transform:translateX(60px) scale(.85);opacity:0;animation-timing-function:cubic-bezier(.2,.8,.3,1)}}{p(.3)}{{transform:translateX(60px) scale(1);opacity:1}}{p(.3)}{{animation-timing-function:ease-in-out}}{p(H - .12)}{{transform:translateX(60px) scale(1.02)}}{p(H)}{{transform:translateX(60px) scale(1);animation-timing-function:linear}}{p(H + .05)}{{transform:translateX(70px) scaleX(.88) scaleY(1.07);animation-timing-function:cubic-bezier(.2,.8,.4,1)}}{p(H + .28)}{{transform:translateX(64px) scale(1.01);animation-timing-function:ease-in-out}}{p(H + .48)},100%{{transform:translateX(60px) scale(1);opacity:1}}}}
+@keyframes cWait{{0%,{p(.3)}{{transform:scale(.9);opacity:0}}{p(.45)}{{opacity:.8}}{p(H)}{{transform:scale(1.15);opacity:.8}}{p(H + .2)},100%{{transform:scale(1.4);opacity:0}}}}
+@keyframes cThem{{0%,{p(.18)}{{transform:translateX(-300px) scale(.92);opacity:0;animation-timing-function:cubic-bezier(.45,0,.92,.5)}}{p(.24)}{{opacity:1}}{p(H)}{{transform:translateX(-52px) scale(1);animation-timing-function:linear}}{p(H + .05)}{{transform:translateX(-46px) scaleX(.88) scaleY(1.07);animation-timing-function:cubic-bezier(.2,.8,.4,1)}}{p(H + .28)}{{transform:translateX(-66px) scale(1.02);animation-timing-function:ease-in-out}}{p(H + .48)},100%{{transform:translateX(-60px) scale(1);opacity:1}}}}
+@keyframes cTrail{{0%,{p(.18)}{{transform:translateX(-300px) scaleX(.5);opacity:0;animation-timing-function:cubic-bezier(.45,0,.92,.5)}}{p(.26)}{{opacity:.9}}{p(H)}{{transform:translateX(-52px) scaleX(1.3);opacity:1}}{p(H + .18)},100%{{transform:translateX(-60px) scaleX(.2);opacity:0}}}}
+@keyframes cBloom{{0%,{p(H)}{{transform:scale(.4);opacity:0}}{p(H + .08)}{{opacity:.65}}{p(H + .9)},100%{{transform:scale(2.1);opacity:0}}}}
+@keyframes cFlash{{0%,{p(H)}{{transform:scale(.2);opacity:0}}{p(H + .06)}{{opacity:1}}{p(H + .55)},100%{{transform:scale(2.6);opacity:0}}}}
+@keyframes cGlow{{0%,{p(H)}{{transform:scale(.7);opacity:0}}{p(H + .6)},100%{{transform:scale(1);opacity:1}}}}
+@keyframes cBreath{{0%,100%{{transform:scale(1);opacity:1}}50%{{transform:scale(1.06);opacity:.8}}}}
+.c-me{{animation:cMe {D}s linear both}}
+.c-wait{{animation:cWait {D}s ease-out both}}
+.c-them{{animation:cThem {D}s linear both}}
+.c-trail{{transform-origin:100% 50%;animation:cTrail {D}s linear both}}
+.c-bloom{{animation:cBloom {D}s cubic-bezier(.15,.7,.3,1) both}}
+.c-flash{{animation:cFlash {D}s ease-out both}}
+.c-glow{{animation:cGlow {D}s ease-out both}}
+.c-glow span{{animation:cBreath 3.2s ease-in-out infinite}}
+""" + tail(D, H, H + .14, H + .9) + particles_css(D, H)
+
+SOFT_ANN = "radial-gradient(circle, rgba(255,170,130,0) 50%, rgba(255,160,120,0.42) 61%, rgba(255,190,160,0) 72%)"
+TITLE_C = TITLE.replace('>Priority Match Success<', '>Special Call<').replace(
+    re.search(r'You just skipped .*? people!', TITLE).group(0), 'They used Priority to connect with you sooner')
+bodyC = f"""  <div class="c-glow" aria-hidden="true" style="position: absolute; left: 41px; top: 197px; width: 320px; height: 250px">
+    <span style="position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(ellipse at 50% 50%, rgba(255,168,128,0.38) 0%, rgba(255,180,150,0.18) 45%, rgba(255,190,160,0) 70%)"></span>
+  </div>
+  <div style="position: absolute; left: 0; top: 322px; width: 402px; height: 0">
+    <span class="c-bloom" aria-hidden="true" style="position: absolute; left: 111px; top: -90px; width: 180px; height: 180px; border-radius: 50%; filter: blur(7px); background: {SOFT_ANN}"></span>
+    <span class="c-flash" aria-hidden="true" style="position: absolute; left: 141px; top: -60px; width: 120px; height: 120px; border-radius: 50%; filter: blur(3px); background: radial-gradient(circle, rgba(255,250,245,0.9) 0%, rgba(255,190,150,0.6) 35%, rgba(255,160,120,0) 70%)"></span>
+    {particles()}
+  </div>
+  <div style="position: absolute; left: 145px; top: 266px; width: 112px; height: 112px">
+    <span class="c-wait" aria-hidden="true" style="position: absolute; left: 34px; top: -26px; width: 164px; height: 164px; border-radius: 50%; filter: blur(6px); background: radial-gradient(circle, rgba(255,190,160,0) 52%, rgba(255,175,140,0.5) 62%, rgba(255,190,160,0) 72%)"></span>
+    <span class="c-trail" aria-hidden="true" style="position: absolute; top: 16px; right: 56px; width: 200px; height: 80px; border-radius: 40px; background: linear-gradient(90deg, rgba(255,164,92,0) 0%, rgba(255,150,100,0.35) 45%, rgba(242,84,91,0.75) 100%); filter: blur(8px)"></span>
+""" + av_l.replace('class="m-l"', 'class="c-them"') + av_r.replace('class="m-r"', 'class="c-me"') + '  </div>\n\n' + TITLE_C
+write('VoicePriorityReceived.dc.html', cssC, bodyC, 4200)
 print('ok')
