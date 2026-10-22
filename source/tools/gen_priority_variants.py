@@ -2,7 +2,7 @@
 # match-success board so the pair reads as one family:
 #   A  VoicePrioritySuccessA  halo-trail collision: avatars rush in faster with coral light trails, impact bursts rings
 #   B  VoicePrioritySuccessB  halo spin-collapse: a coral halo spins up and collapses, the avatars pop out of it and collide
-# Both play once and hold the last frame; tap the board to replay. Run from the canvas root (writes project/*.dc.html).
+# Direction B is the one in use (also written as VoicePrioritySuccess.dc.html). Both play once and hold the last frame; tap the board to replay. Run from the canvas root (writes project/*.dc.html).
 import math, re, sys, os
 
 SRC = sys.argv[1] if len(sys.argv) > 1 else 'project/VoiceMatchSuccess.dc.html'
@@ -136,40 +136,43 @@ write('VoicePrioritySuccessA.dc.html', cssA, bodyA)
 D = 3.4; C = .85; H = 1.3   # collapse, impact
 p = lambda t: pct(t, D)
 cssB = f'''@keyframes bRing{{0%{{transform:scale(.6) rotate(0);opacity:0;animation-timing-function:cubic-bezier(.3,.6,.6,1)}}{p(.18)}{{transform:scale(1) rotate(60deg);opacity:1;animation-timing-function:cubic-bezier(.6,0,.9,.6)}}{p(C)}{{transform:scale(.22) rotate(900deg);opacity:1}}{p(C + .06)},100%{{transform:scale(.1) rotate(960deg);opacity:0}}}}
-@keyframes bRing2{{0%{{transform:scale(.7) rotate(0);opacity:0;animation-timing-function:cubic-bezier(.3,.6,.6,1)}}{p(.25)}{{transform:scale(1) rotate(-40deg);opacity:.8;animation-timing-function:cubic-bezier(.6,0,.9,.6)}}{p(C)}{{transform:scale(.2) rotate(-600deg);opacity:.8}}{p(C + .06)},100%{{transform:scale(.1) rotate(-640deg);opacity:0}}}}
-@keyframes bCore{{0%,{p(.2)}{{transform:scale(.2);opacity:0}}{p(C)}{{transform:scale(1);opacity:1}}{p(C + .2)},100%{{transform:scale(2.4);opacity:0}}}}
-@keyframes bStreak{{0%,{p(.25)}{{opacity:0;transform:rotate(var(--a)) translateY(-150px) scaleY(.4)}}{p(.5)}{{opacity:.9}}{p(C)}{{opacity:0;transform:rotate(var(--a)) translateY(-30px) scaleY(1.2)}}100%{{opacity:0}}}}
-@keyframes bShock{{0%,{p(C)}{{transform:scale(.3);opacity:0}}{p(C + .03)}{{opacity:1}}{p(C + .7)},100%{{transform:scale(2);opacity:0}}}}
+@keyframes bCore{{0%,{p(.2)}{{transform:scale(.3);opacity:0}}{p(C)}{{transform:scale(1);opacity:.9}}{p(C + .25)},100%{{transform:scale(2.2);opacity:0}}}}
+@keyframes bShock{{0%,{p(C)}{{transform:scale(.4);opacity:0}}{p(C + .06)}{{opacity:.7}}{p(C + .8)},100%{{transform:scale(1.9);opacity:0}}}}
+@keyframes bBloom{{0%,{p(H)}{{transform:scale(.4);opacity:0}}{p(H + .08)}{{opacity:.6}}{p(H + .9)},100%{{transform:scale(2.1);opacity:0}}}}
 @keyframes bL{{0%,{p(C)}{{transform:translateX(0) scale(.3);opacity:0;animation-timing-function:cubic-bezier(.2,.8,.4,1)}}{p(C + .04)}{{opacity:1}}{p(C + .26)}{{transform:translateX(-100px) scale(1);animation-timing-function:cubic-bezier(.55,0,.9,.5)}}{p(H)}{{transform:translateX(-56px) scale(1);animation-timing-function:linear}}{p(H + .05)}{{transform:translateX(-49px) scaleX(.9) scaleY(1.06);animation-timing-function:cubic-bezier(.2,.8,.4,1)}}{p(H + .24)}{{transform:translateX(-65px) scale(1.02);animation-timing-function:ease-in-out}}{p(H + .44)},100%{{transform:translateX(-60px) scale(1);opacity:1}}}}
 @keyframes bR{{0%,{p(C)}{{transform:translateX(0) scale(.3);opacity:0;animation-timing-function:cubic-bezier(.2,.8,.4,1)}}{p(C + .04)}{{opacity:1}}{p(C + .26)}{{transform:translateX(100px) scale(1);animation-timing-function:cubic-bezier(.55,0,.9,.5)}}{p(H)}{{transform:translateX(56px) scale(1);animation-timing-function:linear}}{p(H + .05)}{{transform:translateX(49px) scaleX(.9) scaleY(1.06);animation-timing-function:cubic-bezier(.2,.8,.4,1)}}{p(H + .24)}{{transform:translateX(65px) scale(1.02);animation-timing-function:ease-in-out}}{p(H + .44)},100%{{transform:translateX(60px) scale(1);opacity:1}}}}
 @keyframes bFlash{{0%,{p(H)}{{transform:scale(.2);opacity:0}}{p(H + .06)}{{opacity:1}}{p(H + .55)},100%{{transform:scale(2.6);opacity:0}}}}
-@keyframes bHalo{{0%,{p(H + .2)}{{transform:scale(.6);opacity:0}}{p(H + .55)},100%{{transform:scale(1);opacity:1}}}}
+@keyframes bGlow{{0%,{p(H)}{{transform:scale(.7);opacity:0}}{p(H + .6)},100%{{transform:scale(1);opacity:1}}}}
+@keyframes bBreath{{0%,100%{{transform:scale(1);opacity:1}}50%{{transform:scale(1.06);opacity:.8}}}}
 .b-ring{{animation:bRing {D}s linear both}}
-.b-ring2{{animation:bRing2 {D}s linear both}}
 .b-core{{animation:bCore {D}s cubic-bezier(.5,0,.8,.6) both}}
-.b-st{{animation:bStreak {D}s cubic-bezier(.6,0,.9,.5) both}}
 .b-shock{{animation:bShock {D}s cubic-bezier(.15,.7,.3,1) both}}
+.b-bloom{{animation:bBloom {D}s cubic-bezier(.15,.7,.3,1) both}}
 .b-l{{animation:bL {D}s linear both}}
 .b-r{{animation:bR {D}s linear both}}
 .b-flash{{animation:bFlash {D}s ease-out both}}
-.b-halo{{animation:bHalo {D}s cubic-bezier(.3,1.4,.5,1) both}}
-.b-halo .q-spin{{animation-duration:2.4s}}
+.b-glow{{animation:bGlow {D}s ease-out both}}
+.b-glow span{{animation:bBreath 3.2s ease-in-out infinite}}
 ''' + tail(D, H, H + .14, H + .9)
 
-streaks = ''.join(f'<span class="b-st" aria-hidden="true" style="--a: {a}deg; position: absolute; left: 199px; top: -18px; width: 4px; height: 36px; border-radius: 2px; transform-origin: 2px 18px; background: linear-gradient(180deg, rgba(255,180,120,0), rgba(255,140,90,0.9)); animation-delay: {(i % 3) * .05:.2f}s"></span>' for i, a in enumerate(range(0, 360, 30)))
+# Soft light, no hard strokes: a blurred warm annulus with one brighter swirl spins up and condenses into a glow,
+# the avatars pop out of it and collide; afterwards only a soft breathing glow stays behind them.
 bodyB = f'''  <div style="position: absolute; left: 0; top: 322px; width: 402px; height: 0">
-    <div class="b-ring" aria-hidden="true" style="position: absolute; left: 61px; top: -140px; width: 280px; height: 280px; filter: drop-shadow(0 0 10px rgba(255,140,90,0.55))">{HALO.format(w=5, w2=4.5).replace('q-spin', 'b-x')}</div>
-    <div class="b-ring2" aria-hidden="true" style="position: absolute; left: 91px; top: -110px; width: 220px; height: 220px; border-radius: 50%; border: 2px dashed rgba(242,84,91,0.55); box-sizing: border-box"></div>
-    {streaks}
-    <span class="b-core" aria-hidden="true" style="position: absolute; left: 156px; top: -45px; width: 90px; height: 90px; border-radius: 50%; background: radial-gradient(circle, #FFFFFF 0%, rgba(255,200,160,0.95) 30%, rgba(255,140,90,0.6) 55%, rgba(242,84,91,0) 72%)"></span>
-    {ring('b-shock', 140, '4px solid rgba(255,140,90,0.8)')}
-    <span class="b-flash" aria-hidden="true" style="position: absolute; left: 136px; top: -65px; width: 130px; height: 130px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.98) 0%, rgba(255,180,130,0.8) 35%, rgba(242,84,91,0) 70%)"></span>
+    <div class="b-ring" aria-hidden="true" style="position: absolute; left: 61px; top: -140px; width: 280px; height: 280px; filter: blur(7px)">
+      <span style="position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle, rgba(255,170,130,0) 50%, rgba(255,160,120,0.42) 61%, rgba(255,190,160,0) 72%)"></span>
+      <span style="position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, rgba(255,150,110,0) 0deg, rgba(255,150,110,0) 200deg, rgba(255,140,100,0.85) 330deg, rgba(255,214,190,0.95) 352deg, rgba(255,150,110,0) 360deg); -webkit-mask: radial-gradient(circle, transparent 54%, #000 60%, #000 64%, transparent 70%); mask: radial-gradient(circle, transparent 54%, #000 60%, #000 64%, transparent 70%)"></span>
+    </div>
+    <span class="b-core" aria-hidden="true" style="position: absolute; left: 146px; top: -55px; width: 110px; height: 110px; border-radius: 50%; filter: blur(4px); background: radial-gradient(circle, rgba(255,252,248,0.95) 0%, rgba(255,205,175,0.8) 28%, rgba(255,160,120,0.35) 52%, rgba(255,160,120,0) 70%)"></span>
+    <span class="b-shock" aria-hidden="true" style="position: absolute; left: 111px; top: -90px; width: 180px; height: 180px; border-radius: 50%; filter: blur(6px); background: radial-gradient(circle, rgba(255,170,130,0) 50%, rgba(255,160,120,0.42) 61%, rgba(255,190,160,0) 72%)"></span>
+    <span class="b-bloom" aria-hidden="true" style="position: absolute; left: 111px; top: -90px; width: 180px; height: 180px; border-radius: 50%; filter: blur(8px); background: radial-gradient(circle, rgba(255,170,130,0) 50%, rgba(255,160,120,0.42) 61%, rgba(255,190,160,0) 72%)"></span>
+    <span class="b-flash" aria-hidden="true" style="position: absolute; left: 141px; top: -60px; width: 120px; height: 120px; border-radius: 50%; filter: blur(3px); background: radial-gradient(circle, rgba(255,250,245,0.9) 0%, rgba(255,190,150,0.6) 35%, rgba(255,160,120,0) 70%)"></span>
     {sparks()}
   </div>
-  <div class="b-halo" aria-hidden="true" style="position: absolute; left: 86px; top: 207px; width: 230px; height: 230px">
-    {HALO.format(w=3, w2=2.5)}
-    <span style="position: absolute; inset: 12px; border-radius: 50%; border: 1px solid rgba(255,170,130,0.45)"></span>
+  <div class="b-glow" aria-hidden="true" style="position: absolute; left: 41px; top: 197px; width: 320px; height: 250px">
+    <span style="position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(ellipse at 50% 50%, rgba(255,168,128,0.38) 0%, rgba(255,180,150,0.18) 45%, rgba(255,190,160,0) 70%)"></span>
   </div>
 ''' + avatars('b-l', 'b-r') + '\n' + TITLE
 write('VoicePrioritySuccessB.dc.html', cssB, bodyB)
+# B was chosen (2026-10-22): it is the priority match-success page.
+write('VoicePrioritySuccess.dc.html', cssB, bodyB)
 print('ok')

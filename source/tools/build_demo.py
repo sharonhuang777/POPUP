@@ -213,6 +213,12 @@ b = clean(b).replace('data-ms-root  style="cursor: pointer; ', 'style="')
 assert b.count('<button aria-label="Close"') == 1 and b.count('<button aria-label="Minimize"') == 1
 b = b.replace('<button aria-label="Close"', '<button data-go="voice" aria-label="Close"').replace('<button aria-label="Minimize"', '<button data-go="home" aria-label="Minimize"')
 screens['matched'] = page(h, b, "setTimeout(function () { parent.postMessage({ go: 'call' }, '*'); }, 1900);\n")
+# Priority match success (halo spin-collapse, avatars pop out and collide): everything is in by ~2.2s, then 1s, then the call.
+h, b, _ = parts('VoicePrioritySuccess.dc.html')
+b = clean(b).replace('data-ms-root  style="cursor: pointer; ', 'style="')
+assert b.count('<button aria-label="Close"') == 1 and b.count('<button aria-label="Minimize"') == 1
+b = b.replace('<button aria-label="Close"', '<button data-go="voice" aria-label="Close"').replace('<button aria-label="Minimize"', '<button data-go="home" aria-label="Minimize"')
+screens['pmatched'] = page(h, b, "setTimeout(function () { parent.postMessage({ go: 'call' }, '*'); }, 3200);\n")
 h, b, _ = parts('VoiceCall.dc.html')
 b = clean(b).replace('<button aria-label="End call"', '<button data-go="ended" aria-label="End call"').replace('<button aria-label="Minimize"', '<button data-go="home" aria-label="Minimize"')
 screens['call'] = page(h.replace('body{margin:0}', 'body{margin:0;background:#1F1540}'), b, open(S+'/tools/call_reveal.js').read())

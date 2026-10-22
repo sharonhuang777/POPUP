@@ -240,5 +240,6 @@ body3 = f'''
   <div class="p-sub" style="position: absolute; left: 24px; top: 480px; width: 354px; text-align: center; font-size: 15px; line-height: 1.45; color: #6E6080">You just skipped <b style="font-weight: 750; color: #F2545B">582</b> people!</div>
 '''
 glow3 = 'radial-gradient(ellipse at 50% 36%, rgba(255,170,130,0.38), rgba(255,170,130,0) 44%), radial-gradient(ellipse at 88% 80%, rgba(255,214,190,0.30), rgba(255,214,190,0) 45%), radial-gradient(ellipse at 6% 86%, rgba(190,170,235,0.26), rgba(190,170,235,0) 50%)'
-open('project/VoicePrioritySuccess.dc.html','w').write(HEAD.format(title='Voice Match · Priority matched', css=css3, glow=glow3, body=body3))
+# Old bolt version, superseded by gen_priority_variants.py (direction B) on 2026-10-22; kept for reference only.
+# open('project/VoicePrioritySuccess.dc.html','w').write(HEAD.format(title='Voice Match · Priority matched', css=css3, glow=glow3, body=body3))
 print('ok')
