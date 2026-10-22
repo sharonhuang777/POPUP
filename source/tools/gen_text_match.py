@@ -4,12 +4,12 @@
 # Run from the canvas root: writes project/TextMatchSuccess.dc.html
 import math, random
 
-D = 6.6          # loop length
-LAND = 3.4       # slot lands / success
+D = 8.4          # loop length
+LAND = 5.1       # slot lands / success
 def p(t): return f'{t / D * 100:.2f}%'
 
 ME, CANDS, FINAL = 'avatar.png', ['u3.jpg', 'u5.jpg', 'u2.jpg', 'u6.jpg', 'u4.jpg'], 'u1.jpg'
-STEP = .56       # one candidate per step
+STEP = .92       # one candidate per step: hold ~0.55s on a face, then a 0.37s roll to the next
 SIZE = 88
 
 # ---- slot: a vertical strip of candidates, steps up one face at a time, final face lands with a small overshoot
@@ -18,7 +18,7 @@ kf = [f'0%{{transform:translateY(0)}}']
 t = .3
 for i in range(1, len(strip)):
     t0 = t + (i - 1) * STEP
-    kf.append(f'{p(t0 + STEP - .2)}{{transform:translateY({-(i - 1) * SIZE}px);animation-timing-function:cubic-bezier(.5,0,.3,1)}}')
+    kf.append(f'{p(t0 + STEP - .37)}{{transform:translateY({-(i - 1) * SIZE}px);animation-timing-function:cubic-bezier(.45,0,.25,1)}}')
     if i < len(strip) - 1:
         kf.append(f'{p(t0 + STEP)}{{transform:translateY({-i * SIZE}px)}}')
 last = -(len(strip) - 1) * SIZE
