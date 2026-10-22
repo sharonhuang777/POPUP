@@ -72,12 +72,56 @@ COMMON_CSS = '''@property --n{syntax:'<integer>';inherits:false;initial-value:0}
 
 def pct(t, D): return f'{t / D * 100:.2f}%'
 
+def particles_css(D, t0):
+    # Light particles (priority only, so it reads differently from the standard confetti): glowing dots burst out
+    # with strong drag, then float up a little while twinkling and fading; a few short light streaks shoot out radially.
+    k = .14
+    fr = []
+    T = 1.9
+    for i in range(21):
+        tau = T * (i / 20) ** 1.2
+        f = (1 - math.exp(-tau / k)) / (1 - math.exp(-T / k))
+        rise = -38 * max(0.0, tau - .15) ** 1.3
+        tw = 1 if tau < .5 else (.55 + .45 * abs(math.cos((tau - .5) * 9)))
+        fade = 1 if tau < .7 else max(0.0, 1 - (tau - .7) / (T - .7))
+        sc = (.4 + tau / .08 * .6) if tau < .08 else (1 - .5 * max(0.0, tau - .7) / (T - .7))
+        op = 0 if i == 0 else tw * fade
+        fr.append(f"{(t0 + tau) / D * 100:.2f}%{{transform:translate(calc(var(--dx) * {f:.3f}),calc(var(--dy) * {f:.3f} + {rise:.1f}px)) scale({sc:.2f});opacity:{op:.2f}}}")
+    first = fr[0].split('{')[0]
+    css = (f'@keyframes qPart{{0%,{first}{{transform:translate(0,0) scale(.4);opacity:0}}' + ''.join(fr[1:]) + f"{min(99.99, (t0 + T) / D * 100 + .01):.2f}%,100%{{opacity:0}}}}\n")
+    p_ = lambda t: f'{t / D * 100:.2f}%'
+    css += (f'@keyframes qStreak{{0%,{p_(t0)}{{transform:rotate(var(--a)) translateX(30px) scaleX(.2);opacity:0;animation-timing-function:cubic-bezier(.1,.7,.3,1)}}'
+            f'{p_(t0 + .04)}{{opacity:1}}{p_(t0 + .42)}{{transform:rotate(var(--a)) translateX(var(--d)) scaleX(1);opacity:0}}100%{{opacity:0}}}}\n')
+    css += f'.q-p{{animation:qPart {D}s linear both}}\n.q-s{{transform-origin:0 50%;animation:qStreak {D}s linear both}}\n'
+    return css
+
+def particles():
+    import random
+    random.seed(23)
+    cols = [('radial-gradient(circle, #FFFFFF 0%, #FFB089 70%)', 'rgba(255,120,80,0.75)'), ('radial-gradient(circle, #FFF6EE 0%, #FF8F66 75%)', 'rgba(242,84,91,0.6)'), ('radial-gradient(circle, #FFFFFF 0%, #FFC27A 70%)', 'rgba(255,150,60,0.7)'), ('#FFFFFF', 'rgba(255,130,90,0.8)')]
+    out = []
+    n = 34
+    for i in range(n):
+        a = (i / n) * 2 * math.pi + random.uniform(-.15, .15)
+        r = random.uniform(70, 185)
+        dx, dy = math.cos(a) * r, math.sin(a) * r * .85
+        size = random.choice([3, 4, 4, 5, 5, 6, 7])
+        c, g = cols[i % len(cols)]
+        o = 201 - size / 2
+        out.append(f'<span class="q-p" aria-hidden="true" style="position: absolute; left: {o:.1f}px; top: {-size / 2:.1f}px; width: {size}px; height: {size}px; border-radius: 50%; '
+                   f'background: {c}; box-shadow: 0 0 {size * 2}px {size * .6:.1f}px {g}; --dx: {dx:.0f}px; --dy: {dy:.0f}px; animation-delay: {random.uniform(0, .06):.3f}s"></span>')
+    for i in range(10):
+        a = i * 36 + random.uniform(-10, 10)
+        out.append(f'<span class="q-s" aria-hidden="true" style="position: absolute; left: 201px; top: -1px; width: 34px; height: 2px; border-radius: 1px; '
+                   f'background: linear-gradient(90deg, rgba(255,210,180,0), rgba(255,236,220,1)); box-shadow: 0 0 6px rgba(255,120,80,0.85); --a: {a:.0f}deg; --d: {random.uniform(120, 170):.0f}px"></span>')
+    return ''.join(out)
+
 def tail(D, t_hit, t_sub, t_cnt_end):
     p = lambda t: pct(t, D)
     return f'''@keyframes qTitle{{0%,{p(t_hit)}{{transform:translateY(10px) scale(.7);opacity:0}}{p(t_hit + .14)}{{transform:translateY(0) scale(1.08);opacity:1}}{p(t_hit + .28)},100%{{transform:translateY(0) scale(1);opacity:1}}}}
 @keyframes qSub{{0%,{p(t_sub)}{{transform:translateY(8px);opacity:0}}{p(t_sub + .26)},100%{{transform:translateY(0);opacity:1}}}}
 @keyframes qCnt{{0%,{p(t_sub)}{{--n:0;animation-timing-function:cubic-bezier(.2,.7,.3,1)}}{p(t_cnt_end)},100%{{--n:582}}}}
-@keyframes qCntPop{{0%,{p(t_cnt_end)}{{transform:scale(1)}}{p(t_cnt_end + .1)}{{transform:scale(1.25)}}{p(t_cnt_end + .24)},100%{{transform:scale(1)}}}}
+@keyframes qCntPop{{0%,{p(t_cnt_end)}{{transform:scale(1)}}{p(t_cnt_end + .1)}{{transform:scale(1.12)}}{p(t_cnt_end + .24)},100%{{transform:scale(1)}}}}
 .q-title{{animation:qTitle {D}s cubic-bezier(.2,.8,.3,1) both}}
 .q-sub{{animation:qSub {D}s ease-out both}}
 .q-cnt{{display:inline-block;animation:qCnt {D}s linear both,qCntPop {D}s ease-out both}}
@@ -153,7 +197,7 @@ cssB = f'''@keyframes bRing{{0%{{transform:scale(.6) rotate(0);opacity:0;animati
 .b-flash{{animation:bFlash {D}s ease-out both}}
 .b-glow{{animation:bGlow {D}s ease-out both}}
 .b-glow span{{animation:bBreath 3.2s ease-in-out infinite}}
-''' + tail(D, H, H + .14, H + .9)
+''' + tail(D, H, H + .14, H + .9) + particles_css(D, H)
 
 # Soft light, no hard strokes: a blurred warm annulus with one brighter swirl spins up and condenses into a glow,
 # the avatars pop out of it and collide; afterwards only a soft breathing glow stays behind them.
@@ -166,7 +210,7 @@ bodyB = f'''  <div style="position: absolute; left: 0; top: 322px; width: 402px;
     <span class="b-shock" aria-hidden="true" style="position: absolute; left: 111px; top: -90px; width: 180px; height: 180px; border-radius: 50%; filter: blur(6px); background: radial-gradient(circle, rgba(255,170,130,0) 50%, rgba(255,160,120,0.42) 61%, rgba(255,190,160,0) 72%)"></span>
     <span class="b-bloom" aria-hidden="true" style="position: absolute; left: 111px; top: -90px; width: 180px; height: 180px; border-radius: 50%; filter: blur(8px); background: radial-gradient(circle, rgba(255,170,130,0) 50%, rgba(255,160,120,0.42) 61%, rgba(255,190,160,0) 72%)"></span>
     <span class="b-flash" aria-hidden="true" style="position: absolute; left: 141px; top: -60px; width: 120px; height: 120px; border-radius: 50%; filter: blur(3px); background: radial-gradient(circle, rgba(255,250,245,0.9) 0%, rgba(255,190,150,0.6) 35%, rgba(255,160,120,0) 70%)"></span>
-    {sparks()}
+    {particles()}
   </div>
   <div class="b-glow" aria-hidden="true" style="position: absolute; left: 41px; top: 197px; width: 320px; height: 250px">
     <span style="position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(ellipse at 50% 50%, rgba(255,168,128,0.38) 0%, rgba(255,180,150,0.18) 45%, rgba(255,190,160,0) 70%)"></span>
