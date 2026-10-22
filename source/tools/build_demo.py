@@ -183,7 +183,7 @@ VP = ["Searching with the signals you've shared…", 'Listening for a voice that
 TP = ["Searching with the signals you've shared…", 'Reading between your answers…', 'Looking for someone who remembers the little things…', 'Weighing honesty over small talk…', 'Finding someone who stays up late too…', 'Almost there, narrowing it down…']
 screens['std'] = think('V2Think1.dc.html', "new PearlOrb(c, { palette: POPUP_PURPLE, state: 'thinking' });", 'call')
 screens['pri'] = think('V2VoiceThink1.dc.html', "new PearlOrb(c, { palette: POPUP_VOICE, state: 'thinking' });", 'call')
-screens['text'] = think('TextThink.dc.html', "new PearlOrb(c, { palette: POPUP_MIST, state: 'thinking' });", None)
+screens['text'] = think('TextThink.dc.html', "new PearlOrb(c, { palette: POPUP_MIST, state: 'thinking' });", 'tmatched')
 
 h, b, lib = parts('ProfileMe.dc.html')
 PSCROLL = open(S + '/tools/profile_scroll.js').read()
@@ -233,6 +233,15 @@ b = b.replace('<button style="position: absolute; left: 16px; top: 728px;', '<bu
 b = b.replace('<button style="position: absolute; left: 16px; top: 794px;', '<button data-go="home" style="position: absolute; left: 16px; top: 794px;')
 assert b.count('data-go="std"') == 1 and b.count('data-go="home"') == 1
 screens['devfail'] = page(h, b, '')
+# Text match: candidates roll with shared tags lighting, then "86% Match degree · Chat now!". Plays once and holds.
+h, b, _ = parts('TextMatchSuccess.dc.html')
+h = h.replace('.ambient{animation:drift 28s ease-in-out infinite}', '.ambient{animation:drift 28s ease-in-out INF}')
+h = h.replace(' infinite}', ' both}').replace(' INF}', ' infinite}')
+h = h.replace('.t-scene{animation:tScene', '.t-scene{animation-name:none;--was:tScene')   # no fade-out at the end
+b = clean(b)
+assert b.count('<button aria-label="Close"') == 1
+b = b.replace('<button aria-label="Close"', '<button data-go="home" aria-label="Close"')
+screens['tmatched'] = page(h, b, '')
 h, b, _ = parts('VoiceCall.dc.html')
 b = clean(b).replace('<button aria-label="End call"', '<button data-go="ended" aria-label="End call"').replace('<button aria-label="Minimize"', '<button data-go="home" aria-label="Minimize"')
 screens['call'] = page(h.replace('body{margin:0}', 'body{margin:0;background:#1F1540}'), b, open(S+'/tools/call_reveal.js').read())

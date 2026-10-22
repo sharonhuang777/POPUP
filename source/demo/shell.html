@@ -77,7 +77,7 @@ body.m .island,body.m .status,body.m .home-ind,body.m .side{display:none}
   <div class="side">
     <h1>Popup 交互 Demo</h1>
     <p>从首页点「Talk with Popup」进入每日对话，答完 3 题后可选择匹配或稍后；点「Text Match」或「Voice Match」直接进入匹配流程。</p>
-    <p>语音匹配：第 1 次 Standard 思考 → 排队 → 轮到你（Regular 失败一次）；第 2 次 Standard 普通匹配成功；第 3 次被加速卡用户匹配到。Priority 走加速卡匹配成功。也可以用下面的按钮直接切到某个状态。</p>
+    <p>语音匹配：第 1 次 Standard 思考 → 排队 → 轮到你（Regular 失败一次）；第 2 次 Standard 普通匹配成功；第 3 次被加速卡用户匹配到。Priority 走加速卡匹配成功。文字匹配：思考 → 头像轮换、共同标签逐个点亮 → 匹配成功。也可以用下面的按钮直接切到某个状态。</p>
     <button type="button" id="restart">回到首页</button>
     <div class="jump" aria-label="语音匹配状态">
       <h2>语音匹配 · 直接切到状态</h2>
@@ -95,6 +95,11 @@ body.m .island,body.m .status,body.m .home-ind,body.m .side{display:none}
         <button type="button" data-jump="call">语音通话</button>
         <button type="button" data-jump="ended">通话结束</button>
       </div>
+      <h2 style="margin-top:14px">文字匹配</h2>
+      <div>
+        <button type="button" data-jump="text">文字匹配中</button>
+        <button type="button" data-jump="tmatched">文字匹配成功</button>
+      </div>
       <small>切过去后页面照常往下走（比如匹配中会自动进排队或匹配成功）；再点一次同一个按钮可重播。</small>
     </div>
   </div>
@@ -103,7 +108,7 @@ body.m .island,body.m .status,body.m .home-ind,body.m .side{display:none}
 var SCREENS = /*SCREENS*/{};
 var phoneEl = document.querySelector('.phone');
 var frames = {};          // name -> iframe (kept alive for tab screens)
-var NOCACHE = { devfail: 1, matched: 1, pmatched: 1, preceived: 1, std: 1, pri: 1, text: 1, call: 1, queue: 1, turn: 1, fail: 1, ended: 1 };
+var NOCACHE = { tmatched: 1, devfail: 1, matched: 1, pmatched: 1, preceived: 1, std: 1, pri: 1, text: 1, call: 1, queue: 1, turn: 1, fail: 1, ended: 1 };
 var DARK = { call: 1, ended: 1 };   // animation pages replay each visit
 var TABS = { plaza: 0, home: 1, messages: 2 };
 var current = null, stack = [];
@@ -192,7 +197,7 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-jump]'), function 
     if (n === 'turn' || n === 'queue') FAILED = 0;        // so Regular on "your turn" shows the failure once
     if (frames[n]) { frames[n].remove(); delete frames[n]; }
     stack = ['home'];
-    if (n !== 'voice') stack.push('voice');
+    if (n !== 'voice' && n !== 'text' && n !== 'tmatched') stack.push('voice');
     show(n);
   });
 });
