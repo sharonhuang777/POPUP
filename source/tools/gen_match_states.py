@@ -109,24 +109,24 @@ def confetti_kf(D, t0=.5, T=2.0):
         fr.append(f"{(t0 + tau) / D * 100:.2f}%{{transform:translate(calc(var(--dx) * {f:.3f}),calc(var(--dy) * {f:.3f} + {g:.1f}px)) rotate(calc(var(--r) * {rot:.3f})) scale({sc:.2f});opacity:{op:.2f}}}")
     return '@keyframes mConf{' + f"0%,{fr[0].split('{')[0]}" + '{transform:translate(0,0) rotate(0) scale(.3);opacity:0}' + ''.join(fr[1:]) + f"{(t0+T)/D*100+0.01:.2f}%,100%{{opacity:0}}" + '}'
 
-D = 4.6  # loop length on the canvas
+D = 3.0  # plays once; title lands on impact, everything is in by ~0.9s, the app moves to the call 1s later (demo)
 def pct(t): return f'{t/D*100:.2f}%'
-CONF = confetti_kf(D)
+CONF = confetti_kf(D, T=2.4)
 css2 = f'''
-@keyframes mL{{0%{{transform:translateX(-260px) scale(.9);opacity:0;animation-timing-function:cubic-bezier(.45,.05,.85,.5)}}{pct(.08)}{{opacity:1}}{pct(.48)}{{transform:translateX(-56px) scale(1);animation-timing-function:linear}}{pct(.53)}{{transform:translateX(-50px) scaleX(.9) scaleY(1.06);animation-timing-function:cubic-bezier(.2,.8,.4,1)}}{pct(.72)}{{transform:translateX(-65px) scale(1.02);animation-timing-function:ease-in-out}}{pct(.92)},{pct(4.2)}{{transform:translateX(-60px) scale(1);opacity:1}}100%{{transform:translateX(-60px) scale(1);opacity:0}}}}
-@keyframes mR{{0%{{transform:translateX(260px) scale(.9);opacity:0;animation-timing-function:cubic-bezier(.45,.05,.85,.5)}}{pct(.08)}{{opacity:1}}{pct(.48)}{{transform:translateX(56px) scale(1);animation-timing-function:linear}}{pct(.53)}{{transform:translateX(50px) scaleX(.9) scaleY(1.06);animation-timing-function:cubic-bezier(.2,.8,.4,1)}}{pct(.72)}{{transform:translateX(65px) scale(1.02);animation-timing-function:ease-in-out}}{pct(.92)},{pct(4.2)}{{transform:translateX(60px) scale(1);opacity:1}}100%{{transform:translateX(60px) scale(1);opacity:0}}}}
+@keyframes mL{{0%{{transform:translateX(-260px) scale(.9);opacity:0;animation-timing-function:cubic-bezier(.45,.05,.85,.5)}}{pct(.08)}{{opacity:1}}{pct(.48)}{{transform:translateX(-56px) scale(1);animation-timing-function:linear}}{pct(.53)}{{transform:translateX(-50px) scaleX(.9) scaleY(1.06);animation-timing-function:cubic-bezier(.2,.8,.4,1)}}{pct(.72)}{{transform:translateX(-65px) scale(1.02);animation-timing-function:ease-in-out}}{pct(.92)},100%{{transform:translateX(-60px) scale(1);opacity:1}}}}
+@keyframes mR{{0%{{transform:translateX(260px) scale(.9);opacity:0;animation-timing-function:cubic-bezier(.45,.05,.85,.5)}}{pct(.08)}{{opacity:1}}{pct(.48)}{{transform:translateX(56px) scale(1);animation-timing-function:linear}}{pct(.53)}{{transform:translateX(50px) scaleX(.9) scaleY(1.06);animation-timing-function:cubic-bezier(.2,.8,.4,1)}}{pct(.72)}{{transform:translateX(65px) scale(1.02);animation-timing-function:ease-in-out}}{pct(.92)},100%{{transform:translateX(60px) scale(1);opacity:1}}}}
 @keyframes mFlash{{0%,{pct(.48)}{{transform:scale(.2);opacity:0}}{pct(.56)}{{opacity:1}}{pct(1.1)},100%{{transform:scale(2.6);opacity:0}}}}
 @keyframes mWave{{0%,{pct(.5)}{{transform:scale(.4);opacity:0}}{pct(.56)}{{opacity:.9}}{pct(1.5)},100%{{transform:scale(3.2);opacity:0}}}}
-@keyframes mTitle{{0%,{pct(.62)}{{transform:translateY(14px) scale(.86);opacity:0}}{pct(.9)}{{transform:translateY(0) scale(1.05);opacity:1}}{pct(1.05)},{pct(4.2)}{{transform:scale(1);opacity:1}}100%{{opacity:0}}}}
-@keyframes mSub{{0%,{pct(.95)}{{transform:translateY(8px);opacity:0}}{pct(1.25)},{pct(4.2)}{{transform:translateY(0);opacity:1}}100%{{opacity:0}}}}
+@keyframes mTitle{{0%,{pct(.48)}{{transform:translateY(10px) scale(.7);opacity:0}}{pct(.62)}{{transform:translateY(0) scale(1.08);opacity:1}}{pct(.76)},100%{{transform:translateY(0) scale(1);opacity:1}}}}
+@keyframes mSub{{0%,{pct(.6)}{{transform:translateY(8px);opacity:0}}{pct(.88)},100%{{transform:translateY(0);opacity:1}}}}
 {CONF}
-.m-l{{animation:mL {D}s linear infinite}}
-.m-r{{animation:mR {D}s linear infinite}}
-.m-flash{{animation:mFlash {D}s ease-out infinite}}
-.m-wave{{animation:mWave {D}s cubic-bezier(.2,.6,.3,1) infinite}}
-.m-title{{animation:mTitle {D}s cubic-bezier(.34,1.3,.64,1) infinite}}
-.m-sub{{animation:mSub {D}s ease-out infinite}}
-.m-c{{animation:mConf {D}s linear infinite}}
+.m-l{{animation:mL {D}s linear both}}
+.m-r{{animation:mR {D}s linear both}}
+.m-flash{{animation:mFlash {D}s ease-out both}}
+.m-wave{{animation:mWave {D}s cubic-bezier(.2,.6,.3,1) both}}
+.m-title{{animation:mTitle {D}s cubic-bezier(.2,.8,.3,1) both}}
+.m-sub{{animation:mSub {D}s ease-out both}}
+.m-c{{animation:mConf {D}s linear both}}
 '''
 import math, random
 random.seed(7)
@@ -161,7 +161,13 @@ body2 = f'''
   <div class="m-sub" style="position: absolute; left: 24px; top: 474px; width: 354px; text-align: center; font-size: 15px; line-height: 1.45; color: #6E6080">Connecting your voice call…</div>
 '''
 glow2 = 'radial-gradient(ellipse at 50% 34%, rgba(255,186,170,0.32), rgba(255,186,170,0) 44%), radial-gradient(ellipse at 88% 80%, rgba(255,214,190,0.30), rgba(255,214,190,0) 45%), radial-gradient(ellipse at 6% 86%, rgba(190,170,235,0.28), rgba(190,170,235,0) 50%)'
-open('project/VoiceMatchSuccess.dc.html','w').write(HEAD.format(title='Voice Match · Matched', css=css2, glow=glow2, body=body2))
+out2 = HEAD.format(title='Voice Match · Matched', css=css2, glow=glow2, body=body2)
+# Plays once and holds the final frame; tap anywhere on the board to replay.
+_root = '<div style="position: relative; width: 402px; height: 874px;'
+assert out2.count(_root) == 1 and out2.count('renderVals() { return {}; }') == 1
+out2 = out2.replace(_root, '<div data-ms-root onClick="{{ replay }}" style="cursor: pointer; position: relative; width: 402px; height: 874px;', 1)
+out2 = out2.replace('renderVals() { return {}; }', "renderVals() {\n    if (!this._replay) this._replay = function (e) {\n      var r = (e && e.currentTarget && e.currentTarget.closest && e.currentTarget.closest('[data-ms-root]')) || document.querySelector('[data-ms-root]');\n      if (!r || !r.getAnimations) return;\n      r.getAnimations({ subtree: true }).forEach(function (a) { if (a.animationName !== 'drift') { a.currentTime = 0; a.play(); } });\n    };\n    return { replay: this._replay };\n  }")
+open('project/VoiceMatchSuccess.dc.html','w').write(out2)
 
 # ---------------- 3. priority match success (bolt) ----------------
 D = 5.4

@@ -207,6 +207,12 @@ def small(path,w):
 chat=open(S+'/demo/chat.html').read().replace('%%ORB%%',small(IMG+'orb-static.png',96)).replace('%%ICT%%',small(S+'/demo/mic0.png',120)).replace('%%ICV%%',small(S+'/demo/mic1.png',120)).replace('%%ME%%',small(IMG+'avatar.png',96))
 chat=chat.replace('</script></body>', NAV.replace("var g = e.target.closest('[data-go]');","var g = null;") + '</script></body>')
 screens['chat']=chat
+# Match success: avatars collide, title lands on impact; once everything is in (~0.9s) wait 1s, then the call.
+h, b, _ = parts('VoiceMatchSuccess.dc.html')
+b = clean(b).replace('data-ms-root  style="cursor: pointer; ', 'style="')
+assert b.count('<button aria-label="Close"') == 1 and b.count('<button aria-label="Minimize"') == 1
+b = b.replace('<button aria-label="Close"', '<button data-go="voice" aria-label="Close"').replace('<button aria-label="Minimize"', '<button data-go="home" aria-label="Minimize"')
+screens['matched'] = page(h, b, "setTimeout(function () { parent.postMessage({ go: 'call' }, '*'); }, 1900);\n")
 h, b, _ = parts('VoiceCall.dc.html')
 b = clean(b).replace('<button aria-label="End call"', '<button data-go="ended" aria-label="End call"').replace('<button aria-label="Minimize"', '<button data-go="home" aria-label="Minimize"')
 screens['call'] = page(h.replace('body{margin:0}', 'body{margin:0;background:#1F1540}'), b, open(S+'/tools/call_reveal.js').read())
