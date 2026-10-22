@@ -11,6 +11,9 @@ tpl = open(SRC).read()
 head = tpl[:tpl.index('@keyframes mL')]
 tail_css = tpl[tpl.index('@media (prefers-reduced-motion'):tpl.index('</helmet>')]
 body_open = tpl[tpl.index('</helmet>'):tpl.index('  <div style="position: absolute; left: 0; top: 322px')]
+# The template is the standard match page (lilac, like standard voice thinking); priority pages keep the warm coral background.
+body_open = body_open.replace('background: linear-gradient(180deg, #FCF1E8 0%, #F7EFF2 45%, #EEE8F6 75%, #E8E2F6 100%)', 'background: linear-gradient(180deg, #FCF1E8 0%, #FAF0EE 40%, #F3ECF3 72%, #ECE6F5 100%)')
+body_open = re.sub(r'(class="ambient" style="[^"]*background: )[^"]*"', lambda m: m.group(1) + 'radial-gradient(ellipse at 50% 34%, rgba(255,186,170,0.32), rgba(255,186,170,0) 44%), radial-gradient(ellipse at 88% 80%, rgba(255,214,190,0.30), rgba(255,214,190,0) 45%), radial-gradient(ellipse at 6% 86%, rgba(190,170,235,0.28), rgba(190,170,235,0) 50%)"', body_open)
 script = tpl[tpl.index('</div>\n</x-dc>'):]
 av_l = re.search(r'    <div class="m-l".*?\n    </div>\n', tpl, re.S).group(0)
 av_r = re.search(r'    <div class="m-r".*?\n    </div>\n', tpl, re.S).group(0)

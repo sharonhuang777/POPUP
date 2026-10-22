@@ -161,7 +161,13 @@ body2 = f'''
   <div class="m-sub" style="position: absolute; left: 24px; top: 474px; width: 354px; text-align: center; font-size: 15px; line-height: 1.45; color: #6E6080">Connecting your voice call…</div>
 '''
 glow2 = 'radial-gradient(ellipse at 50% 34%, rgba(255,186,170,0.32), rgba(255,186,170,0) 44%), radial-gradient(ellipse at 88% 80%, rgba(255,214,190,0.30), rgba(255,214,190,0) 45%), radial-gradient(ellipse at 6% 86%, rgba(190,170,235,0.28), rgba(190,170,235,0) 50%)'
+# Standard match success uses the same background as the standard voice thinking page (V2Think1): lilac, not peach.
+OLD_BG2 = 'background: linear-gradient(180deg, #FCF1E8 0%, #FAF0EE 40%, #F3ECF3 72%, #ECE6F5 100%)'
+STD_BG2 = 'background: linear-gradient(180deg, #FCF1E8 0%, #F7EFF2 45%, #EEE8F6 75%, #E8E2F6 100%)'
+glow2 = 'radial-gradient(ellipse at 50% 26%, rgba(196,170,245,0.34), rgba(196,170,245,0) 42%), radial-gradient(ellipse at 88% 72%, rgba(255,214,190,0.26), rgba(255,214,190,0) 45%), radial-gradient(ellipse at 6% 86%, rgba(181,158,235,0.30), rgba(181,158,235,0) 50%)'
 out2 = HEAD.format(title='Voice Match · Matched', css=css2, glow=glow2, body=body2)
+assert out2.count(OLD_BG2) == 1
+out2 = out2.replace(OLD_BG2, STD_BG2)
 # Plays once and holds the final frame; tap anywhere on the board to replay.
 _root = '<div style="position: relative; width: 402px; height: 874px;'
 assert out2.count(_root) == 1 and out2.count('renderVals() { return {}; }') == 1
