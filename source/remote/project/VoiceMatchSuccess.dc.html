@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Voice Match · Matched</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+@keyframes drift{0%,100%{transform:translate(-1%,-.5%)}50%{transform:translate(1%,.6%)}}
+.ambient{animation:drift 28s ease-in-out infinite}
+
+@keyframes mL{0%{transform:translateX(-260px) scale(.9);opacity:0}1.74%{opacity:1}8.26%{transform:translateX(-78px) scale(1)}11.30%{transform:translateX(-50px) scaleX(.9) scaleY(1.06)}15.22%{transform:translateX(-64px) scale(1.02)}18.70%,91.30%{transform:translateX(-60px) scale(1);opacity:1}100%{transform:translateX(-60px) scale(1);opacity:0}}
+@keyframes mR{0%{transform:translateX(260px) scale(.9);opacity:0}1.74%{opacity:1}8.26%{transform:translateX(78px) scale(1)}11.30%{transform:translateX(50px) scaleX(.9) scaleY(1.06)}15.22%{transform:translateX(64px) scale(1.02)}18.70%,91.30%{transform:translateX(60px) scale(1);opacity:1}100%{transform:translateX(60px) scale(1);opacity:0}}
+@keyframes mFlash{0%,10.43%{transform:scale(.2);opacity:0}12.17%{opacity:1}23.91%,100%{transform:scale(2.6);opacity:0}}
+@keyframes mWave{0%,10.87%{transform:scale(.4);opacity:0}12.17%{opacity:.9}32.61%,100%{transform:scale(3.2);opacity:0}}
+@keyframes mTitle{0%,13.48%{transform:translateY(14px) scale(.86);opacity:0}19.57%{transform:translateY(0) scale(1.05);opacity:1}22.83%,91.30%{transform:scale(1);opacity:1}100%{opacity:0}}
+@keyframes mSub{0%,20.65%{transform:translateY(8px);opacity:0}27.17%,91.30%{transform:translateY(0);opacity:1}100%{opacity:0}}
+@keyframes mConf{0%,10.87%{transform:translate(0,0) rotate(0) scale(.3);opacity:0}12.17%{opacity:1}34.78%{transform:translate(var(--dx),var(--dy)) rotate(var(--r)) scale(1);opacity:1}52.17%,100%{transform:translate(calc(var(--dx) * 1.12),calc(var(--dy) * 1.12 + 26px)) rotate(var(--r)) scale(1);opacity:0}}
+@keyframes mHeart{0%,11.96%{transform:translate(-50%,0) scale(0);opacity:0}17.39%{transform:translate(-50%,-18px) scale(1.15);opacity:1}21.74%,91.30%{transform:translate(-50%,-14px) scale(1);opacity:1}100%{opacity:0}}
+.m-l{animation:mL 4.6s cubic-bezier(.3,.7,.3,1) infinite}
+.m-r{animation:mR 4.6s cubic-bezier(.3,.7,.3,1) infinite}
+.m-flash{animation:mFlash 4.6s ease-out infinite}
+.m-wave{animation:mWave 4.6s cubic-bezier(.2,.6,.3,1) infinite}
+.m-title{animation:mTitle 4.6s cubic-bezier(.34,1.3,.64,1) infinite}
+.m-sub{animation:mSub 4.6s ease-out infinite}
+.m-c{animation:mConf 4.6s cubic-bezier(.15,.7,.3,1) infinite}
+.m-heart{animation:mHeart 4.6s cubic-bezier(.34,1.5,.64,1) infinite}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}
+</style>
+</helmet>
+<div style="position: relative; width: 402px; height: 874px; overflow: hidden; font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif; color: #342b43; background: linear-gradient(180deg, #FCF1E8 0%, #FAF0EE 40%, #F3ECF3 72%, #ECE6F5 100%)">
+
+  <div aria-hidden="true" class="ambient" style="position: absolute; left: -16px; top: -16px; width: 434px; height: 906px; background: radial-gradient(ellipse at 50% 34%, rgba(255,186,170,0.32), rgba(255,186,170,0) 44%), radial-gradient(ellipse at 88% 80%, rgba(255,214,190,0.30), rgba(255,214,190,0) 45%), radial-gradient(ellipse at 6% 86%, rgba(190,170,235,0.28), rgba(190,170,235,0) 50%)"></div>
+
+  <div style="position: absolute; left: 0; top: 54px; width: 402px; height: 44px; display: flex; align-items: center; justify-content: center">
+    <button aria-label="Close" style="position: absolute; left: 16px; top: 0; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.7); background: rgba(255,255,255,0.44); display: flex; align-items: center; justify-content: center; color: #53416e; cursor: pointer">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+    </button>
+    <div style="font-size: 17px; font-weight: 700; letter-spacing: -0.2px; color: #53416e">Voice Match</div>
+    <button aria-label="Minimize" style="position: absolute; right: 16px; top: 0; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.7); background: rgba(255,255,255,0.44); display: flex; align-items: center; justify-content: center; color: #53416e; cursor: pointer">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7"></path></svg>
+    </button>
+  </div>
+
+  <div style="position: absolute; left: 24px; top: 116px; width: 354px; box-sizing: border-box; padding: 10px 14px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.85); background: rgba(255,255,255,0.5); text-align: center; font-size: 13px; line-height: 1.4; color: #7A6E92">Match count refreshes at <b style="font-weight: 700; color: #53416E">8:00</b> every day</div>
+
+  <div style="position: absolute; left: 0; top: 322px; width: 402px; height: 0">
+    <span class="m-wave" aria-hidden="true" style="position: absolute; left: 141px; top: -60px; width: 120px; height: 120px; border-radius: 50%; border: 2px solid rgba(242,110,120,0.45)"></span>
+    <span class="m-flash" aria-hidden="true" style="position: absolute; left: 141px; top: -60px; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,190,170,0.7) 35%, rgba(196,170,255,0) 70%)"></span>
+    <span class="m-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 10px; height: 10px; border-radius: 3px; background: #FF8A4E; --dx: -9px; --dy: -102px; --r: 133deg"></span><span class="m-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 12px; height: 12px; border-radius: 50%; border: 2.5px solid #F2545B; box-sizing: border-box; --dx: 44px; --dy: -127px; --r: -152deg"></span><span class="m-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 14px; height: 4px; border-radius: 2px; background: #8F6FF0; --dx: 92px; --dy: -65px; --r: 59deg"></span><span class="m-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 8px; height: 8px; border-radius: 50%; background: #FFC857; --dx: 118px; --dy: -33px; --r: 14deg"></span><span class="m-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 10px; height: 10px; border-radius: 3px; background: #5FD3B6; --dx: 125px; --dy: 5px; --r: 17deg"></span><span class="m-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 12px; height: 12px; border-radius: 50%; border: 2.5px solid #FF9AC1; box-sizing: border-box; --dx: 133px; --dy: 58px; --r: -86deg"></span><span class="m-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 14px; height: 4px; border-radius: 2px; background: #A68DF5; --dx: 59px; --dy: 112px; --r: -169deg"></span><span class="m-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 8px; height: 8px; border-radius: 50%; background: #7FB7FF; --dx: -4px; --dy: 113px; --r: -87deg"></span><span class="m-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 10px; height: 10px; border-radius: 3px; background: #FF8A4E; --dx: -44px; --dy: 129px; --r: -52deg"></span><span class="m-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 12px; height: 12px; border-radius: 50%; border: 2.5px solid #F2545B; box-sizing: border-box; --dx: -114px; --dy: 78px; --r: 92deg"></span><span class="m-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 14px; height: 4px; border-radius: 2px; background: #8F6FF0; --dx: -157px; --dy: 39px; --r: -108deg"></span><span class="m-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 8px; height: 8px; border-radius: 50%; background: #FFC857; --dx: -151px; --dy: -8px; --r: -104deg"></span><span class="m-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 10px; height: 10px; border-radius: 3px; background: #5FD3B6; --dx: -122px; --dy: -70px; --r: -168deg"></span><span class="m-c" aria-hidden="true" style="position: absolute; left: 196px; top: 0; width: 12px; height: 12px; border-radius: 50%; border: 2.5px solid #FF9AC1; box-sizing: border-box; --dx: -63px; --dy: -112px; --r: 54deg"></span>
+  </div>
+
+  <div style="position: absolute; left: 145px; top: 266px; width: 112px; height: 112px">
+    <div class="m-l" style="position: absolute; left: 0; top: 0; width: 112px; height: 112px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 3px #FFFFFF, 0 14px 30px rgba(110,80,170,0.28)">
+      <img src="./img/u2.jpg" alt="" style="width: 100%; height: 100%; object-fit: cover; object-position: center 20%; filter: blur(11px) saturate(1.15); transform: scale(1.3)">
+      <div style="position: absolute; inset: 0; background: linear-gradient(160deg, rgba(196,170,255,0.38), rgba(120,90,200,0.32))"></div>
+      <div style="position: absolute; inset: 0; background: radial-gradient(70% 55% at 30% 22%, rgba(255,255,255,0.6), rgba(255,255,255,0) 60%), linear-gradient(125deg, rgba(255,255,255,0) 38%, rgba(255,255,255,0.25) 46%, rgba(255,255,255,0) 54%)"></div>
+      <div style="position: absolute; inset: 0; border-radius: 50%; box-shadow: inset 0 0 22px rgba(255,255,255,0.5), inset 0 -10px 18px rgba(90,60,160,0.22)"></div>
+    </div>
+    <div class="m-r" style="position: absolute; left: 0; top: 0; width: 112px; height: 112px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 3px #FFFFFF, 0 14px 30px rgba(110,80,170,0.28)">
+      <img src="./img/avatar.png" alt="" style="width: 100%; height: 100%; object-fit: cover; object-position: center 20%; filter: blur(11px) saturate(1.15); transform: scale(1.3)">
+      <div style="position: absolute; inset: 0; background: linear-gradient(160deg, rgba(255,190,200,0.36), rgba(242,110,120,0.30))"></div>
+      <div style="position: absolute; inset: 0; background: radial-gradient(70% 55% at 30% 22%, rgba(255,255,255,0.6), rgba(255,255,255,0) 60%), linear-gradient(125deg, rgba(255,255,255,0) 38%, rgba(255,255,255,0.25) 46%, rgba(255,255,255,0) 54%)"></div>
+      <div style="position: absolute; inset: 0; border-radius: 50%; box-shadow: inset 0 0 22px rgba(255,255,255,0.5), inset 0 -10px 18px rgba(90,60,160,0.22)"></div>
+    </div>
+  </div>
+  <div class="m-heart" aria-hidden="true" style="position: absolute; left: 201px; top: 252px; width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(155deg, #FFA45C 0%, #FF7A4E 55%, #F2545B 100%); box-shadow: 0 0 0 3px #FFFFFF, 0 8px 18px rgba(240,100,80,0.35); display: flex; align-items: center; justify-content: center">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10.3A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.6c0 5.7-7.5 10.3-7.5 10.3z"></path></svg>
+  </div>
+
+  <div class="m-title" style="position: absolute; left: 0; top: 424px; width: 402px; text-align: center; font-size: 34px; font-weight: 800; letter-spacing: -0.8px; background: linear-gradient(100deg, #FF8A4E 0%, #F2545B 45%, #8F6FF0 100%); -webkit-background-clip: text; background-clip: text; color: transparent">It's a match!</div>
+  <div class="m-sub" style="position: absolute; left: 24px; top: 474px; width: 354px; text-align: center; font-size: 15px; line-height: 1.45; color: #6E6080">Connecting your voice call…</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":402,"height":874}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

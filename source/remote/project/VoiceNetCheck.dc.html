@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Voice Match · Network check</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+@keyframes drift{0%,100%{transform:translate(-1%,-.5%)}50%{transform:translate(1%,.6%)}}
+.ambient{animation:drift 28s ease-in-out infinite}
+
+@keyframes nRipple{0%{transform:scale(.78);opacity:.7}100%{transform:scale(1.6);opacity:0}}
+@keyframes nBreath{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes nSpin{to{transform:rotate(360deg)}}
+@keyframes nArc{0%,100%{opacity:.25}40%,60%{opacity:1}}
+@keyframes nSheen{0%{transform:translateX(-120%) rotate(20deg)}55%,100%{transform:translateX(220%) rotate(20deg)}}
+.n-ring{animation:nRipple 2.4s cubic-bezier(.2,.6,.3,1) infinite}
+.n-ring.r2{animation-delay:.8s}.n-ring.r3{animation-delay:1.6s}
+.n-orb{animation:nBreath 2.4s ease-in-out infinite}
+.n-spin{animation:nSpin .9s linear infinite}
+.n-a1{animation:nArc 1.5s ease-in-out infinite}.n-a2{animation:nArc 1.5s ease-in-out .2s infinite}.n-a3{animation:nArc 1.5s ease-in-out .4s infinite}
+.n-sheen{animation:nSheen 3s ease-in-out infinite}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}
+</style>
+</helmet>
+<div style="position: relative; width: 402px; height: 874px; overflow: hidden; font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif; color: #342b43; background: linear-gradient(180deg, #FCF1E8 0%, #FAF0EE 40%, #F3ECF3 72%, #ECE6F5 100%)">
+
+  <div aria-hidden="true" class="ambient" style="position: absolute; left: -16px; top: -16px; width: 434px; height: 906px; background: radial-gradient(ellipse at 50% 34%, rgba(190,165,245,0.34), rgba(190,165,245,0) 44%), radial-gradient(ellipse at 88% 80%, rgba(255,205,185,0.28), rgba(255,205,185,0) 45%), radial-gradient(ellipse at 6% 86%, rgba(190,170,235,0.26), rgba(190,170,235,0) 50%)"></div>
+
+  <div style="position: absolute; left: 0; top: 54px; width: 402px; height: 44px; display: flex; align-items: center; justify-content: center">
+    <button aria-label="Close" style="position: absolute; left: 16px; top: 0; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.7); background: rgba(255,255,255,0.44); display: flex; align-items: center; justify-content: center; color: #53416e; cursor: pointer">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+    </button>
+    <div style="font-size: 17px; font-weight: 700; letter-spacing: -0.2px; color: #53416e">Voice Match</div>
+    <button aria-label="Minimize" style="position: absolute; right: 16px; top: 0; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.7); background: rgba(255,255,255,0.44); display: flex; align-items: center; justify-content: center; color: #53416e; cursor: pointer">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7"></path></svg>
+    </button>
+  </div>
+
+  <div style="position: absolute; left: 24px; top: 116px; width: 354px; box-sizing: border-box; padding: 10px 14px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.85); background: rgba(255,255,255,0.5); text-align: center; font-size: 13px; line-height: 1.4; color: #7A6E92">Match count refreshes at <b style="font-weight: 700; color: #53416E">8:00</b> every day</div>
+
+  <div style="position: absolute; left: 81px; top: 214px; width: 240px; height: 240px">
+    <span class="n-ring" aria-hidden="true" style="position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid rgba(170,140,240,0.55); background: radial-gradient(circle, rgba(255,255,255,0) 58%, rgba(190,165,245,0.18) 100%)"></span><span class="n-ring r2" aria-hidden="true" style="position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid rgba(255,150,120,0.5); background: radial-gradient(circle, rgba(255,255,255,0) 58%, rgba(255,180,150,0.16) 100%)"></span><span class="n-ring r3" aria-hidden="true" style="position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid rgba(170,140,240,0.45); background: radial-gradient(circle, rgba(255,255,255,0) 58%, rgba(190,165,245,0.14) 100%)"></span>
+    <div class="n-orb" style="position: absolute; left: 50px; top: 50px; width: 140px; height: 140px; border-radius: 50%; box-sizing: border-box; border: 1.5px solid transparent; background: radial-gradient(circle at 50% 28%, rgba(255,255,255,0.95) 0%, rgba(246,238,255,0.7) 55%, rgba(226,214,252,0.55) 100%) padding-box, linear-gradient(150deg, #FFFFFF 0%, rgba(255,255,255,0.4) 45%, rgba(130,110,190,0.45) 100%) border-box; box-shadow: inset 0 3px 4px rgba(255,255,255,0.95), inset 0 -6px 12px rgba(110,90,170,0.18), 0 18px 40px rgba(130,100,210,0.28); display: flex; align-items: center; justify-content: center; overflow: hidden">
+      <span class="n-sheen" aria-hidden="true" style="position: absolute; top: -20px; left: 0; width: 40px; height: 180px; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.7), rgba(255,255,255,0))"></span>
+      <svg width="50" height="57" viewBox="0 0 29 33" fill="none" aria-hidden="true" style="position: relative"><defs><linearGradient id="nPh" x1="12.8" y1="-0.9" x2="14.3" y2="38" gradientUnits="userSpaceOnUse"><stop stop-color="#A68DF5"></stop><stop offset="1" stop-color="#6247C9"></stop></linearGradient></defs><path d="M7.6737 0.539717C8.26329 0.628959 8.57534 0.774166 8.87628 1.08871C9.13241 1.35649 9.38833 1.75413 9.73637 2.38744L10.1234 3.11422C11.8053 6.15337 11.704 7.42782 11.5562 8.04087C11.2891 9.11441 10.6463 9.49976 9.91836 9.91528C9.72461 10.0206 9.52945 10.1459 9.38051 10.2393L9.30329 10.2997C8.8091 10.7666 8.12467 11.4447 8.17984 12.7182C8.23196 13.9197 8.9407 15.5627 10.7994 18.0202L10.8103 18.0345C14.0191 21.9713 16.0558 22.7948 17.1133 22.863C17.5272 22.8931 17.8512 22.8137 18.1005 22.6918C18.3194 22.5847 18.4662 22.4484 18.5265 22.393L18.5945 22.3352C19.4131 21.487 19.9035 21.0161 20.3387 20.7434C20.7365 20.4941 21.1007 20.4044 21.7038 20.3949C22.2572 20.383 22.637 20.4737 23.176 20.7953C23.7555 21.1412 24.4872 21.7347 25.7344 22.7519C26.8476 23.6618 27.5946 24.3604 28.0152 24.995C28.4124 25.5943 28.5034 26.1113 28.3232 26.7153L28.3102 26.7677C28.1727 27.5104 27.7268 28.3953 27.096 29.2083C26.4669 30.019 25.6913 30.7084 24.9478 31.0892C23.9324 31.5807 22.5489 31.7424 20.9028 31.5184C19.453 31.3211 17.8467 30.8305 16.181 30.0697C12.1857 28.242 8.41987 25.0358 5.59355 21.0343C1.33886 14.9972 -0.246029 9.43057 0.82331 4.89806C1.10758 3.80581 1.63496 2.51055 3.45084 1.63858L3.48897 1.61913C4.98279 0.737721 6.56197 0.370778 7.6737 0.539717Z" fill="url(#nPh)"></path></svg>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 141px; top: 484px; width: 120px; height: 48px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.9); background: linear-gradient(150deg, rgba(255,255,255,0.75), rgba(255,255,255,0.4)); box-shadow: 0 10px 24px rgba(120,90,170,0.14), inset 0 1px 1px #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 750; letter-spacing: 0.5px; font-variant-numeric: tabular-nums; color: #2E2A40">00:02</div>
+
+  <div style="position: absolute; left: 40px; top: 562px; width: 322px; height: 52px; box-sizing: border-box; padding: 0 16px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.85); background: rgba(255,255,255,0.55); display: flex; align-items: center; gap: 12px">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7356D4" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path class="n-a3" d="M2.5 8.8a14 14 0 0 1 19 0"></path><path class="n-a2" d="M5.6 12.3a9.5 9.5 0 0 1 12.8 0"></path><path class="n-a1" d="M8.8 15.7a5 5 0 0 1 6.4 0"></path><circle cx="12" cy="19.2" r="1.3" fill="#7356D4" stroke="none"></circle></svg>
+    <div style="flex: 1; font-size: 15px; font-weight: 600; color: #3B3150">Checking your network…</div>
+    <svg class="n-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="rgba(115,86,212,0.18)" stroke-width="2.6"></circle><path d="M12 3a9 9 0 0 1 9 9" stroke="#8F6FF0" stroke-width="2.6" stroke-linecap="round"></path></svg>
+  </div>
+  <div style="position: absolute; left: 24px; top: 628px; width: 354px; text-align: center; font-size: 13px; color: #8E86A0">Keep the app open, we'll connect you in a moment.</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":402,"height":874}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
