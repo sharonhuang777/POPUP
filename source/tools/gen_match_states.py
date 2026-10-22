@@ -111,12 +111,12 @@ def confetti_kf(D, t0=.5, T=2.0):
 
 D = 3.0  # plays once; title lands on impact, everything is in by ~0.9s, the app moves to the call 1s later (demo)
 def pct(t): return f'{t/D*100:.2f}%'
-CONF = confetti_kf(D, T=2.4)
+CONF = confetti_kf(D, T=2.2)
 css2 = f'''
 @keyframes mL{{0%{{transform:translateX(-260px) scale(.9);opacity:0;animation-timing-function:cubic-bezier(.45,.05,.85,.5)}}{pct(.08)}{{opacity:1}}{pct(.48)}{{transform:translateX(-56px) scale(1);animation-timing-function:linear}}{pct(.53)}{{transform:translateX(-50px) scaleX(.9) scaleY(1.06);animation-timing-function:cubic-bezier(.2,.8,.4,1)}}{pct(.72)}{{transform:translateX(-65px) scale(1.02);animation-timing-function:ease-in-out}}{pct(.92)},100%{{transform:translateX(-60px) scale(1);opacity:1}}}}
 @keyframes mR{{0%{{transform:translateX(260px) scale(.9);opacity:0;animation-timing-function:cubic-bezier(.45,.05,.85,.5)}}{pct(.08)}{{opacity:1}}{pct(.48)}{{transform:translateX(56px) scale(1);animation-timing-function:linear}}{pct(.53)}{{transform:translateX(50px) scaleX(.9) scaleY(1.06);animation-timing-function:cubic-bezier(.2,.8,.4,1)}}{pct(.72)}{{transform:translateX(65px) scale(1.02);animation-timing-function:ease-in-out}}{pct(.92)},100%{{transform:translateX(60px) scale(1);opacity:1}}}}
-@keyframes mFlash{{0%,{pct(.48)}{{transform:scale(.2);opacity:0}}{pct(.56)}{{opacity:1}}{pct(1.1)},100%{{transform:scale(2.6);opacity:0}}}}
-@keyframes mWave{{0%,{pct(.5)}{{transform:scale(.4);opacity:0}}{pct(.56)}{{opacity:.9}}{pct(1.5)},100%{{transform:scale(3.2);opacity:0}}}}
+@keyframes mFlash{{0%,{pct(.48)}{{transform:scale(.3);opacity:0}}{pct(.56)}{{opacity:.55}}{pct(1.0)},100%{{transform:scale(1.8);opacity:0}}}}
+@keyframes mWave{{0%,{pct(.5)}{{transform:scale(.5);opacity:0}}{pct(.58)}{{opacity:.35}}{pct(1.3)},100%{{transform:scale(2.2);opacity:0}}}}
 @keyframes mTitle{{0%,{pct(.48)}{{transform:translateY(10px) scale(.7);opacity:0}}{pct(.62)}{{transform:translateY(0) scale(1.08);opacity:1}}{pct(.76)},100%{{transform:translateY(0) scale(1);opacity:1}}}}
 @keyframes mSub{{0%,{pct(.6)}{{transform:translateY(8px);opacity:0}}{pct(.88)},100%{{transform:translateY(0);opacity:1}}}}
 {CONF}
@@ -132,9 +132,10 @@ import math, random
 random.seed(7)
 shapes = []
 cols = ['#FF8A4E','#F2545B','#8F6FF0','#FFC857','#5FD3B6','#FF9AC1','#A68DF5','#7FB7FF']
-for i in range(14):
-    a = -math.pi/2 + (i/14)*2*math.pi + random.uniform(-.2,.2)
-    r = random.uniform(120,175)
+# Standard match keeps it light (priority pages get the big celebration): 7 pieces, shorter throw.
+for i in range(7):
+    a = -math.pi/2 + (i/7)*2*math.pi + random.uniform(-.25,.25)
+    r = random.uniform(95,130)
     dx, dy = math.cos(a)*r, math.sin(a)*r*0.8
     c = cols[i % len(cols)]
     kind = i % 4
@@ -147,7 +148,7 @@ body2 = f'''
   <div style="position: absolute; left: 24px; top: 116px; width: 354px; box-sizing: border-box; padding: 10px 14px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.85); background: rgba(255,255,255,0.5); text-align: center; font-size: 13px; line-height: 1.4; color: #7A6E92">Match count refreshes at <b style="font-weight: 700; color: #53416E">8:00</b> every day</div>
 
   <div style="position: absolute; left: 0; top: 322px; width: 402px; height: 0">
-    <span class="m-wave" aria-hidden="true" style="position: absolute; left: 141px; top: -60px; width: 120px; height: 120px; border-radius: 50%; border: 2px solid rgba(242,110,120,0.45)"></span>
+    <span class="m-wave" aria-hidden="true" style="position: absolute; left: 141px; top: -60px; width: 120px; height: 120px; border-radius: 50%; border: 1.5px solid rgba(170,140,240,0.45)"></span>
     <span class="m-flash" aria-hidden="true" style="position: absolute; left: 141px; top: -60px; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,190,170,0.7) 35%, rgba(196,170,255,0) 70%)"></span>
     {''.join(shapes)}
   </div>
