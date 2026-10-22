@@ -158,6 +158,8 @@ body2 = f'''
     {avatar('avatar.png', ME_TINT, pos='left: 0; top: 0;').replace('{cls}','m-r')}
   </div>
 
+  <!-- 2px white outline: a white copy stroked 4px (half sits under the fill) behind the gradient text -->
+  <div class="m-title" aria-hidden="true" style="position: absolute; left: 0; top: 424px; width: 402px; text-align: center; font-size: 34px; font-weight: 800; letter-spacing: -0.8px; color: #FFFFFF; -webkit-text-stroke: 4px #FFFFFF">Match successfully!</div>
   <div class="m-title" style="position: absolute; left: 0; top: 424px; width: 402px; text-align: center; font-size: 34px; font-weight: 800; letter-spacing: -0.8px; background: linear-gradient(180deg, #5D57ED 0%, #9057ED 100%); -webkit-background-clip: text; background-clip: text; color: transparent">Match successfully!</div>
   <div class="m-sub" style="position: absolute; left: 24px; top: 474px; width: 354px; text-align: center; font-size: 15px; line-height: 1.45; color: #6E6080">Connecting your voice call…</div>
 '''
