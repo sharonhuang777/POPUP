@@ -31,7 +31,8 @@
 - `tools/ended_rate.js`：通话结束页的打星交互。
 - `native/PearlOrb/`：三种匹配思考页珍珠球的原生实现（Android Kotlin + OpenGL ES、iOS Swift + Metal），着色器与 Web 版一致，附 Web 参考页和逐像素对照图，接入说明见其中的 README。
 - `tools/profile_scroll.js`：我的主页上滑时的封面视差、顶栏铺封面色和标题淡入。
-- `handoff/match-success/`：4 个匹配成功页的开发交付包，包括时间轴说明（README）、透明动画 WebP 特效、呼吸光 PNG 和参考 MP4。粒子和彩带用 WebP，不用 Lottie（已确定）。
+- `handoff/match-success/`：4 个匹配成功页的开发交付包，包括时间轴说明（README）、透明动画 WebP 特效、呼吸光 PNG 和参考 MP4。开发反馈 WebP 和原生头像动画可能不同步，已改为 Lottie（`lottie/` 子目录，头像也在 Lottie 里）；WebP 保留作备选。
+- `tools/lottie_sample.js`、`tools/make_lottie.py`、`tools/lottie_compare.js`：把画板动效导出为 Lottie（逐帧采样 → 生成 JSON → 和画板逐帧对比）。匹配成功 4 页的 Lottie 在 `handoff/match-success/lottie/`，对照页 https://claude.ai/artifact/1e7G71vDvPASqkRC98QgRK 。
 - `tools/render_frames.js`：用 Playwright 逐帧渲染画板，可只保留特效节点并输出透明背景，用于导出 WebP 和参考视频。
 
 ## 更新 demo 的流程
