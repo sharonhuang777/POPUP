@@ -96,7 +96,7 @@ const fs = require('fs');
       const runs = []; let first = true;
       const walk = (n, cs) => {
         for (const c of n.childNodes) {
-          if (c.nodeType === 3) { const t = c.textContent.replace(/\s+/g, ' '); if (t.trim() || (runs.length && t === ' ')) runs.push({ t, cs }); }
+          if (c.nodeType === 3) { let t = c.textContent.replace(/\s+/g, ' '); const tt = (c.parentElement ? getComputedStyle(c.parentElement).textTransform : 'none'); if (tt === 'uppercase') t = t.toUpperCase(); else if (tt === 'lowercase') t = t.toLowerCase(); if (t.trim() || (runs.length && t === ' ')) runs.push({ t, cs }); }
           else if (c.nodeType === 1 && c.tagName !== 'svg') {
             const ccs = getComputedStyle(c);
             if (ccs.display === 'none') continue;
@@ -156,7 +156,9 @@ const fs = require('fs');
       if (hasDirectText) {
         const tr = textRuns(el);
         if (tr.text) {
-          const rg = document.createRange(); rg.selectNodeContents(el); const rb = rg.getBoundingClientRect();
+          const rg = document.createRange(); const tn = Array.from(el.childNodes).filter(n => n.nodeType === 3 && n.textContent.trim());
+          if (tn.length && Array.from(el.children).some(c => c.tagName.toLowerCase() === 'svg')) { rg.setStartBefore(tn[0]); rg.setEndAfter(el.lastChild); } else rg.selectNodeContents(el);
+          const rb = rg.getBoundingClientRect();
           const pl = parseFloat(cs.paddingLeft), pr = parseFloat(cs.paddingRight), blw = parseFloat(cs.borderLeftWidth) || 0;
           const center = cs.textAlign === 'center' || cs.textAlign === 'right' || cs.textAlign === 'end';
           const tx = center ? box.x + pl + blw : rb.left - R.left, tw = center ? box.w - pl - pr - 2 * blw : rb.width + 1;
